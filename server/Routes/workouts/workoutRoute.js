@@ -8,8 +8,8 @@ const {
 const isLoggedIn = require("../../Middlewares/isLoggedIn");
 
 const workoutRoute = express.Router();
-workoutRoute.post("/add", isLoggedIn, addWorkoutController);
-workoutRoute.get("/get", isLoggedIn, getWorkoutController);
-workoutRoute.put("/", isLoggedIn, updateWorkoutController);
-workoutRoute.delete("/", isLoggedIn, deleteWorkoutController);
+workoutRoute.post("/add", addWorkoutController);
+workoutRoute.get("/:id", getWorkoutController);
+workoutRoute.put("/:id", updateWorkoutController);
+workoutRoute.delete("/:id", deleteWorkoutController);
 module.exports = workoutRoute;

@@ -1,9 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-
+import LoginForm from "../components/molecules/loginForm";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faFire } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 const LoginScreen = () => {
+  library.add(faLock, faEnvelope, faFire);
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
+      <LoginForm />
     </View>
   );
 };
