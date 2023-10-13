@@ -5,7 +5,7 @@ import Widget from "../components/atoms/Widget";
 const Widgets = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Fitness Hub</Text>
+      <Text style={styles.title}>Fitness Dashboard</Text>
       <View style={styles.widgets}>
         <Widget name={"Cals"} icon={"fa-fire"} data={"2000"} />
         <Widget name={"Steps"} icon={"fa-shoe-prints"} data={"9000"} />

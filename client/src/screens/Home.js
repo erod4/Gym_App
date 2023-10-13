@@ -12,6 +12,9 @@ import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { faShoePrints } from "@fortawesome/free-solid-svg-icons";
 import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
 import Widgets from "../containers/Widgets";
+import StartWorkout from "../containers/StartWorkout";
+import Welcome from "../containers/Welcome";
+import Quotes from "../containers/Quotes";
 
 const Home = () => {
   library.add(
@@ -26,7 +29,10 @@ const Home = () => {
   );
   return (
     <View style={styles.container}>
+      <Welcome name={"Enrique"} />
       <Widgets />
+      <Quotes />
+      <StartWorkout />
     </View>
   );
 };
@@ -37,7 +43,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+
+    gap: 10,
   },
 });
 export default Home;
