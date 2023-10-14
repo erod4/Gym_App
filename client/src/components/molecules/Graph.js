@@ -16,8 +16,8 @@ const Graph = ({ title }) => {
     <>
       <LineChart
         data={line}
-        width={Dimensions.get("window").width} // from react-native
-        height={300}
+        width={Dimensions.get("window").width * 0.9} // from react-native
+        height={Dimensions.get("window").height * 0.4 * 0.73}
         chartConfig={{
           backgroundColor: "#fff",
           backgroundGradientFrom: "#fff",

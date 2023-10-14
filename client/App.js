@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./src/screens/Home";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import BottomTabs from "./src/navigation/BottomTabs";
+import StartWorkout from "./src/screens/StartWorkout";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -26,6 +27,11 @@ export default function App() {
           name="nav"
           component={BottomTabs}
           options={{ headerShown: false, headerBackVisible: true }}
+        />
+        <Stack.Screen
+          name="StartWorkout"
+          component={StartWorkout}
+          options={{ headerShown: true }}
         />
       </Stack.Navigator>
     </NavigationContainer>

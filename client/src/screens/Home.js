@@ -19,11 +19,15 @@ import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
 import Widgets from "../containers/Widgets";
 
 import Welcome from "../containers/Welcome";
-
+import { useNavigation } from "@react-navigation/native";
 import WeekAvg from "../containers/WeekAvg";
 import StartButton from "../containers/StartButton";
 
 const Home = () => {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    navigation.navigate("StartWorkout");
+  };
   library.add(
     faLock,
     faEnvelope,
@@ -42,7 +46,7 @@ const Home = () => {
       <Widgets />
 
       <WeekAvg />
-      <StartButton text={"Start Workout"} />
+      <StartButton text={"Start Workout"} press={handlePress} />
     </View>
   );
 };

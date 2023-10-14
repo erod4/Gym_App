@@ -27,7 +27,7 @@ const WeekAvg = () => {
 const styles = StyleSheet.create({
   view: {
     width: "90%",
-    height: 350,
+    height: "40%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
