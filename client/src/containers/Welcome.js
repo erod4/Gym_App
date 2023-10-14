@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderBottomStartRadius: 10,
     borderBottomEndRadius: 10,
-    height: "20%",
+    height: "15%",
     backgroundColor: "#0077b6",
 
-    padding: 40,
+    padding: 20,
   },
   title: {
     fontSize: 20,

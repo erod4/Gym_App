@@ -1,21 +1,24 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+
 import React from "react";
 
 import Swiper from "react-native-swiper";
-const Quotes = () => {
+import Graph from "../components/molecules/Graph";
+const WeekAvg = () => {
   return (
     <View style={styles.view}>
       <Swiper style={styles.container} showsButtons={false} loop={false}>
         <View style={styles.slide}>
-          <Text style={styles.text}>
-            I'm not superstitious but I am a little stitious- Micheal Scott
-          </Text>
+          <Text style={styles.title}>Calories</Text>
+          <Graph title={"Calories"} />
         </View>
         <View style={styles.slide}>
-          <Text>Goodbye</Text>
+          <Text style={styles.title}>Steps</Text>
+          <Graph title={"Steps"} />
         </View>
         <View style={styles.slide}>
-          <Text>Hello</Text>
+          <Text style={styles.title}>Water</Text>
+          <Graph title={"Water"} />
         </View>
       </Swiper>
     </View>
@@ -37,12 +40,17 @@ const styles = StyleSheet.create({
   },
   slide: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "#fff",
   },
   text: {
     fontSize: 20,
   },
+  title: {
+    fontSize: 20,
+    fontWeight: "900",
+    color: "#1c1c1c",
+  },
 });
-export default Quotes;
+export default WeekAvg;

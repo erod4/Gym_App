@@ -2,6 +2,9 @@ import { View, Text } from "react-native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
+import Progress from "./Progress";
+
 const Widget = ({ name, icon, data }) => {
   return (
     <>
@@ -19,8 +22,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#0077b6",
 
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -28,7 +31,8 @@ const styles = StyleSheet.create({
     borderRadius: "50%",
   },
   name: {
-    fontSize: 20,
+    fontSize: 15,
+    padding: 2,
     fontWeight: "900",
     color: "#eee",
   },

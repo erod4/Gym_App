@@ -1,15 +1,32 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import Widget from "../components/atoms/Widget";
+import FullWidget from "../components/molecules/FullWidget";
 
 const Widgets = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Fitness Dashboard</Text>
       <View style={styles.widgets}>
-        <Widget name={"Cals"} icon={"fa-fire"} data={"2000"} />
-        <Widget name={"Steps"} icon={"fa-shoe-prints"} data={"9000"} />
-        <Widget name={"Water"} icon={"fa-bottle-water"} data={"2L"} />
+        <FullWidget
+          name={"Calories"}
+          icon={"fa-fire"}
+          data={"2000"}
+          percent={75}
+        />
+        <FullWidget
+          name={"Steps"}
+          icon={"fa-shoe-prints"}
+          data={"9000"}
+          percent={100}
+        />
+        <FullWidget
+          name={"Water"}
+          icon={"fa-bottle-water"}
+          data={"2L"}
+          percent={95}
+        />
+        {/* <Widget name={"Steps"} icon={"fa-shoe-prints"} data={"9000"} />
+        <Widget name={"Water"} icon={"fa-bottle-water"} data={"2L"} /> */}
       </View>
     </View>
   );
@@ -22,9 +39,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     borderRadius: 10,
-    height: "20%",
+    height: "23%",
     backgroundColor: "#fff",
-    padding: 50,
+    padding: 10,
   },
   title: {
     fontSize: 20,
@@ -38,6 +55,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     gap: 10,
+
+    flex: 1,
   },
 });
 export default Widgets;

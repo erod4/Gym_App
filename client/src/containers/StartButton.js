@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 
-const StartWorkout = () => {
+const StartButton = ({ text }) => {
   return (
     <TouchableOpacity style={styles.container}>
-      <Text style={styles.text}>Start Workout</Text>
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-export default StartWorkout;
+export default StartButton;

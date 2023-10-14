@@ -2,19 +2,26 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendar,
+  faLock,
+  faHouse,
+  faDumbbell,
+  faClock,
+} from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { faShoePrints } from "@fortawesome/free-solid-svg-icons";
 import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
+
 import Widgets from "../containers/Widgets";
-import StartWorkout from "../containers/StartWorkout";
+
 import Welcome from "../containers/Welcome";
-import Quotes from "../containers/Quotes";
+
+import WeekAvg from "../containers/WeekAvg";
+import StartButton from "../containers/StartButton";
 
 const Home = () => {
   library.add(
@@ -25,14 +32,17 @@ const Home = () => {
     faChartLine,
     faUser,
     faShoePrints,
-    faBottleWater
+    faBottleWater,
+    faCalendar,
+    faClock
   );
   return (
     <View style={styles.container}>
       <Welcome name={"Enrique"} />
       <Widgets />
-      <Quotes />
-      <StartWorkout />
+
+      <WeekAvg />
+      <StartButton text={"Start Workout"} />
     </View>
   );
 };
@@ -43,7 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd",
     width: "100%",
     alignItems: "center",
-
+    justifyContent: "space-between",
+    paddingBottom: 10,
     gap: 10,
   },
 });
