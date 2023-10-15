@@ -7,6 +7,7 @@ import Home from "./src/screens/Home";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import BottomTabs from "./src/navigation/BottomTabs";
 import StartWorkout from "./src/screens/StartWorkout";
+import WorkoutPage from "./src/screens/WorkoutPage";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -31,6 +32,11 @@ export default function App() {
         <Stack.Screen
           name="StartWorkout"
           component={StartWorkout}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="workout-page"
+          component={WorkoutPage}
           options={{ headerShown: true }}
         />
       </Stack.Navigator>

@@ -1,9 +1,14 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-const Workout = ({ title, day, time }) => {
+import { useNavigation } from "@react-navigation/native";
+const Workout = ({ title, day, time, linkTo, id }) => {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    navigation.navigate(linkTo, { id });
+  };
   return (
-    <TouchableOpacity style={styles.workout}>
+    <TouchableOpacity style={styles.workout} onPress={handlePress}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.detailsContainer}>
         <View style={styles.detailsContainer}>
