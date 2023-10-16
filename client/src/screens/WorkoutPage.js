@@ -2,6 +2,7 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import Excercise from "../containers/Excercise";
 import StopWatch from "../containers/StopWatch";
+import Swiper from "react-native-swiper";
 
 const WorkoutPage = ({ route }) => {
   const { id } = route.params;
@@ -17,7 +18,9 @@ const WorkoutPage = ({ route }) => {
         <Excercise excerciseName={"Bench Press"} />
       </ScrollView>
       <View style={styles.stopWatch}>
-        <StopWatch />
+      
+      <StopWatch />
+
       </View>
     </View>
   );
