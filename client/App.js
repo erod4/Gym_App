@@ -32,12 +32,18 @@ export default function App() {
         <Stack.Screen
           name="StartWorkout"
           component={StartWorkout}
-          options={{ headerShown: true }}
+          options={{ headerShown: true, title: "Select Workout" }}
         />
         <Stack.Screen
           name="workout-page"
           component={WorkoutPage}
-          options={{ headerShown: true }}
+          options={({ route }) => {
+            const exerciseName = route.params?.name || "Workout Page";
+            return {
+              headerShown: true,
+              title: exerciseName,
+            };
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

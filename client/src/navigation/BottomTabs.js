@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import Routines from "../screens/Routines";
+
 import Statistics from "../screens/Statistics";
 import Profile from "../screens/Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -20,17 +20,7 @@ const BottomTabs = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Routines"
-        component={Routines}
-        options={{
-          headerShown: false,
-          tabBarActiveTintColor: "#0077b6",
-          tabBarIcon: ({ color }) => (
-            <FontAwesomeIcon icon="fa-dumbbell" style={{ color: color }} />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Statistics"
         component={Statistics}

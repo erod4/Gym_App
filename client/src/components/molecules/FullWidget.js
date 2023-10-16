@@ -14,8 +14,8 @@ function FullWidget({ name, icon, data, percent }) {
           innerIcon={icon}
           innerData={data}
           percentage={percent}
-          strokeWidth={10}
-          color="#007AFF"
+          strokeWidth={15}
+          color="#39FF14"
           bgColor="#ddd"
         />
       </View>

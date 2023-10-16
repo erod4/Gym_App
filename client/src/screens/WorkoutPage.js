@@ -1,11 +1,17 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Excercise from "../containers/Excercise";
 import StopWatch from "../containers/StopWatch";
 import Swiper from "react-native-swiper";
 
 const WorkoutPage = ({ route }) => {
-  const { id } = route.params;
+  const { id, name } = route.params;
+
+  const [setsTimer, setSetsTimer] = useState(0);
+
+  const handlePress = (time) => {
+    setSetsTimer(time);
+  };
 
   return (
     <View style={styles.page}>
@@ -13,14 +19,15 @@ const WorkoutPage = ({ route }) => {
         contentContainerStyle={styles.excercisesScroll}
         style={styles.excercises}
       >
-        <Excercise excerciseName={"Bench Press"} />
-        <Excercise excerciseName={"Incline Bench Press"} />
-        <Excercise excerciseName={"Bench Press"} />
+        <Excercise excerciseName={"Bench Press"} onPress={handlePress} />
+        <Excercise
+          excerciseName={"Incline Bench Press"}
+          onPress={handlePress}
+        />
+        <Excercise excerciseName={"Bench Press"} onPress={handlePress} />
       </ScrollView>
       <View style={styles.stopWatch}>
-      
-      <StopWatch />
-
+        <StopWatch time={setsTimer} />
       </View>
     </View>
   );

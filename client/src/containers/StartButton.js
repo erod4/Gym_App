@@ -11,10 +11,10 @@ const StartButton = ({ text, press }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 20,
     backgroundColor: "#0077B6",
     width: "90%",
-    height: "10%",
+
     borderRadius: 10,
     display: "flex",
     alignItems: "center",

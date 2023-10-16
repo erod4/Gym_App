@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    padding: 20,
+    padding: 5,
   },
   time: {
     textAlign: "center",

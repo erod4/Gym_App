@@ -1,16 +1,22 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Set from "../components/atoms/Set";
 
-const Excercise = ({ excerciseName }) => {
+const Excercise = ({ excerciseName, onPress }) => {
   return (
     <View style={styles.excercise}>
       <View style={styles.excerciseNameContainer}>
         <Text style={styles.excerciseName}>{excerciseName}</Text>
       </View>
-      <Set setName={"Set 1"} />
-      <Set setName={"Set 2"} />
-      <Set setName={"Set 3"} />
+      <Set onPress={onPress} time={3} setName={"Set 1"} />
+      <Set onPress={onPress} time={2} setName={"Set 2"} />
+      <Set onPress={onPress} time={1} setName={"Set 3"} />
     </View>
   );
 };

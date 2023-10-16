@@ -8,6 +8,7 @@ import {
   faHouse,
   faDumbbell,
   faClock,
+  faStopwatch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -38,7 +39,8 @@ const Home = () => {
     faShoePrints,
     faBottleWater,
     faCalendar,
-    faClock
+    faClock,
+    faStopwatch
   );
   return (
     <View style={styles.container}>
