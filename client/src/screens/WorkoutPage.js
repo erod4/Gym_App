@@ -26,34 +26,24 @@ const WorkoutPage = ({ route }) => {
         />
         <Excercise excerciseName={"Bench Press"} onPress={handlePress} />
       </ScrollView>
-      <View style={styles.stopWatch}>
-        <StopWatch time={setsTimer} />
-      </View>
+
+      <StopWatch time={setsTimer} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   page: {
     width: "100%",
-    flex: 1,
+
     backgroundColor: "#ddd",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 10,
     paddingBottom: 20,
     gap: 10,
   },
-  stopWatch: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  excercises: {
-    width: "100%",
-  },
+
   excercisesScroll: {
-    justifyContent: "center",
-    alignItems: "center",
     gap: 10,
   },
 });

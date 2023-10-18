@@ -1,21 +1,43 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
+import Statistic from "../components/atoms/Statistic";
 
 const Statistics = () => {
   return (
-    <View style={styles.container}>
-      <Text>Statistics</Text>
+    <View style={styles.page}>
+      <Text style={styles.title}>Statistics</Text>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        style={styles.container}
+      >
+        <Statistic name={"Weightlifting Progress"} />
+        <Statistic name={"Body Measurements"} />
+        <Statistic name={"Caloric Intake"} />
+        <Statistic name={"Steps & Physical Activity"} />
+      </ScrollView>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    height: "100%",
-
+  page: {
+    paddingTop: 60,
+    flex: 1,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: "90%",
+  },
+  scroll: {
+    gap: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "900",
+    padding: 10,
   },
 });
 export default Statistics;

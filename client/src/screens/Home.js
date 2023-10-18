@@ -9,6 +9,17 @@ import {
   faDumbbell,
   faClock,
   faStopwatch,
+  faAngleRight,
+  faDroplet,
+  faFireFlameCurved,
+  faBed,
+  faFaceSmile,
+  faFaceAngry,
+  faFaceSadTear,
+  faFaceMeh,
+  faFaceTired,
+  faGaugeSimple,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -17,12 +28,12 @@ import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 import { faShoePrints } from "@fortawesome/free-solid-svg-icons";
 import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
 
-import Widgets from "../containers/Widgets";
-
 import Welcome from "../containers/Welcome";
 import { useNavigation } from "@react-navigation/native";
-import WeekAvg from "../containers/WeekAvg";
+
 import StartButton from "../containers/StartButton";
+import DailyGoals from "../containers/DailyGoals";
+import RecentWorkouts from "../containers/RecentWorkouts";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -40,14 +51,24 @@ const Home = () => {
     faBottleWater,
     faCalendar,
     faClock,
-    faStopwatch
+    faStopwatch,
+    faAngleRight,
+    faDroplet,
+    faFireFlameCurved,
+    faBed,
+    faFaceSmile,
+    faFaceAngry,
+    faFaceSadTear,
+    faFaceMeh,
+    faFaceTired,
+    faGaugeSimple,
+    faTrashCan
   );
   return (
     <View style={styles.container}>
       <Welcome name={"Enrique"} />
-      <Widgets />
-
-      <WeekAvg />
+      <DailyGoals />
+      <RecentWorkouts />
       <StartButton text={"Start Workout"} press={handlePress} />
     </View>
   );

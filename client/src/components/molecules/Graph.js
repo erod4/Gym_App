@@ -23,13 +23,13 @@ const Graph = ({ title }) => {
           backgroundGradientFrom: "#fff",
           backgroundGradientTo: "#fff",
           color: (opacity = 1) => `rgba(0, 119, 182, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(0, 119, 182, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: {
             padding: 20,
           },
           propsForDots: {
             r: "3",
-            strokeWidth: "2",
+            strokeWidth: "1",
             stroke: "#eee",
           },
         }}

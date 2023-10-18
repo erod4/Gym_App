@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
 
     flexDirection: "column",
-    borderBottomStartRadius: 10,
-    borderBottomEndRadius: 10,
+    borderBottomStartRadius: 25,
+    borderBottomEndRadius: 25,
     height: "15%",
-    backgroundColor: "#0077b6",
+    backgroundColor: "#fff",
 
     padding: 20,
   },

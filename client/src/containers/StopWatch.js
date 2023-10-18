@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   stopWatch: {
     backgroundColor: "#fff",
     width: "90%",
+
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,

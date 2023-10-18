@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 
 import Workout from "../components/atoms/Workout";
@@ -7,7 +7,10 @@ import StartButton from "../containers/StartButton";
 const StartWorkout = () => {
   return (
     <View style={styles.page}>
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        style={styles.container}
+      >
         <Workout
           linkTo={"workout-page"}
           id={"123"}
@@ -24,7 +27,7 @@ const StartWorkout = () => {
           day={"Monday"}
           title={"Push 1"}
         />
-      </View>
+      </ScrollView>
 
       <StartButton text={"Add Workout"} />
     </View>
@@ -35,11 +38,15 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
+    flex: 1,
+    paddingBottom: 40,
   },
   container: {
     paddingTop: 10,
     paddingBottom: 10,
     width: "90%",
+  },
+  scroll: {
     gap: 10,
   },
 });
