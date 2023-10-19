@@ -20,6 +20,7 @@ import {
   faFaceTired,
   faGaugeSimple,
   faTrashCan,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -62,7 +63,8 @@ const Home = () => {
     faFaceMeh,
     faFaceTired,
     faGaugeSimple,
-    faTrashCan
+    faTrashCan,
+    faXmark
   );
   return (
     <View style={styles.container}>

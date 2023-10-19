@@ -27,9 +27,9 @@ const Excercise = ({ excerciseName, onPress }) => {
         <View style={styles.excerciseNameContainer}>
           <Text style={styles.excerciseName}>{excerciseName}</Text>
         </View>
-        <Set onPress={onPress} time={3} setName={"Set 1"} />
-        <Set onPress={onPress} time={2} setName={"Set 2"} />
-        <Set onPress={onPress} time={1} setName={"Set 3"} />
+        <Set onPress={onPress} time={3} setName={"Set 1"} weight={80} />
+        <Set onPress={onPress} time={2} setName={"Set 2"} weight={145} />
+        <Set onPress={onPress} time={1} setName={"Set 3"} weight={225} />
       </View>
     </Swipeable>
   );

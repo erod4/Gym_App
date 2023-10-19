@@ -33,7 +33,7 @@ export default function App() {
           <Stack.Screen
             name="StartWorkout"
             component={StartWorkout}
-            options={{ headerShown: true, title: "Select Workout" }}
+            options={{ headerShown: true, title: "Workouts" }}
           />
           <Stack.Screen
             name="workout-page"

@@ -2,9 +2,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-const Set = ({ setName, onPress, time }) => {
-  const handlePress = () => {
-    onPress(time);
+const Set = ({ setName, onPress, weight, time }) => {
+  const handleTimerPress = () => {
+    onPress[0](time);
+  };
+  const handleWeightPress = () => {
+    onPress[1](weight);
   };
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
@@ -25,11 +28,11 @@ const Set = ({ setName, onPress, time }) => {
           <Text style={styles.counts}>8</Text>
           <Text style={styles.notation}>reps</Text>
         </View>
-        <View style={styles.reps}>
-          <Text style={styles.counts}>80</Text>
+        <TouchableOpacity style={styles.reps} onPress={handleWeightPress}>
+          <Text style={styles.counts}>{weight}</Text>
           <Text style={styles.notation}>Lbs</Text>
-        </View>
-        <TouchableOpacity style={styles.reps} onPress={handlePress}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.reps} onPress={handleTimerPress}>
           <FontAwesomeIcon style={styles.counts} icon={"fa-stopwatch"} />
           <Text style={styles.notation}>{time} min</Text>
         </TouchableOpacity>

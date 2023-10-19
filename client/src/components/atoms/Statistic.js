@@ -6,7 +6,7 @@ const Statistic = ({ name, onPress }) => {
   return (
     <TouchableOpacity style={styles.statistic}>
       <Text style={styles.text}>{name}</Text>
-      <FontAwesomeIcon icon={"fa-angle-right"} />
+      <FontAwesomeIcon style={{ color: "#0077B6" }} icon={"fa-angle-right"} />
     </TouchableOpacity>
   );
 };

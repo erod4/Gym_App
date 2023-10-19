@@ -13,7 +13,7 @@ const Profile = () => {
         <Setting name={"Account"} />
         <Setting name={"Link Accounts"} />
         <Setting name={"Weight Units"} />
-        <Setting name={"Widgets"} />
+        <Setting name={"Gaols"} />
       </ScrollView>
     </View>
   );
