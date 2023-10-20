@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   iconContainer: {
-    borderRadius: "50%",
+    borderRadius: 100,
     backgroundColor: "#ddd",
     height: 30,
     width: 30,

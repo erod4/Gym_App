@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 import React from "react";
-
+import { useHealth } from "../store/actions/clientActions/AppleHealth";
 import Swiper from "react-native-swiper";
 import Goal from "../components/molecules/Goal";
 
 const DailyGoals = () => {
+  const { stepCount } = useHealth();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Todays Goals</Text>
@@ -44,7 +45,7 @@ const DailyGoals = () => {
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
-            count={2000}
+            count={stepCount.value}
             percentage={10}
           />
         </View>

@@ -10,45 +10,48 @@ import StartWorkout from "./src/screens/StartWorkout";
 import WorkoutPage from "./src/screens/WorkoutPage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import OptionsButton from "./src/components/atoms/OptionsButton";
+import { HealthProvider } from "./src/store/actions/clientActions/AppleHealth";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="nav"
-            component={BottomTabs}
-            options={{ headerShown: false, headerBackVisible: true }}
-          />
-          <Stack.Screen
-            name="StartWorkout"
-            component={StartWorkout}
-            options={{ headerShown: true, title: "Workouts" }}
-          />
-          <Stack.Screen
-            name="workout-page"
-            component={WorkoutPage}
-            options={({ route }) => {
-              const exerciseName = route.params?.name || "Workout Page";
-              return {
-                headerShown: true,
-                title: exerciseName,
-              };
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <HealthProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="nav"
+              component={BottomTabs}
+              options={{ headerShown: false, headerBackVisible: true }}
+            />
+            <Stack.Screen
+              name="StartWorkout"
+              component={StartWorkout}
+              options={{ headerShown: true, title: "Workouts" }}
+            />
+            <Stack.Screen
+              name="workout-page"
+              component={WorkoutPage}
+              options={({ route }) => {
+                const exerciseName = route.params?.name || "Workout Page";
+                return {
+                  headerShown: true,
+                  title: exerciseName,
+                };
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </HealthProvider>
     </GestureHandlerRootView>
   );
 }

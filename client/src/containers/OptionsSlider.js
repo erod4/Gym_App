@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   exit: {
     width: "100%",
     alignItems: "flex-end",
-    padding: 10,
+
     position: "absolute",
     top: 0,
   },
@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     width: "100%",
     flex: 1,
+  },
+  panelHandle: {
+    padding: 20,
   },
 });
 export default OptionsSlider;

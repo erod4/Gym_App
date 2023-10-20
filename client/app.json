@@ -1,5 +1,8 @@
 {
   "expo": {
+    "plugins": [
+      "react-native-health"
+    ],
     "name": "GymApp",
     "slug": "GymApp",
     "version": "1.0.0",
@@ -15,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.GymApp"
     },
     "android": {
       "adaptiveIcon": {

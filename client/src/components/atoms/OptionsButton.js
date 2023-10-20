@@ -7,7 +7,10 @@ const OptionsButton = ({ open, id }) => {
     open(id);
   };
   return (
-    <TouchableOpacity onPress={handleOpen}>
+    <TouchableOpacity
+      style={{ paddingHorizontal: 20, position: "absolute", right: 0 }}
+      onPress={handleOpen}
+    >
       <FontAwesomeIcon color="#1c1c1c" icon={"fa-ellipsis-vertical"} />
     </TouchableOpacity>
   );

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   name: {
-    paddingLeft: 10,
+    paddingLeft: 20,
     fontSize: 16,
     fontWeight: "500",
   },

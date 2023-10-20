@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -35,12 +35,15 @@ import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
 
 import Welcome from "../containers/Welcome";
 import { useNavigation } from "@react-navigation/native";
-
+import { useHealth } from "../store/actions/clientActions/AppleHealth";
 import StartButton from "../containers/StartButton";
 import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
 
 const Home = () => {
+  const { stepCount } = useHealth();
+
+  console.log(stepCount);
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate("StartWorkout");
