@@ -9,7 +9,8 @@ import React from "react";
 import Set from "../components/atoms/Set";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-const Excercise = ({ excerciseName, onPress }) => {
+import OptionsButton from "../components/atoms/OptionsButton";
+const Excercise = ({ excerciseName, onPress, id }) => {
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
       <TouchableOpacity style={styles.leftAction}>
@@ -26,6 +27,7 @@ const Excercise = ({ excerciseName, onPress }) => {
       <View style={styles.excercise}>
         <View style={styles.excerciseNameContainer}>
           <Text style={styles.excerciseName}>{excerciseName}</Text>
+          <OptionsButton id={id} open={onPress[2]} />
         </View>
         <Set onPress={onPress} time={3} setName={"Set 1"} weight={80} />
         <Set onPress={onPress} time={2} setName={"Set 2"} weight={145} />
@@ -47,10 +49,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+    flexDirection: "row",
   },
   excerciseName: {
     fontWeight: "900",
     fontSize: 20,
+
+    flex: 1,
+    textAlign: "center",
   },
   optionsContainer: {
     flexDirection: "row",

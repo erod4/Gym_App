@@ -40,7 +40,7 @@ const Barbell = ({ totalWeight, plateWeights, includeBarbell }) => {
         width: width,
         flex: 1,
         flexDirection: "row",
-        backgroundColor: "#1c1c1c",
+        backgroundColor: "#fff",
       }}
     >
       <View style={styles.bbLeft}>

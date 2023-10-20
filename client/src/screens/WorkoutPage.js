@@ -10,24 +10,36 @@ import Excercise from "../containers/Excercise";
 import StopWatch from "../containers/StopWatch";
 import Swiper from "react-native-swiper";
 import WeightDistrib from "../containers/WeightDistrib";
+import OptionsSlider from "../containers/OptionsSlider";
 
 const WorkoutPage = ({ route }) => {
   const { id, name } = route.params;
 
   const [setsTimer, setSetsTimer] = useState(0);
   const [setsWeight, setSetsWeight] = useState();
-  const [isPanelVisible, setIsPanelVisible] = useState(false);
+  const [excerciseId, setExcerciseId] = useState(null);
+  const [isPanelDisVisible, setIsDisPanelVisible] = useState(false);
+  const [isPanelOptionsVisible, setIsOptionsPanelVisible] = useState(false);
   const handleTimerPress = (time) => {
     setSetsTimer(time);
   };
   const handleWeightPress = (weight) => {
     setSetsWeight(weight);
-
-    setIsPanelVisible(true);
+    setIsOptionsPanelVisible(false);
+    setIsDisPanelVisible(true);
   };
-  const closePanel = () => {
+  const closeDisPanel = () => {
     setSetsWeight(0);
-    setIsPanelVisible(false);
+    setIsDisPanelVisible(false);
+  };
+  const handleOptionsPress = (id) => {
+    setIsOptionsPanelVisible(true);
+    setIsDisPanelVisible(false);
+    setExcerciseId(id);
+  };
+  const closeOptionsPanel = () => {
+    setIsOptionsPanelVisible(false);
+    setExcerciseId(null);
   };
 
   return (
@@ -37,24 +49,32 @@ const WorkoutPage = ({ route }) => {
         style={styles.excercises}
       >
         <Excercise
+          id={"123"}
           excerciseName={"Bench Press"}
-          onPress={[handleTimerPress, handleWeightPress]}
+          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
         />
         <Excercise
+          id={"123"}
           excerciseName={"Incline Bench Press"}
-          onPress={handleTimerPress}
+          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
         />
         <Excercise
+          id={"123"}
           excerciseName={"Bench Press"}
-          onPress={[handleTimerPress, handleWeightPress]}
+          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
         />
       </ScrollView>
 
       <StopWatch time={setsTimer} />
       <WeightDistrib
         weight={setsWeight}
-        isVisible={isPanelVisible}
-        onClose={closePanel}
+        isVisible={isPanelDisVisible}
+        onClose={closeDisPanel}
+      />
+      <OptionsSlider
+        onClose={closeOptionsPanel}
+        isVisible={isPanelOptionsVisible}
+        activeId={excerciseId}
       />
     </View>
   );

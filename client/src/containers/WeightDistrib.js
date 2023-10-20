@@ -66,6 +66,14 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: -2, // This creates the shadow at the top
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5, // For Android
       }}
     >
       <View style={styles.exit}>
@@ -73,7 +81,7 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
           <FontAwesomeIcon
             size={25}
             icon={"fa-xmark"}
-            style={{ color: "#FFF" }}
+            style={{ color: "#1c1c1c" }}
           />
         </TouchableOpacity>
         <Text style={styles.weightSelectionText}>Select Available Weights</Text>
@@ -137,7 +145,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "flex-end",
     paddingHorizontal: 10,
-    backgroundColor: "#1c1c1c",
+    backgroundColor: "#fff",
     overflow: "hidden",
     borderTopEndRadius: 15,
     borderTopStartRadius: 15,
@@ -151,7 +159,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "500",
     fontSize: 15,
-    color: "#fff",
+    color: "#1c1c1c",
   },
   weightSelection: {
     flexDirection: "row",

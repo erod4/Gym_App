@@ -7,15 +7,15 @@ const IncludeBarbell = ({ handleBarbellSelection }) => {
     setIsPressed(!isPressed); // Toggle the pressed state
     handleBarbellSelection();
   };
-  const buttonColor = isPressed ? "#0077B6" : "grey";
+  const buttonColor = isPressed ? "grey" : "#0077B6";
   return (
     <TouchableOpacity
       style={[styles.weight, { backgroundColor: buttonColor }]}
       activeOpacity={0.7}
       onPress={handlePress}
     >
-      {isPressed && <Text>Yes</Text>}
-      {!isPressed && <Text>No</Text>}
+      {isPressed && <Text>No</Text>}
+      {!isPressed && <Text>Yes</Text>}
     </TouchableOpacity>
   );
 };

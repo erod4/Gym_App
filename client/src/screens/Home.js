@@ -21,6 +21,10 @@ import {
   faGaugeSimple,
   faTrashCan,
   faXmark,
+  faGear,
+  faEllipsisVertical,
+  faCircleCheck,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -64,7 +68,11 @@ const Home = () => {
     faFaceTired,
     faGaugeSimple,
     faTrashCan,
-    faXmark
+    faXmark,
+    faGear,
+    faEllipsisVertical,
+    faCircleCheck,
+    faPenToSquare
   );
   return (
     <View style={styles.container}>
