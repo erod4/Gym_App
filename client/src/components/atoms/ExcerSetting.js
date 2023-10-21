@@ -1,10 +1,19 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useSettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
 
-const ExcerSetting = ({ name, icon }) => {
+const ExcerSetting = ({ name, icon, onPress }) => {
+  const { closeSettingsSlider } = useSettingsSliderContext();
+
   return (
-    <TouchableOpacity style={styles.setting}>
+    <TouchableOpacity
+      style={styles.setting}
+      onPress={() => {
+        onPress();
+        closeSettingsSlider();
+      }}
+    >
       <FontAwesomeIcon size={18} icon={icon} />
       <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>

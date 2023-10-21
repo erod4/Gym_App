@@ -2,12 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-const Set = ({ setName, onPress, weight, time }) => {
+import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+const Set = ({ setName, weight, time, onPress }) => {
+  const { openWeightSlider } = useWeightSliderContext();
   const handleTimerPress = () => {
-    onPress[0](time);
+    onPress(time);
   };
   const handleWeightPress = () => {
-    onPress[1](weight);
+    openWeightSlider(weight);
   };
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>

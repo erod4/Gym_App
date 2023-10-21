@@ -25,6 +25,7 @@ import {
   faEllipsisVertical,
   faCircleCheck,
   faPenToSquare,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -39,6 +40,7 @@ import { useHealth } from "../store/actions/clientActions/AppleHealth";
 import StartButton from "../containers/StartButton";
 import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
+import RatingSlider from "../containers/RatingSlider";
 
 const Home = () => {
   const { stepCount } = useHealth();
@@ -75,7 +77,8 @@ const Home = () => {
     faGear,
     faEllipsisVertical,
     faCircleCheck,
-    faPenToSquare
+    faPenToSquare,
+    faCheck
   );
   return (
     <View style={styles.container}>
@@ -83,6 +86,7 @@ const Home = () => {
       <DailyGoals />
       <RecentWorkouts />
       <StartButton text={"Start Workout"} press={handlePress} />
+      <RatingSlider />
     </View>
   );
 };

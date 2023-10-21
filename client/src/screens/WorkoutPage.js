@@ -8,38 +8,31 @@ import {
 import React, { useState } from "react";
 import Excercise from "../containers/Excercise";
 import StopWatch from "../containers/StopWatch";
-import Swiper from "react-native-swiper";
+
 import WeightDistrib from "../containers/WeightDistrib";
 import OptionsSlider from "../containers/OptionsSlider";
+import EditExcercise from "../containers/EditExcercise";
+import { useEditContext } from "../store/actions/clientActions/EditWorkout";
+import { useSaveContext } from "../store/actions/clientActions/SaveWorkout";
+import EndWorkout from "../components/molecules/EndWorkout";
 
 const WorkoutPage = ({ route }) => {
+  const { isSaveMode } = useSaveContext();
   const { id, name } = route.params;
+  const { isEditMode } = useEditContext();
 
   const [setsTimer, setSetsTimer] = useState(0);
   const [setsWeight, setSetsWeight] = useState();
   const [excerciseId, setExcerciseId] = useState(null);
   const [isPanelDisVisible, setIsDisPanelVisible] = useState(false);
-  const [isPanelOptionsVisible, setIsOptionsPanelVisible] = useState(false);
+
   const handleTimerPress = (time) => {
     setSetsTimer(time);
   };
   const handleWeightPress = (weight) => {
     setSetsWeight(weight);
-    setIsOptionsPanelVisible(false);
+
     setIsDisPanelVisible(true);
-  };
-  const closeDisPanel = () => {
-    setSetsWeight(0);
-    setIsDisPanelVisible(false);
-  };
-  const handleOptionsPress = (id) => {
-    setIsOptionsPanelVisible(true);
-    setIsDisPanelVisible(false);
-    setExcerciseId(id);
-  };
-  const closeOptionsPanel = () => {
-    setIsOptionsPanelVisible(false);
-    setExcerciseId(null);
   };
 
   return (
@@ -48,41 +41,27 @@ const WorkoutPage = ({ route }) => {
         contentContainerStyle={styles.excercisesScroll}
         style={styles.excercises}
       >
-        <Excercise
-          id={"123"}
-          excerciseName={"Bench Press"}
-          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
-        />
-        <Excercise
-          id={"123"}
-          excerciseName={"Incline Bench Press"}
-          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
-        />
-        <Excercise
-          id={"123"}
-          excerciseName={"Bench Press"}
-          onPress={[handleTimerPress, handleWeightPress, handleOptionsPress]}
-        />
+        {isEditMode ? (
+          <EditExcercise id={"123"} excerciseName={"Incline Bench Press"} />
+        ) : (
+          <Excercise
+            id={"123"}
+            excerciseName={"Incline Bench Press"}
+            onPress={handleTimerPress}
+          />
+        )}
       </ScrollView>
-
+      {isSaveMode && <EndWorkout />}
       <StopWatch time={setsTimer} />
-      <WeightDistrib
-        weight={setsWeight}
-        isVisible={isPanelDisVisible}
-        onClose={closeDisPanel}
-      />
-      <OptionsSlider
-        onClose={closeOptionsPanel}
-        isVisible={isPanelOptionsVisible}
-        activeId={excerciseId}
-      />
+      <WeightDistrib />
+      <OptionsSlider activeId={excerciseId} />
     </View>
   );
 };
 const styles = StyleSheet.create({
   page: {
     width: "100%",
-
+    flex: 1,
     backgroundColor: "#ddd",
     justifyContent: "space-evenly",
     alignItems: "center",

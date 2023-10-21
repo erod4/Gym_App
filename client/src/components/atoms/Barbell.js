@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Dimensions, Text, StyleSheet } from "react-native";
 import Svg, { Circle, Rect, Text as SvgText } from "react-native-svg";
-const Barbell = ({ totalWeight, plateWeights, includeBarbell }) => {
+import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+const Barbell = ({ plateWeights, includeBarbell }) => {
   const width = Dimensions.get("window").width;
-
+  const { weightToUse } = useWeightSliderContext();
   const barbellWeight = () => {
     if (includeBarbell) {
       return 45;
@@ -16,7 +17,7 @@ const Barbell = ({ totalWeight, plateWeights, includeBarbell }) => {
 
   useEffect(() => {
     const bar = barbellWeight();
-    let remainingWeight = (totalWeight - bar) / 2;
+    let remainingWeight = (weightToUse - bar) / 2;
 
     const updatedPlatesOnEachSide = [];
     for (let weight of plateWeights) {
@@ -29,7 +30,7 @@ const Barbell = ({ totalWeight, plateWeights, includeBarbell }) => {
       }
     }
     setPlatesOnEachSide(updatedPlatesOnEachSide);
-  }, [plateWeights, totalWeight, includeBarbell]);
+  }, [plateWeights, weightToUse, includeBarbell]);
 
   return (
     <View

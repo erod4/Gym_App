@@ -11,9 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Barbell from "../components/atoms/Barbell";
 import WeightSelection from "../components/atoms/WeightSelection";
 import IncludeBarbell from "../components/atoms/IncludeBarbell";
+import { useWeightSliderContext } from "../store/actions/clientActions/WeightSlider";
 
 const slideUpValue = new Animated.Value(0);
-const WeightDistrib = ({ onClose, isVisible, weight }) => {
+const WeightDistrib = () => {
+  const { closeWeightSlider, isWeightSliderActive } = useWeightSliderContext();
   const [includeBarbell, setIncludeBarbell] = useState(true);
   const handleBarbellSelection = () => {
     setIncludeBarbell(!includeBarbell);
@@ -21,7 +23,7 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
   const screenHeight = Dimensions.get("window").height;
 
   useEffect(() => {
-    if (isVisible) {
+    if (isWeightSliderActive) {
       Animated.timing(slideUpValue, {
         toValue: 1,
         duration: 300,
@@ -32,11 +34,9 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
         toValue: 0,
         duration: 300,
         useNativeDriver: false,
-      }).start(() => {
-        onClose();
-      });
+      }).start();
     }
-  }, [isVisible, onClose, slideUpValue]);
+  }, [isWeightSliderActive, slideUpValue]);
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
@@ -77,7 +77,10 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
       }}
     >
       <View style={styles.exit}>
-        <TouchableOpacity style={styles.panelHandle} onPress={onClose}>
+        <TouchableOpacity
+          style={styles.panelHandle}
+          onPress={closeWeightSlider}
+        >
           <FontAwesomeIcon
             size={25}
             icon={"fa-xmark"}
@@ -113,17 +116,13 @@ const WeightDistrib = ({ onClose, isVisible, weight }) => {
         </View>
         <Text style={styles.weightSelectionText}>Include Barbell</Text>
         <View style={styles.weightSelection}>
-          <IncludeBarbell
-            weight={45}
-            handleBarbellSelection={handleBarbellSelection}
-          />
+          <IncludeBarbell handleBarbellSelection={handleBarbellSelection} />
         </View>
       </View>
 
       <View style={styles.barbell}>
         <Barbell
           plateWeights={availableWeights}
-          totalWeight={weight}
           includeBarbell={includeBarbell}
         />
       </View>

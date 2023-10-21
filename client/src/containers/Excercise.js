@@ -10,7 +10,11 @@ import Set from "../components/atoms/Set";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import OptionsButton from "../components/atoms/OptionsButton";
-const Excercise = ({ excerciseName, onPress, id }) => {
+import MarkComplete from "../components/atoms/MarkComplete";
+
+import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
+const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
+  const { openSettingsSlider } = useSettingsSliderContext();
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
       <TouchableOpacity style={styles.leftAction}>
@@ -26,12 +30,13 @@ const Excercise = ({ excerciseName, onPress, id }) => {
     >
       <View style={styles.excercise}>
         <View style={styles.excerciseNameContainer}>
+          <MarkComplete markComplete={markComplete} />
           <Text style={styles.excerciseName}>{excerciseName}</Text>
-          <OptionsButton id={id} open={onPress[2]} />
+          <OptionsButton id={id} open={openSettingsSlider} />
         </View>
-        <Set onPress={onPress} time={3} setName={"Set 1"} weight={80} />
-        <Set onPress={onPress} time={2} setName={"Set 2"} weight={145} />
-        <Set onPress={onPress} time={1} setName={"Set 3"} weight={225} />
+        <Set time={3} setName={"Set 1"} weight={80} onPress={onPress} />
+        <Set time={2} setName={"Set 2"} weight={145} onPress={onPress} />
+        <Set time={1} setName={"Set 3"} weight={225} onPress={onPress} />
       </View>
     </Swipeable>
   );

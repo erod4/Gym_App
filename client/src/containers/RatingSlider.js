@@ -8,18 +8,18 @@ import {
   StyleSheet,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import ExcerSetting from "../components/atoms/ExcerSetting";
-import { useEditContext } from "../store/actions/clientActions/EditWorkout";
+import { useRatingSliderContext } from "../store/actions/clientActions/RatingSlider";
+import IntensityContainer from "../components/molecules/IntensityContainer";
+import MoodContainer from "../components/molecules/MoodContainer";
+import GenButton from "../components/atoms/GenButton";
 
-import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
-const OptionsSlider = ({ activeId }) => {
-  const { isSettingsSliderActive, closeSettingsSlider } =
-    useSettingsSliderContext();
-  const { startEditing } = useEditContext();
+const RatingSlider = ({ activeId }) => {
+  const { isRatingSliderActive, closeRatingSlider } = useRatingSliderContext();
+
   const screenHeight = Dimensions.get("window").height;
   const slideUpValue = new Animated.Value(0);
   useEffect(() => {
-    if (isSettingsSliderActive) {
+    if (isRatingSliderActive) {
       Animated.timing(slideUpValue, {
         toValue: 1,
         duration: 300,
@@ -32,7 +32,7 @@ const OptionsSlider = ({ activeId }) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [isSettingsSliderActive, slideUpValue]);
+  }, [isRatingSliderActive, slideUpValue]);
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
@@ -43,11 +43,13 @@ const OptionsSlider = ({ activeId }) => {
       style={{
         position: "absolute",
         bottom: slideUpAnimation,
-        borderRadius: 15,
+        borderTopEndRadius: 15,
+        borderTopStartRadius: 15,
+
         height: screenHeight / 2,
         backgroundColor: "white",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
         width: "100%",
         shadowColor: "#000",
         shadowOffset: {
@@ -60,44 +62,41 @@ const OptionsSlider = ({ activeId }) => {
       }}
     >
       <View style={styles.setting}>
-        <ExcerSetting
-          icon={"fa-pen-to-square"}
-          name={"Edit"}
-          onPress={startEditing}
-        />
-
-        <ExcerSetting icon={"fa-trash-can"} name={"Delete"} />
+        <Text style={styles.text}>How was your workout?</Text>
+        <IntensityContainer />
+        <MoodContainer />
       </View>
       <View style={styles.exit}>
-        <TouchableOpacity
-          style={styles.panelHandle}
-          onPress={closeSettingsSlider}
-        >
-          <FontAwesomeIcon
-            size={25}
-            icon={"fa-xmark"}
-            style={{ color: "#1c1c1c" }}
-          />
-        </TouchableOpacity>
+        <GenButton
+          onPress={closeRatingSlider}
+          color={"#0077ff"}
+          name={"Save"}
+        />
       </View>
     </Animated.View>
   );
 };
 const styles = StyleSheet.create({
   exit: {
-    width: "100%",
-    alignItems: "flex-end",
-
-    position: "absolute",
-    top: 0,
+    padding: 10,
+    alignItems: "center",
   },
   setting: {
-    paddingTop: 40,
+    paddingTop: 20,
+    paddingBottom: 40,
     width: "100%",
     flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   panelHandle: {
     padding: 20,
   },
+  text: {
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 18,
+    fontWeight: "700",
+  },
 });
-export default OptionsSlider;
+export default RatingSlider;
