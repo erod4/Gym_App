@@ -5,7 +5,7 @@ import {
   Touchable,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Set from "../components/atoms/Set";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -13,7 +13,17 @@ import OptionsButton from "../components/atoms/OptionsButton";
 import MarkComplete from "../components/atoms/MarkComplete";
 
 import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
+import AddSetButton from "../components/atoms/AddSetButton";
+import AddSet from "../components/atoms/AddSet";
 const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
+  const [isAddSetActive, setIsAddSetActive] = useState(false);
+  const handleAddSetPress = () => {
+    setIsAddSetActive(true);
+  };
+
+  const handleAddSetClose = () => {
+    setIsAddSetActive(false);
+  };
   const { openSettingsSlider } = useSettingsSliderContext();
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
@@ -37,6 +47,15 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
         <Set time={3} setName={"Set 1"} weight={80} onPress={onPress} />
         <Set time={2} setName={"Set 2"} weight={145} onPress={onPress} />
         <Set time={1} setName={"Set 3"} weight={225} onPress={onPress} />
+        {isAddSetActive ? (
+          <AddSet closeNewSet={handleAddSetClose} setName={"Set 4"} />
+        ) : (
+          <AddSetButton
+            color={"#ddd"}
+            name={"Add Set"}
+            onPress={handleAddSetPress}
+          />
+        )}
       </View>
     </Swipeable>
   );
@@ -48,6 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 10,
   },
   excerciseNameContainer: {
     width: "100%",

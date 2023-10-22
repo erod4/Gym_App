@@ -3,12 +3,20 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+import { useSettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import { useTimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
+import { useTimerContext } from "../../store/actions/clientActions/Timer.js";
 const Set = ({ setName, weight, time, onPress }) => {
   const { openWeightSlider } = useWeightSliderContext();
+  const { closeTimerSlider } = useTimerSliderContext();
+  const { passTimeToTimer } = useTimerContext();
+  const { closeSettingsSlider } = useSettingsSliderContext();
   const handleTimerPress = () => {
-    onPress(time);
+    passTimeToTimer(time * 60);
   };
   const handleWeightPress = () => {
+    closeSettingsSlider();
+    closeTimerSlider();
     openWeightSlider(weight);
   };
   const renderRightActions = () => (
@@ -48,8 +56,8 @@ const styles = StyleSheet.create({
     width: "90%",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
     alignItems: "center",
     backgroundColor: "#fff",
     gap: 30,

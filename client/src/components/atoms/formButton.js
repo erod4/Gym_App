@@ -19,7 +19,7 @@ const FormButton = ({ title, link }) => {
 };
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#03045e",
+    backgroundColor: "#0077B6",
     borderRadius: 10,
     padding: 10,
     width: "100%",
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: "900",
-    color: "#eee",
+    color: "#1c1c1c",
     width: "100%",
     textAlign: "center",
     fontSize: 20,

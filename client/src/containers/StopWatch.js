@@ -1,73 +1,36 @@
 import { View, Text, StyleSheet, Vibration } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import CountUp from "../components/atoms/CountUp";
-import TimerButton from "../components/atoms/TimerButton";
+import TimerButton from "../components/atoms/StopWatchButton";
 import SwitchBetweenButton from "../components/atoms/SwitchBetweenButton";
+
+import { useTimerContext } from "../store/actions/clientActions/Timer";
 import StopWatchButton from "../components/atoms/StopWatchButton";
 
-const StopWatch = ({ time }) => {
-  time = time * 60;
-
-  const [isStopWatchRunning, setIsStopWatchRunning] = useState(false);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [stopWatchSeconds, setStopWatchSeconds] = useState(0);
-  const [timerSeconds, setTimerSeconds] = useState(0);
-  const intervalRef = useRef(null);
+const StopWatch = () => {
   const [watch, setWatch] = useState(false);
-  const startTimer = () => {
-    if (isTimerRunning) {
-      clearInterval(intervalRef.current);
-    } else {
-      intervalRef.current = setInterval(() => {
-        setTimerSeconds((prevSeconds) => {
-          if (prevSeconds > 0) {
-            return prevSeconds - 1;
-          } else {
-            // Timer reached 0, handle completion logic if needed
-            Vibration.vibrate([1000, 1000, 1000]);
-            clearInterval(intervalRef.current);
-            setIsTimerRunning(false);
-            return prevSeconds; // or return 0 if you want to reset the timer to 0
-          }
-        });
-      }, 1000);
-    }
-    setIsTimerRunning(!isTimerRunning);
-  };
+  const { isTimerActive, startTimer, stopTimer, initialTime, chosenSetTime } =
+    useTimerContext();
 
-  const incrementTimer = (time) => {
-    setTimerSeconds((prevSeconds) => prevSeconds + time);
-  };
+  const [timerTime, setTimerTime] = useState(0);
+
+  useEffect(() => {
+    setTimerTime(chosenSetTime);
+    startTimer();
+  }, [chosenSetTime]);
   const incrementBy30 = () => {
-    incrementTimer(30);
+    setTimerTime(timerTime + 30);
   };
-  const decrementTimer = () => {
-    clearInterval(intervalRef.current);
-    setTimerSeconds((prevSeconds) => Math.max(0, prevSeconds - 30));
+  const decrementBy30 = () => {
+    setTimerTime(Math.max(0, timerTime - 30));
   };
-
-  const startStopWatch = () => {
-    if (isStopWatchRunning) {
-      clearInterval(intervalRef.current);
+  const handlePress = () => {
+    if (!isTimerActive) {
+      startTimer();
     } else {
-      intervalRef.current = setInterval(() => {
-        setStopWatchSeconds((prevSeconds) => prevSeconds + 1);
-      }, 1000);
+      stopTimer();
     }
-    setIsStopWatchRunning(!isStopWatchRunning);
   };
-  const resetStopWatch = () => {
-    clearInterval(intervalRef.current);
-    setStopWatchSeconds(0);
-    setIsStopWatchRunning(false);
-  };
-  const stopWatchMin = String(Math.floor(stopWatchSeconds / 60)).padStart(
-    2,
-    "0"
-  );
-  const stopWatchSec = String(stopWatchSeconds % 60).padStart(2, "0");
-  const timerMin = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
-  const timerSec = String(timerSeconds % 60).padStart(2, "0");
 
   const setStopWatch = () => {
     setWatch(true);
@@ -75,13 +38,33 @@ const StopWatch = ({ time }) => {
   const setTimerWatch = () => {
     setWatch(false);
   };
+  //timer logic
 
   useEffect(() => {
-    if (time > 0) {
-      setTimerSeconds(0);
-      incrementTimer(time);
+    initialTime(timerTime);
+  }, [timerTime]);
+
+  useEffect(() => {
+    let interval;
+    if (isTimerActive && timerTime > 0) {
+      interval = setInterval(() => {
+        setTimerTime(timerTime - 1);
+      }, 1000);
+    } else if (isTimerActive && timerTime === 0) {
+      stopTimer();
+      Vibration.vibrate(500);
+      clearInterval(interval);
     }
-  }, [time]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isTimerActive, timerTime]);
+  //turn timerTime into min and secs
+
+  const timerMins = Math.floor(timerTime / 60);
+  const timerSecs = timerTime % 60;
+  const formattedTimerMinutes = String(timerMins).padStart(2, "0");
+  const formattedTimerSeconds = String(timerSecs).padStart(2, "0");
   return (
     <View style={styles.stopWatch}>
       <View style={styles.switch}>
@@ -90,42 +73,34 @@ const StopWatch = ({ time }) => {
       </View>
       {watch && (
         <View style={styles.countUp}>
-          <CountUp min={stopWatchMin} sec={stopWatchSec} />
+          <CountUp min={1} sec={1} />
         </View>
       )}
       {!watch && (
         <View style={styles.countUp}>
-          <CountUp min={timerMin} sec={timerSec} />
+          <CountUp min={formattedTimerMinutes} sec={formattedTimerSeconds} />
         </View>
       )}
 
       {watch && (
         <View style={styles.buttons}>
-          <TimerButton
+          <StopWatchButton
             color={"#0077B6"}
-            name={isStopWatchRunning ? "Pause" : "Start"}
-            onPress={startStopWatch}
+            // name={isStopWatchRunning ? "Pause" : "Start"}
+            // onPress={startStopWatch}
           />
-          <TimerButton name={"Reset"} color={"#ddd"} onPress={resetStopWatch} />
+          <StopWatchButton name={"Reset"} color={"#ddd"} />
         </View>
       )}
       {!watch && (
         <View style={styles.buttons}>
-          <StopWatchButton
-            name={"-30"}
-            color={"#ddd"}
-            onPress={decrementTimer}
-          />
-          <StopWatchButton
+          <TimerButton name={"-30"} color={"#ddd"} onPress={decrementBy30} />
+          <TimerButton
             color={"#0077B6"}
-            name={isTimerRunning ? "Pause" : "Start"}
-            onPress={startTimer}
+            name={isTimerActive ? "Pause" : "Start"}
+            onPress={handlePress}
           />
-          <StopWatchButton
-            name={"+30"}
-            color={"#ddd"}
-            onPress={incrementBy30}
-          />
+          <TimerButton name={"+30"} color={"#ddd"} onPress={incrementBy30} />
         </View>
       )}
     </View>
@@ -134,16 +109,17 @@ const StopWatch = ({ time }) => {
 const styles = StyleSheet.create({
   stopWatch: {
     backgroundColor: "#fff",
-    width: "90%",
+    flex: 1,
 
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    width: "100%",
   },
   countUp: {
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
   buttons: {
     gap: 5,
@@ -158,7 +134,8 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 10,
     justifyContent: "center",
-    alignItems: "center",
+    position: "absolute",
+    top: 0,
   },
 });
 export default StopWatch;

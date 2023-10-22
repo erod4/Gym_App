@@ -8,32 +8,22 @@ import {
 import React, { useState } from "react";
 import Excercise from "../containers/Excercise";
 import StopWatch from "../containers/StopWatch";
-
+import FormButton from "../components/atoms/formButton";
 import WeightDistrib from "../containers/WeightDistrib";
 import OptionsSlider from "../containers/OptionsSlider";
 import EditExcercise from "../containers/EditExcercise";
 import { useEditContext } from "../store/actions/clientActions/EditWorkout";
 import { useSaveContext } from "../store/actions/clientActions/SaveWorkout";
 import EndWorkout from "../components/molecules/EndWorkout";
+import TimerSlider from "../containers/TimerSlider";
+import StartButton from "../containers/StartButton";
 
 const WorkoutPage = ({ route }) => {
   const { isSaveMode } = useSaveContext();
   const { id, name } = route.params;
   const { isEditMode } = useEditContext();
 
-  const [setsTimer, setSetsTimer] = useState(0);
-  const [setsWeight, setSetsWeight] = useState();
   const [excerciseId, setExcerciseId] = useState(null);
-  const [isPanelDisVisible, setIsDisPanelVisible] = useState(false);
-
-  const handleTimerPress = (time) => {
-    setSetsTimer(time);
-  };
-  const handleWeightPress = (weight) => {
-    setSetsWeight(weight);
-
-    setIsDisPanelVisible(true);
-  };
 
   return (
     <View style={styles.page}>
@@ -44,17 +34,16 @@ const WorkoutPage = ({ route }) => {
         {isEditMode ? (
           <EditExcercise id={"123"} excerciseName={"Incline Bench Press"} />
         ) : (
-          <Excercise
-            id={"123"}
-            excerciseName={"Incline Bench Press"}
-            onPress={handleTimerPress}
-          />
+          <Excercise id={"123"} excerciseName={"Incline Bench Press"} />
         )}
       </ScrollView>
+
       {isSaveMode && <EndWorkout />}
-      <StopWatch time={setsTimer} />
+
       <WeightDistrib />
       <OptionsSlider activeId={excerciseId} />
+      <TimerSlider />
+      <StartButton text={"Add Excercise"} />
     </View>
   );
 };
@@ -66,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 10,
-    paddingBottom: 20,
+    paddingBottom: 30,
     gap: 10,
   },
 

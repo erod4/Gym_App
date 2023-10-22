@@ -1,4 +1,4 @@
-import { View, Text, Touchable, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
 const TimerButton = ({ name, onPress, color }) => {
@@ -9,8 +9,8 @@ const TimerButton = ({ name, onPress, color }) => {
           backgroundColor: color,
           borderRadius: 10,
           padding: 25,
-          paddingLeft: 50,
-          paddingRight: 50,
+          paddingLeft: 30,
+          paddingRight: 30,
           justifyContent: "center",
           alignItems: "center",
         }}

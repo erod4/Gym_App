@@ -17,8 +17,9 @@ const EndWorkout = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <Text style={styles.text}>End Workout?</Text>
+        <Text style={styles.text}>Do you wish to end your workout?</Text>
         <View style={styles.buttonContainer}>
+          <GenButton name={"Pause"} color={"#0077B6"} onPress={stopSaving} />
           <GenButton
             name={"End"}
             color={"#0077B6"}
@@ -42,14 +43,15 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "#fff",
-    padding: 40,
+    paddingVertical: 40,
+    paddingHorizontal: 20,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
   },
   text: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "500",
   },
   buttonContainer: {

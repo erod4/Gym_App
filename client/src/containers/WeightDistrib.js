@@ -74,6 +74,7 @@ const WeightDistrib = () => {
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5, // For Android
+        zIndex: 5,
       }}
     >
       <View style={styles.exit}>

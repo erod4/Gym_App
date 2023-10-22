@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   count: {
     flexDirection: "row",
     gap: 10,
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
 
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   time: {
     textAlign: "center",
     color: "#0077B6",
-    fontSize: 40,
+    fontSize: 50,
     fontWeight: "500",
   },
 });

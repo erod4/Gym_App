@@ -7,19 +7,19 @@ import {
   Dimensions,
   StyleSheet,
 } from "react-native";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import ExcerSetting from "../components/atoms/ExcerSetting";
-import { useEditContext } from "../store/actions/clientActions/EditWorkout";
 
+import StopWatch from "./StopWatch";
+import { useTimerSliderContext } from "../store/actions/clientActions/TimerSlider";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
-const OptionsSlider = ({ activeId }) => {
-  const { isSettingsSliderActive, closeSettingsSlider } =
-    useSettingsSliderContext();
-  const { startEditing } = useEditContext();
+
+const TimerSlider = ({ activeId }) => {
+  const { isTimerSliderActive, closeTimerSlider } = useTimerSliderContext();
+
   const screenHeight = Dimensions.get("window").height;
   const slideUpValue = new Animated.Value(0);
   useEffect(() => {
-    if (isSettingsSliderActive) {
+    if (isTimerSliderActive) {
       Animated.timing(slideUpValue, {
         toValue: 1,
         duration: 300,
@@ -32,7 +32,7 @@ const OptionsSlider = ({ activeId }) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [isSettingsSliderActive, slideUpValue]);
+  }, [isTimerSliderActive, slideUpValue]);
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
@@ -43,11 +43,13 @@ const OptionsSlider = ({ activeId }) => {
       style={{
         position: "absolute",
         bottom: slideUpAnimation,
-        borderRadius: 15,
+        borderTopEndRadius: 15,
+        borderTopStartRadius: 15,
+        paddingTop: 5,
         height: screenHeight / 2,
         backgroundColor: "white",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
         width: "100%",
         shadowColor: "#000",
         shadowOffset: {
@@ -60,20 +62,9 @@ const OptionsSlider = ({ activeId }) => {
         zIndex: 5,
       }}
     >
-      <View style={styles.setting}>
-        <ExcerSetting
-          icon={"fa-pen-to-square"}
-          name={"Edit"}
-          onPress={startEditing}
-        />
-
-        <ExcerSetting icon={"fa-trash-can"} name={"Delete"} />
-      </View>
+      <StopWatch />
       <View style={styles.exit}>
-        <TouchableOpacity
-          style={styles.panelHandle}
-          onPress={closeSettingsSlider}
-        >
+        <TouchableOpacity style={styles.panelHandle} onPress={closeTimerSlider}>
           <FontAwesomeIcon
             size={25}
             icon={"fa-xmark"}
@@ -86,19 +77,19 @@ const OptionsSlider = ({ activeId }) => {
 };
 const styles = StyleSheet.create({
   exit: {
-    width: "100%",
-    alignItems: "flex-end",
-
     position: "absolute",
     top: 0,
+    right: 0,
   },
-  setting: {
-    paddingTop: 40,
-    width: "100%",
-    flex: 1,
-  },
+
   panelHandle: {
     padding: 20,
   },
+  text: {
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 18,
+    fontWeight: "700",
+  },
 });
-export default OptionsSlider;
+export default TimerSlider;

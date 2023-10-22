@@ -1,7 +1,7 @@
 import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import React from "react";
 
-const GenButton = ({ name, onPress, color }) => {
+const AddSetButton = ({ name, onPress, color }) => {
   return (
     <>
       <TouchableOpacity
@@ -11,7 +11,7 @@ const GenButton = ({ name, onPress, color }) => {
           padding: 10,
           paddingTop: 15,
           paddingBottom: 15,
-          width: 100,
+          width: "90%",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -30,4 +30,4 @@ const GenButton = ({ name, onPress, color }) => {
   );
 };
 
-export default GenButton;
+export default AddSetButton;
