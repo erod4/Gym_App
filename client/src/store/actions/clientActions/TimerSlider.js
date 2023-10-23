@@ -1,27 +1,51 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 
-const TimerSliderContext = createContext();
+export const TimerSliderContext = createContext();
 
-export const useTimerSliderContext = () => {
-  return useContext(TimerSliderContext);
+const INITIAL_STATE = {
+  isTimerSliderActive: false,
+};
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "OPEN":
+      return {
+        ...state,
+        isTimerSliderActive: payload,
+      };
+    case "CLOSE":
+      return {
+        ...state,
+        isTimerSliderActive: payload,
+      };
+
+    default:
+      return state;
+  }
 };
 
 export const TimerSliderProvider = ({ children }) => {
-  const [isTimerSliderActive, setIsTimerSliderActive] = useState(false);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const openTimerSlider = () => {
-    setIsTimerSliderActive(true);
+    dispatch({
+      type: "OPEN",
+      payload: true,
+    });
   };
 
   const closeTimerSlider = () => {
-    setIsTimerSliderActive(false);
+    dispatch({
+      type: "OPEN",
+      payload: false,
+    });
   };
   return (
     <TimerSliderContext.Provider
       value={{
         openTimerSlider,
         closeTimerSlider,
-        isTimerSliderActive,
+        isTimerSliderActive: state.isTimerSliderActive,
       }}
     >
       {children}

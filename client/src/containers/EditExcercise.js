@@ -6,14 +6,15 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import Set from "../components/atoms/Set";
 import EditSet from "../components/atoms/EditSet";
 import GenButton from "../components/atoms/GenButton";
-import { useEditContext } from "../store/actions/clientActions/EditWorkout";
 
+import { EditContext } from "../store/actions/clientActions/EditWorkout";
 const EditExcercise = ({ excerciseName, id, markComplete }) => {
-  const { stopEditing } = useEditContext();
+  const { closeEdit } = useContext(EditContext);
+
   return (
     <View style={styles.excercise}>
       <View style={styles.excerciseNameContainer}>
@@ -29,7 +30,7 @@ const EditExcercise = ({ excerciseName, id, markComplete }) => {
       <EditSet time={1} setName={"Set 3"} weight={225} />
       <View style={styles.buttons}>
         <GenButton name={"Save"} color={"#0077B6"} />
-        <GenButton name={"Cancel"} color={"#ddd"} onPress={stopEditing} />
+        <GenButton name={"Cancel"} color={"#ddd"} onPress={closeEdit} />
       </View>
     </View>
   );

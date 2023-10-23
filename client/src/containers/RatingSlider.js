@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -8,18 +8,19 @@ import {
   StyleSheet,
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useRatingSliderContext } from "../store/actions/clientActions/RatingSlider";
+
 import IntensityContainer from "../components/molecules/IntensityContainer";
 import MoodContainer from "../components/molecules/MoodContainer";
 import GenButton from "../components/atoms/GenButton";
+import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
 
 const RatingSlider = ({ activeId }) => {
-  const { isRatingSliderActive, closeRatingSlider } = useRatingSliderContext();
+  const { active, closeRating } = useContext(RatingSliderContext);
 
   const screenHeight = Dimensions.get("window").height;
   const slideUpValue = new Animated.Value(0);
   useEffect(() => {
-    if (isRatingSliderActive) {
+    if (active) {
       Animated.timing(slideUpValue, {
         toValue: 1,
         duration: 300,
@@ -32,7 +33,7 @@ const RatingSlider = ({ activeId }) => {
         useNativeDriver: false,
       }).start();
     }
-  }, [isRatingSliderActive, slideUpValue]);
+  }, [active, slideUpValue]);
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
@@ -67,11 +68,7 @@ const RatingSlider = ({ activeId }) => {
         <MoodContainer />
       </View>
       <View style={styles.exit}>
-        <GenButton
-          onPress={closeRatingSlider}
-          color={"#0077ff"}
-          name={"Save"}
-        />
+        <GenButton onPress={closeRating} color={"#0077ff"} name={"Save"} />
       </View>
     </Animated.View>
   );

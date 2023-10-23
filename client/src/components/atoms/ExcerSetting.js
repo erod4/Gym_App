@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useSettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
 
 const ExcerSetting = ({ name, icon, onPress }) => {
-  const { closeSettingsSlider } = useSettingsSliderContext();
+  const { closeSettingsSlider } = useContext(SettingsSliderContext);
 
   return (
     <TouchableOpacity

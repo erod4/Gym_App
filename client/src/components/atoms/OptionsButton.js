@@ -1,16 +1,17 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useTimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
-import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+import { TimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
+import { WeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
 
-const OptionsButton = ({ open, id }) => {
-  const { closeTimerSlider } = useTimerSliderContext();
-
-  const { closeWeightSlider } = useWeightSliderContext();
+const OptionsButton = ({ id }) => {
+  const { closeTimerSlider } = useContext(TimerSliderContext);
+  const { openSettingsSlider } = useContext(SettingsSliderContext);
+  const { closeWeightSlider } = useContext(WeightSliderContext);
 
   const handleOpen = () => {
-    open(id);
+    openSettingsSlider(id);
     closeTimerSlider();
     closeWeightSlider();
   };

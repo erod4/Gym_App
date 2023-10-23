@@ -1,32 +1,56 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 
-const WeightSliderContext = createContext();
+export const WeightSliderContext = createContext();
 
-export const useWeightSliderContext = () => {
-  return useContext(WeightSliderContext);
+const INITIAL_STATE = {
+  weightToUse: 0,
+  isWeightSliderActive: false,
 };
+const reducer = (state, action) => {
+  const { type, payload } = action;
 
+  switch (type) {
+    case "OPEN":
+      return {
+        ...state,
+        isWeightSliderActive: payload.isWeightSliderActive,
+        weightToUse: payload.weight,
+      };
+
+    case "CLOSE":
+      return {
+        ...state,
+        isWeightSliderActive: payload.isWeightSliderActive,
+        weightToUse: payload.weight,
+      };
+
+    default:
+      return state;
+  }
+};
 export const WeightSliderProvider = ({ children }) => {
-  const [isWeightSliderActive, setIsWeightSliderActive] = useState(false);
-  const [weightToUse, setWeightToUse] = useState(0);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const openWeightSlider = (weight) => {
-    setIsWeightSliderActive(true);
-
-    setWeightToUse(weight);
+    dispatch({
+      type: "OPEN",
+      payload: { weight, isWeightSliderActive: true },
+    });
   };
 
   const closeWeightSlider = () => {
-    setIsWeightSliderActive(false);
-    setWeightToUse(0);
+    dispatch({
+      type: "CLOSE",
+      payload: { weight: 0, isWeightSliderActive: false },
+    });
   };
   return (
     <WeightSliderContext.Provider
       value={{
         openWeightSlider,
         closeWeightSlider,
-        isWeightSliderActive,
-        weightToUse,
+        isWeightSliderActive: state.isWeightSliderActive,
+        weightToUse: state.weightToUse,
       }}
     >
       {children}

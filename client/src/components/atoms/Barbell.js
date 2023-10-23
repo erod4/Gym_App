@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Dimensions, Text, StyleSheet } from "react-native";
 import Svg, { Circle, Rect, Text as SvgText } from "react-native-svg";
-import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+import { WeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
 const Barbell = ({ plateWeights, includeBarbell }) => {
   const width = Dimensions.get("window").width;
-  const { weightToUse } = useWeightSliderContext();
+  const { weightToUse } = useContext(WeightSliderContext);
   const barbellWeight = () => {
     if (includeBarbell) {
       return 45;

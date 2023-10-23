@@ -1,24 +1,47 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext, useState } from "react";
-import { useSettingsSliderContext } from "./SettingsSlider";
+import React, { createContext, useContext, useState, useReducer } from "react";
 
-const SaveContext = createContext();
-
-export const useSaveContext = () => {
-  return useContext(SaveContext);
+export const SaveContext = createContext();
+const INITIAL_STATE = {
+  active: false,
 };
 
-export const SaveProvider = ({ children }) => {
-  const [isSaveMode, setIsSaveMode] = useState(false);
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "OPEN":
+      return {
+        ...state,
+        active: payload,
+      };
+    case "CLOSE":
+      return {
+        ...state,
+        active: payload,
+      };
+    default:
+      return state;
+  }
+};
+export const SaveContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const startSaving = () => {
-    setIsSaveMode(true);
+    dispatch({
+      type: "OPEN",
+      payload: true,
+    });
   };
   const stopSaving = () => {
-    setIsSaveMode(false);
+    dispatch({
+      type: "CLOSE",
+      payload: false,
+    });
   };
   return (
-    <SaveContext.Provider value={{ startSaving, stopSaving, isSaveMode }}>
+    <SaveContext.Provider
+      value={{ startSaving, stopSaving, saveActive: state.active }}
+    >
       {children}
     </SaveContext.Provider>
   );

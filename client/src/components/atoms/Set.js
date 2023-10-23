@@ -1,16 +1,18 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
-import { useSettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
-import { useTimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
-import { useTimerContext } from "../../store/actions/clientActions/Timer.js";
+import { WeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+
+import { TimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
+import { TimerContext } from "../../store/actions/clientActions/Timer.js";
+import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+
 const Set = ({ setName, weight, time, onPress }) => {
-  const { openWeightSlider } = useWeightSliderContext();
-  const { closeTimerSlider } = useTimerSliderContext();
-  const { passTimeToTimer } = useTimerContext();
-  const { closeSettingsSlider } = useSettingsSliderContext();
+  const { openWeightSlider } = useContext(WeightSliderContext);
+  const { closeTimerSlider } = useContext(TimerSliderContext);
+  const { passTimeToTimer } = useContext(TimerContext);
+  const { closeSettingsSlider } = useContext(SettingsSliderContext);
   const handleTimerPress = () => {
     passTimeToTimer(time * 60);
   };

@@ -1,31 +1,70 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useContext, useReducer } from "react";
 
-const TimerContext = createContext();
+export const TimerContext = createContext();
 
-export const useTimerContext = () => {
-  return useContext(TimerContext);
+const INITIAL_STATE = {
+  seconds: 0,
+  chosenSetTime: 0,
+  isTimerActive: false,
 };
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "START":
+      return {
+        ...state,
+        isTimerActive: payload,
+      };
 
+    case "STOP":
+      return {
+        ...state,
+        isTimerActive: payload,
+      };
+    case "PASS_TIME":
+      return {
+        ...state,
+        chosenSetTime: payload,
+      };
+    case "INIT_TIME":
+      return {
+        ...state,
+        seconds: payload,
+      };
+    default:
+      return state;
+  }
+};
 export const TimerProvider = ({ children }) => {
-  const [isTimerActive, setIsTimerActive] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [chosenSetTime, setChosenSetTime] = useState(0);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const passTimeToTimer = (time) => {
-    setChosenSetTime(time);
+    dispatch({
+      type: "PASS_TIME",
+      payload: time,
+    });
   };
 
   const startTimer = () => {
-    setIsTimerActive(true);
+    dispatch({
+      type: "START",
+      payload: true,
+    });
   };
 
   const stopTimer = () => {
-    setIsTimerActive(false);
+    dispatch({
+      type: "START",
+      payload: false,
+    });
   };
 
   const initialTime = (time) => {
-    setSeconds(time);
+    dispatch({
+      type: "INIT_TIME",
+      payload: time,
+    });
   };
 
   return (
@@ -33,11 +72,11 @@ export const TimerProvider = ({ children }) => {
       value={{
         startTimer,
         stopTimer,
-        isTimerActive,
-        seconds,
+        isTimerActive: state.isTimerActive,
+        seconds: state.seconds,
         initialTime,
         passTimeToTimer,
-        chosenSetTime,
+        chosenSetTime: state.chosenSetTime,
       }}
     >
       {children}

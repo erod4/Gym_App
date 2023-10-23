@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -9,15 +9,15 @@ import {
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import ExcerSetting from "../components/atoms/ExcerSetting";
-import { useEditContext } from "../store/actions/clientActions/EditWorkout";
+import { EditContext } from "../store/actions/clientActions/EditWorkout";
 
-import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
+import { SettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
 const OptionsSlider = ({ activeId }) => {
-  const { isSettingsSliderActive, closeSettingsSlider } =
-    useSettingsSliderContext();
-  const { startEditing } = useEditContext();
-  const screenHeight = Dimensions.get("window").height;
+  const { openEdit } = useContext(EditContext);
   const slideUpValue = new Animated.Value(0);
+  const { isSettingsSliderActive, closeSettingsSlider } = useContext(
+    SettingsSliderContext
+  );
   useEffect(() => {
     if (isSettingsSliderActive) {
       Animated.timing(slideUpValue, {
@@ -33,6 +33,9 @@ const OptionsSlider = ({ activeId }) => {
       }).start();
     }
   }, [isSettingsSliderActive, slideUpValue]);
+
+  const screenHeight = Dimensions.get("window").height;
+
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
@@ -64,7 +67,7 @@ const OptionsSlider = ({ activeId }) => {
         <ExcerSetting
           icon={"fa-pen-to-square"}
           name={"Edit"}
-          onPress={startEditing}
+          onPress={openEdit}
         />
 
         <ExcerSetting icon={"fa-trash-can"} name={"Delete"} />

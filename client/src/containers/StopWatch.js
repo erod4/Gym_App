@@ -1,23 +1,42 @@
 import { View, Text, StyleSheet, Vibration } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CountUp from "../components/atoms/CountUp";
 import TimerButton from "../components/atoms/StopWatchButton";
 import SwitchBetweenButton from "../components/atoms/SwitchBetweenButton";
 
-import { useTimerContext } from "../store/actions/clientActions/Timer";
+import { TimerContext } from "../store/actions/clientActions/Timer";
 import StopWatchButton from "../components/atoms/StopWatchButton";
 
 const StopWatch = () => {
-  const [watch, setWatch] = useState(false);
   const { isTimerActive, startTimer, stopTimer, initialTime, chosenSetTime } =
-    useTimerContext();
-
+    useContext(TimerContext);
+  const [watch, setWatch] = useState(false);
   const [timerTime, setTimerTime] = useState(0);
 
   useEffect(() => {
     setTimerTime(chosenSetTime);
     startTimer();
   }, [chosenSetTime]);
+
+  useEffect(() => {
+    initialTime(timerTime);
+  }, [timerTime]);
+  useEffect(() => {
+    let interval;
+    if (isTimerActive && timerTime > 0) {
+      interval = setInterval(() => {
+        setTimerTime(timerTime - 1);
+      }, 1000);
+    } else if (isTimerActive && timerTime === 0) {
+      stopTimer();
+      Vibration.vibrate(200);
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [isTimerActive, timerTime]);
+
   const incrementBy30 = () => {
     setTimerTime(timerTime + 30);
   };
@@ -40,25 +59,6 @@ const StopWatch = () => {
   };
   //timer logic
 
-  useEffect(() => {
-    initialTime(timerTime);
-  }, [timerTime]);
-
-  useEffect(() => {
-    let interval;
-    if (isTimerActive && timerTime > 0) {
-      interval = setInterval(() => {
-        setTimerTime(timerTime - 1);
-      }, 1000);
-    } else if (isTimerActive && timerTime === 0) {
-      stopTimer();
-      Vibration.vibrate(500);
-      clearInterval(interval);
-    }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isTimerActive, timerTime]);
   //turn timerTime into min and secs
 
   const timerMins = Math.floor(timerTime / 60);

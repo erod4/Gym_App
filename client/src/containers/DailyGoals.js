@@ -29,7 +29,7 @@ const DailyGoals = () => {
             name={"Calories"}
             units={"KCal"}
             count={2000}
-            percentage={10}
+            percentage={1}
           />
         </View>
 
@@ -39,14 +39,14 @@ const DailyGoals = () => {
             name={"Sleep"}
             units={"Hr"}
             count={8}
-            percentage={100}
+            percentage={1}
           />
           <Goal
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
             count={stepCount?.value}
-            percentage={10}
+            percentage={stepCount?.value / 8000}
           />
         </View>
       </Swiper>

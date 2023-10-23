@@ -5,7 +5,7 @@ import Mood from "../atoms/Mood";
 const MoodContainer = () => {
   const moods = ["happy", "sad", "angry", "meh"];
   const [mood, setMood] = useState(null);
-  const [isFaceSet, setIsFaceSet] = useState(false);
+
   const handlePress = (mood) => {
     setMood(mood);
   };

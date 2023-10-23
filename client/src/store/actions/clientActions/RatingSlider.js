@@ -1,28 +1,46 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useReducer } from "react";
 
-const RatingSliderContext = createContext();
-
-export const useRatingSliderContext = () => {
-  return useContext(RatingSliderContext);
+export const RatingSliderContext = createContext();
+const INITIAL_STATE = {
+  active: false,
 };
 
-export const RatingSliderProvider = ({ children }) => {
-  const [isRatingSliderActive, setIsRatingSliderActive] = useState(false);
-  const openRatingSlider = () => {
-    setIsRatingSliderActive(true);
-  };
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case "OPEN":
+      return {
+        ...state,
+        active: payload,
+      };
+    case "CLOSE":
+      return {
+        ...state,
+        active: payload,
+      };
+    default:
+      return state;
+  }
+};
+export const RatingSliderContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const closeRatingSlider = () => {
-    setIsRatingSliderActive(false);
+  const openRating = () => {
+    dispatch({
+      type: "OPEN",
+      payload: true,
+    });
+  };
+  const closeRating = () => {
+    dispatch({
+      type: "CLOSE",
+      payload: false,
+    });
   };
   return (
     <RatingSliderContext.Provider
-      value={{
-        openRatingSlider,
-        closeRatingSlider,
-        isRatingSliderActive,
-      }}
+      value={{ openRating, closeRating, active: state.active }}
     >
       {children}
     </RatingSliderContext.Provider>

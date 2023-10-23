@@ -1,18 +1,22 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import GenButton from "../atoms/GenButton";
-import { useSaveContext } from "../../store/actions/clientActions/SaveWorkout";
+import {
+  SaveContext,
+  useSaveContext,
+} from "../../store/actions/clientActions/SaveWorkout";
 import { useNavigation } from "@react-navigation/native";
-import { useRatingSliderContext } from "../../store/actions/clientActions/RatingSlider";
+import { RatingSliderContext } from "../../store/actions/clientActions/RatingSlider";
 
 const EndWorkout = () => {
-  const { openRatingSlider } = useRatingSliderContext();
+  // const { openRating } = useContext(RatingSliderContext);
   const navigation = useNavigation();
-  const { stopSaving } = useSaveContext();
+  const { stopSaving } = useContext(SaveContext);
+  const { openRating } = useContext(RatingSliderContext);
   const handleEndWorkout = () => {
     navigation.navigate("nav");
     stopSaving();
-    openRatingSlider();
+    openRating();
   };
   return (
     <View style={styles.page}>

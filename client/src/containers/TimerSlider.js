@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -9,12 +9,16 @@ import {
 } from "react-native";
 
 import StopWatch from "./StopWatch";
-import { useTimerSliderContext } from "../store/actions/clientActions/TimerSlider";
+import {
+  TimerSliderContext,
+  useTimerSliderContext,
+} from "../store/actions/clientActions/TimerSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
 
 const TimerSlider = ({ activeId }) => {
-  const { isTimerSliderActive, closeTimerSlider } = useTimerSliderContext();
+  const { isTimerSliderActive, closeTimerSlider } =
+    useContext(TimerSliderContext);
 
   const screenHeight = Dimensions.get("window").height;
   const slideUpValue = new Animated.Value(0);

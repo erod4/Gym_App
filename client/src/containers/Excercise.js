@@ -24,7 +24,7 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
   const handleAddSetClose = () => {
     setIsAddSetActive(false);
   };
-  const { openSettingsSlider } = useSettingsSliderContext();
+
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
       <TouchableOpacity style={styles.leftAction}>
@@ -42,7 +42,7 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
         <View style={styles.excerciseNameContainer}>
           <MarkComplete markComplete={markComplete} />
           <Text style={styles.excerciseName}>{excerciseName}</Text>
-          <OptionsButton id={id} open={openSettingsSlider} />
+          <OptionsButton id={id} />
         </View>
         <Set time={3} setName={"Set 1"} weight={80} onPress={onPress} />
         <Set time={2} setName={"Set 2"} weight={145} onPress={onPress} />

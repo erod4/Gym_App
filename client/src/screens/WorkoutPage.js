@@ -1,44 +1,43 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import Excercise from "../containers/Excercise";
-import StopWatch from "../containers/StopWatch";
-import FormButton from "../components/atoms/formButton";
+
 import WeightDistrib from "../containers/WeightDistrib";
 import OptionsSlider from "../containers/OptionsSlider";
 import EditExcercise from "../containers/EditExcercise";
-import { useEditContext } from "../store/actions/clientActions/EditWorkout";
-import { useSaveContext } from "../store/actions/clientActions/SaveWorkout";
+
+import {
+  SaveContext,
+  useSaveContext,
+} from "../store/actions/clientActions/SaveWorkout";
 import EndWorkout from "../components/molecules/EndWorkout";
 import TimerSlider from "../containers/TimerSlider";
 import StartButton from "../containers/StartButton";
+import { EditContext } from "../store/actions/clientActions/EditWorkout";
 
 const WorkoutPage = ({ route }) => {
-  const { isSaveMode } = useSaveContext();
-  const { id, name } = route.params;
-  const { isEditMode } = useEditContext();
-
+  const { active } = useContext(EditContext);
   const [excerciseId, setExcerciseId] = useState(null);
+  const { saveActive } = useContext(SaveContext);
+  const { id, name } = route.params;
 
+  useEffect(() => {
+    setExcerciseId(id);
+  }, [id]);
   return (
     <View style={styles.page}>
       <ScrollView
         contentContainerStyle={styles.excercisesScroll}
         style={styles.excercises}
       >
-        {isEditMode ? (
+        {active ? (
           <EditExcercise id={"123"} excerciseName={"Incline Bench Press"} />
         ) : (
           <Excercise id={"123"} excerciseName={"Incline Bench Press"} />
         )}
       </ScrollView>
 
-      {isSaveMode && <EndWorkout />}
+      {saveActive && <EndWorkout />}
 
       <WeightDistrib />
       <OptionsSlider activeId={excerciseId} />

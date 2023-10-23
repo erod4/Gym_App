@@ -19,9 +19,11 @@ const Goal = ({ icon, name, count, units, percentage }) => {
         </View>
       </View>
       <View style={styles.lowerContainer}>
-        <Text style={styles.percentage}>{percentage}%</Text>
+        <Text style={styles.percentage}>
+          {Math.min(Math.floor(percentage * 100), 100)}%
+        </Text>
 
-        <ProgressBar percentage={percentage} />
+        <ProgressBar percentage={percentage * 100} />
       </View>
     </View>
   );

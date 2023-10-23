@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -11,16 +11,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Barbell from "../components/atoms/Barbell";
 import WeightSelection from "../components/atoms/WeightSelection";
 import IncludeBarbell from "../components/atoms/IncludeBarbell";
-import { useWeightSliderContext } from "../store/actions/clientActions/WeightSlider";
+import { WeightSliderContext } from "../store/actions/clientActions/WeightSlider";
 
 const slideUpValue = new Animated.Value(0);
 const WeightDistrib = () => {
-  const { closeWeightSlider, isWeightSliderActive } = useWeightSliderContext();
+  const { closeWeightSlider, isWeightSliderActive } =
+    useContext(WeightSliderContext);
   const [includeBarbell, setIncludeBarbell] = useState(true);
-  const handleBarbellSelection = () => {
-    setIncludeBarbell(!includeBarbell);
-  };
-  const screenHeight = Dimensions.get("window").height;
+  const [availableWeights, setAvailableWeights] = useState([
+    45, 35, 25, 10, 5, 2.5,
+  ]);
 
   useEffect(() => {
     if (isWeightSliderActive) {
@@ -37,14 +37,16 @@ const WeightDistrib = () => {
       }).start();
     }
   }, [isWeightSliderActive, slideUpValue]);
+  const handleBarbellSelection = () => {
+    setIncludeBarbell(!includeBarbell);
+  };
+  const screenHeight = Dimensions.get("window").height;
+
   const slideUpAnimation = slideUpValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0 - screenHeight / 2, 0],
   });
 
-  const [availableWeights, setAvailableWeights] = useState([
-    45, 35, 25, 10, 5, 2.5,
-  ]);
   const handleWeightSelected = (weight) => {
     if (availableWeights.includes(weight)) {
       const newWeights = availableWeights.filter(

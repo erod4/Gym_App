@@ -1,17 +1,23 @@
 import { View, Text } from "react-native";
-import React from "react";
-import { useTimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
-import { useSettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
-import { useWeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
+import React, { useContext } from "react";
+import {
+  TimerSliderContext,
+  useTimerSliderContext,
+} from "../../store/actions/clientActions/TimerSlider";
+import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import {
+  WeightSliderContext,
+  useWeightSliderContext,
+} from "../../store/actions/clientActions/WeightSlider";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useTimerContext } from "../../store/actions/clientActions/Timer";
+import { TimerContext } from "../../store/actions/clientActions/Timer";
 
 const OpenTimerButton = () => {
-  const { isTimerActive, seconds } = useTimerContext();
-  const { openTimerSlider } = useTimerSliderContext();
-  const { closeSettingsSlider } = useSettingsSliderContext();
-  const { closeWeightSlider } = useWeightSliderContext();
+  const { isTimerActive, seconds } = useContext(TimerContext);
+  const { openTimerSlider } = useContext(TimerSliderContext);
+  const { closeSettingsSlider } = useContext(SettingsSliderContext);
+  const { closeWeightSlider } = useContext(WeightSliderContext);
   const handleOpen = () => {
     openTimerSlider();
     closeSettingsSlider();

@@ -10,33 +10,30 @@ import WorkoutPage from "./src/screens/WorkoutPage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { HealthProvider } from "./src/store/actions/clientActions/AppleHealth";
-import { EditProvider } from "./src/store/actions/clientActions/EditWorkout";
+import { EditContextProvider } from "./src/store/actions/clientActions/EditWorkout";
 import { WeightSliderProvider } from "./src/store/actions/clientActions/WeightSlider";
-import { SettingsSliderProvider } from "./src/store/actions/clientActions/SettingsSlider";
+import { SettingsSliderContextProvider } from "./src/store/actions/clientActions/SettingsSlider";
 
-import {
-  SaveProvider,
-  useSaveContext,
-} from "./src/store/actions/clientActions/SaveWorkout";
-import { RatingSliderProvider } from "./src/store/actions/clientActions/RatingSlider";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  TimerSliderProvider,
-  useTimerSliderContext,
-} from "./src/store/actions/clientActions/TimerSlider";
+import { TimerSliderProvider } from "./src/store/actions/clientActions/TimerSlider";
 import OpenTimerButton from "./src/components/atoms/OpenTimerButton";
 import { TimerProvider } from "./src/store/actions/clientActions/Timer";
+import { RatingSliderContextProvider } from "./src/store/actions/clientActions/RatingSlider";
+import {
+  SaveContext,
+  SaveContextProvider,
+} from "./src/store/actions/clientActions/SaveWorkout";
+import { useContext } from "react";
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HealthProvider>
-        <EditProvider>
+        <EditContextProvider>
           <WeightSliderProvider>
-            <SettingsSliderProvider>
-              <SaveProvider>
-                <RatingSliderProvider>
+            <SettingsSliderContextProvider>
+              <SaveContextProvider>
+                <RatingSliderContextProvider>
                   <TimerSliderProvider>
                     <TimerProvider>
                       <NavigationContainer>
@@ -69,7 +66,7 @@ export default function App() {
                             name="workout-page"
                             component={WorkoutPage}
                             options={({ route }) => {
-                              const { startSaving } = useSaveContext();
+                              const { startSaving } = useContext(SaveContext);
 
                               const exerciseName =
                                 route.params?.name || "Workout Page";
@@ -90,11 +87,11 @@ export default function App() {
                       </NavigationContainer>
                     </TimerProvider>
                   </TimerSliderProvider>
-                </RatingSliderProvider>
-              </SaveProvider>
-            </SettingsSliderProvider>
+                </RatingSliderContextProvider>
+              </SaveContextProvider>
+            </SettingsSliderContextProvider>
           </WeightSliderProvider>
-        </EditProvider>
+        </EditContextProvider>
       </HealthProvider>
     </GestureHandlerRootView>
   );
