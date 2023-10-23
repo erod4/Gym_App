@@ -1,11 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import ProgressBar from "../atoms/ProgressBar";
+import { useNavigation } from "@react-navigation/native";
 
-const Goal = ({ icon, name, count, units, percentage }) => {
+const Goal = ({ icon, name, count, units, percentage, navTo, open }) => {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    if (navTo) {
+      navigation.navigate({ navTo });
+    } else {
+      open();
+    }
+  };
+
   return (
-    <View style={styles.goalContainer}>
+    <TouchableOpacity style={styles.goalContainer} onPress={handlePress}>
       <View style={styles.upperContainer}>
         <View style={styles.iconLabelContainer}>
           <View style={styles.iconContainer}>
@@ -25,7 +35,7 @@ const Goal = ({ icon, name, count, units, percentage }) => {
 
         <ProgressBar percentage={percentage * 100} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

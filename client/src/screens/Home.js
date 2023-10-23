@@ -41,6 +41,7 @@ import StartButton from "../containers/StartButton";
 import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
 import RatingSlider from "../containers/RatingSlider";
+import WaterSlider from "../containers/WaterSlider";
 
 const Home = () => {
   const { stepCount } = useHealth();
@@ -87,6 +88,7 @@ const Home = () => {
       <RecentWorkouts />
       <StartButton text={"Start Workout"} press={handlePress} />
       <RatingSlider />
+      <WaterSlider />
     </View>
   );
 };

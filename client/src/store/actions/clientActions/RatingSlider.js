@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useReducer } from "react";
 export const RatingSliderContext = createContext();
 const INITIAL_STATE = {
   active: false,
+  isWaterSliderActive: false,
 };
 
 const reducer = (state, action) => {
@@ -18,6 +19,17 @@ const reducer = (state, action) => {
       return {
         ...state,
         active: payload,
+      };
+    case "OPEN_WATER":
+      return {
+        ...state,
+        active: false,
+        isWaterSliderActive: payload,
+      };
+    case "CLOSE_WATER":
+      return {
+        ...state,
+        isWaterSliderActive: payload,
       };
     default:
       return state;
@@ -38,9 +50,30 @@ export const RatingSliderContextProvider = ({ children }) => {
       payload: false,
     });
   };
+  const openWaterSlider = () => {
+    dispatch({
+      type: "OPEN_WATER",
+      payload: true,
+    });
+  };
+  const closeWaterSlider = () => {
+    dispatch({
+      type: "CLOSE_WATER",
+      payload: false,
+    });
+  };
   return (
     <RatingSliderContext.Provider
-      value={{ openRating, closeRating, active: state.active }}
+      value={{
+        openRating,
+        closeRating,
+        active: state.active,
+        openWaterSlider,
+        closeWaterSlider,
+        openWaterSlider,
+        closeWaterSlider,
+        isWaterSliderActive: state.isWaterSliderActive,
+      }}
     >
       {children}
     </RatingSliderContext.Provider>

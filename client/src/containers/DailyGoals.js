@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-import React from "react";
+import React, { useContext } from "react";
 import { useHealth } from "../store/actions/clientActions/AppleHealth";
 import Swiper from "react-native-swiper";
 import Goal from "../components/molecules/Goal";
+import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
 
 const DailyGoals = () => {
   const { stepCount } = useHealth();
+  const { openWaterSlider } = useContext(RatingSliderContext);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Todays Goals</Text>
@@ -23,6 +25,7 @@ const DailyGoals = () => {
             units={"Oz"}
             count={10}
             percentage={10}
+            open={openWaterSlider}
           />
           <Goal
             icon={"fa-fire-flame-curved"}
