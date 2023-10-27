@@ -12,28 +12,30 @@ export const useHealth = () => {
 
 export const HealthProvider = ({ children }) => {
   const [stepCount, setStepCount] = useState(0);
+  const [weight, setWeight] = useState(0);
   const [isPermissionGranted, setIsPermissionGranted] = useState(false);
 
   useEffect(() => {
     async function requestHealthKitPermissions() {
       const permissions = {
         permissions: {
-          read: [AppleHealthKit.Constants.Permissions.Steps],
+          read: [
+            AppleHealthKit.Constants.Permissions.Steps,
+            AppleHealthKit.Constants.Permissions.Weight,
+          ],
           write: [],
         },
       }; // You can add more types like 'HeartRate', 'DistanceWalkingRunning', etc.
-      const result = await AppleHealthKit.initHealthKit(
-        permissions,
-        (error, res) => {
-          if (error) {
-            console.log("HealthKit authorization denied.");
-          } else {
-            console.log("HealthKit authorization granted!");
-            fetchStepCount();
-            setIsPermissionGranted(true);
-          }
+      const result = AppleHealthKit.initHealthKit(permissions, (error, res) => {
+        if (error) {
+          console.log("HealthKit authorization denied.");
+        } else {
+          console.log("HealthKit authorization granted!");
+          fetchStepCount();
+          fetchWeight();
+          setIsPermissionGranted(true);
         }
-      );
+      });
     }
 
     if (!isPermissionGranted) {
@@ -41,12 +43,12 @@ export const HealthProvider = ({ children }) => {
     }
   }, [isPermissionGranted]); // Empty dependency array ensures the effect runs once after the initial render
 
-  async function fetchStepCount() {
+  function fetchStepCount() {
     try {
       const options = {
         unit: "count",
       };
-      const stepCountData = await AppleHealthKit.getStepCount(
+      const stepCountData = AppleHealthKit.getStepCount(
         options,
         (error, res) => {
           if (error) {
@@ -61,9 +63,30 @@ export const HealthProvider = ({ children }) => {
       console.error("Error fetching step count:", error);
     }
   }
-
+  function fetchWeight() {
+    try {
+      const options = {
+        unit: "pound",
+        startDate: new Date(2023, 0, 0).toISOString(),
+      };
+      const weightData = AppleHealthKit.getWeightSamples(
+        options,
+        (error, res) => {
+          if (error) {
+            log(error);
+          } else {
+            setWeight(res);
+          }
+        }
+      );
+      setWeight(weightData);
+    } catch (error) {
+      console.error("Error fetching step count:", error);
+    }
+  }
   const value = {
     stepCount,
+    weight,
     // Add more health data properties and functions as needed
   };
 

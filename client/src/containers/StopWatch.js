@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Vibration } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import CountUp from "../components/atoms/CountUp";
 import TimerButton from "../components/atoms/StopWatchButton";
@@ -29,7 +29,7 @@ const StopWatch = () => {
       }, 1000);
     } else if (isTimerActive && timerTime === 0) {
       stopTimer();
-      Vibration.vibrate(200);
+
       clearInterval(interval);
     }
     return () => {

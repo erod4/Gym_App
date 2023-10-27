@@ -1,12 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
 
-const Statistic = ({ name, onPress }) => {
+const Statistic = ({ name, linkTo }) => {
+  const Navigator = useNavigation();
+  const handlePress = () => {
+    Navigator.navigate(linkTo);
+  };
   return (
-    <TouchableOpacity style={styles.statistic}>
+    <TouchableOpacity style={styles.statistic} onPress={handlePress}>
       <Text style={styles.text}>{name}</Text>
-      <FontAwesomeIcon style={{ color: "#0077B6" }} icon={"fa-angle-right"} />
+      <FontAwesomeIcon style={{ color: "#1c1c1c" }} icon={"fa-angle-right"} />
     </TouchableOpacity>
   );
 };

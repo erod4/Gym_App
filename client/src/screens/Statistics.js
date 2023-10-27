@@ -10,8 +10,8 @@ const Statistics = () => {
         contentContainerStyle={styles.scroll}
         style={styles.container}
       >
-        <Statistic name={"Weightlifting Progress"} />
-        <Statistic name={"Body Measurements"} />
+        <Statistic name={"Weightlifting Progress"} linkTo={"WeightProgress"} />
+        <Statistic name={"Body Measurements"} linkTo={"BodyMeasur"} />
         <Statistic name={"Caloric Intake"} />
         <Statistic name={"Steps & Physical Activity"} />
       </ScrollView>

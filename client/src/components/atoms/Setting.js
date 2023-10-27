@@ -5,7 +5,7 @@ const Setting = ({ name }) => {
   return (
     <TouchableOpacity style={styles.statistic}>
       <Text style={styles.text}>{name}</Text>
-      <FontAwesomeIcon style={{ color: "#0077B6" }} icon={"fa-angle-right"} />
+      <FontAwesomeIcon style={{ color: "#1c1c1c" }} icon={"fa-angle-right"} />
     </TouchableOpacity>
   );
 };

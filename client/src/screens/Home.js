@@ -26,6 +26,7 @@ import {
   faCircleCheck,
   faPenToSquare,
   faCheck,
+  faWeightScale,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -46,7 +47,6 @@ import WaterSlider from "../containers/WaterSlider";
 const Home = () => {
   const { stepCount } = useHealth();
 
-  console.log(stepCount);
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate("StartWorkout");
@@ -79,7 +79,8 @@ const Home = () => {
     faEllipsisVertical,
     faCircleCheck,
     faPenToSquare,
-    faCheck
+    faCheck,
+    faWeightScale
   );
   return (
     <View style={styles.container}>

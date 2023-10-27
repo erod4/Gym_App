@@ -14,8 +14,17 @@ import EndWorkout from "../components/molecules/EndWorkout";
 import TimerSlider from "../containers/TimerSlider";
 import StartButton from "../containers/StartButton";
 import { EditContext } from "../store/actions/clientActions/EditWorkout";
+import NewExcercise from "../containers/NewExcercise";
 
 const WorkoutPage = ({ route }) => {
+  const [isAddExcercise, setIsAddExcercise] = useState(false);
+
+  const handleAddExcercisePress = () => {
+    setIsAddExcercise(true);
+  };
+  const handleCloseAddExcercisePress = () => {
+    setIsAddExcercise(false);
+  };
   const { active } = useContext(EditContext);
   const [excerciseId, setExcerciseId] = useState(null);
   const { saveActive } = useContext(SaveContext);
@@ -35,6 +44,9 @@ const WorkoutPage = ({ route }) => {
         ) : (
           <Excercise id={"123"} excerciseName={"Incline Bench Press"} />
         )}
+        {isAddExcercise && (
+          <NewExcercise onDone={handleCloseAddExcercisePress} />
+        )}
       </ScrollView>
 
       {saveActive && <EndWorkout />}
@@ -42,7 +54,7 @@ const WorkoutPage = ({ route }) => {
       <WeightDistrib />
       <OptionsSlider activeId={excerciseId} />
       <TimerSlider />
-      <StartButton text={"Add Excercise"} />
+      <StartButton text={"Add Excercise"} press={handleAddExcercisePress} />
     </View>
   );
 };

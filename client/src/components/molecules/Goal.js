@@ -1,41 +1,75 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import ProgressBar from "../atoms/ProgressBar";
 import { useNavigation } from "@react-navigation/native";
 
 const Goal = ({ icon, name, count, units, percentage, navTo, open }) => {
+  const [pressable, setPressable] = useState(false);
   const navigation = useNavigation();
+  useEffect(() => {
+    if (navTo || open) {
+      setPressable(true);
+    } else {
+      setPressable(false);
+    }
+  }, [navTo, open]);
   const handlePress = () => {
     if (navTo) {
       navigation.navigate({ navTo });
-    } else {
+    } else if (open) {
       open();
     }
   };
 
   return (
-    <TouchableOpacity style={styles.goalContainer} onPress={handlePress}>
-      <View style={styles.upperContainer}>
-        <View style={styles.iconLabelContainer}>
-          <View style={styles.iconContainer}>
-            <FontAwesomeIcon style={{ color: "#0077B6" }} icon={icon} />
+    <>
+      {pressable ? (
+        <TouchableOpacity style={styles.goalContainer} onPress={handlePress}>
+          <View style={styles.upperContainer}>
+            <View style={styles.iconLabelContainer}>
+              <View style={styles.iconContainer}>
+                <FontAwesomeIcon style={{ color: "#0077B6" }} icon={icon} />
+              </View>
+              <Text style={styles.iconName}>{name}</Text>
+            </View>
+            <View style={styles.unitContainer}>
+              <Text style={styles.unitCount}>{count}</Text>
+              <Text style={styles.units}>{units}</Text>
+            </View>
           </View>
-          <Text style={styles.iconName}>{name}</Text>
-        </View>
-        <View style={styles.unitContainer}>
-          <Text style={styles.unitCount}>{count}</Text>
-          <Text style={styles.units}>{units}</Text>
-        </View>
-      </View>
-      <View style={styles.lowerContainer}>
-        <Text style={styles.percentage}>
-          {Math.min(Math.floor(percentage * 100), 100)}%
-        </Text>
+          <View style={styles.lowerContainer}>
+            <Text style={styles.percentage}>
+              {Math.min(Math.floor(percentage * 100), 100)}%
+            </Text>
 
-        <ProgressBar percentage={percentage * 100} />
-      </View>
-    </TouchableOpacity>
+            <ProgressBar percentage={percentage * 100} />
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.goalContainer}>
+          <View style={styles.upperContainer}>
+            <View style={styles.iconLabelContainer}>
+              <View style={styles.iconContainer}>
+                <FontAwesomeIcon style={{ color: "#0077B6" }} icon={icon} />
+              </View>
+              <Text style={styles.iconName}>{name}</Text>
+            </View>
+            <View style={styles.unitContainer}>
+              <Text style={styles.unitCount}>{count}</Text>
+              <Text style={styles.units}>{units}</Text>
+            </View>
+          </View>
+          <View style={styles.lowerContainer}>
+            <Text style={styles.percentage}>
+              {Math.min(Math.floor(percentage * 100), 100)}%
+            </Text>
+
+            <ProgressBar percentage={percentage * 100} />
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 const styles = StyleSheet.create({

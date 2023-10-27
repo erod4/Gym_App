@@ -23,6 +23,8 @@ import {
   SaveContextProvider,
 } from "./src/store/actions/clientActions/SaveWorkout";
 import { useContext } from "react";
+import WeightProgress from "./src/screens/WeightProgress";
+import BodyMeasurements from "./src/screens/BodyMeasurements";
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -61,7 +63,24 @@ export default function App() {
                             component={StartWorkout}
                             options={{ headerShown: true, title: "Workouts" }}
                           />
+                          <Stack.Screen
+                            name="WeightProgress"
+                            component={WeightProgress}
+                            options={{
+                              headerShown: true,
+                              title: "Lifting Progression",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="BodyMeasur"
+                            component={BodyMeasurements}
+                            options={{
+                              headerShown: true,
+                              title: "Body Measurements",
 
+                              headerShadowVisible: false,
+                            }}
+                          />
                           <Stack.Screen
                             name="workout-page"
                             component={WorkoutPage}
