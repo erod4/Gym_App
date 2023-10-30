@@ -13,7 +13,10 @@ const Statistics = () => {
         <Statistic name={"Weightlifting Progress"} linkTo={"WeightProgress"} />
         <Statistic name={"Body Measurements"} linkTo={"BodyMeasur"} />
         <Statistic name={"Caloric Intake"} />
-        <Statistic name={"Steps & Physical Activity"} />
+        <Statistic
+          name={"Steps & Physical Activity"}
+          linkTo={"PhysicalActivity"}
+        />
       </ScrollView>
     </View>
   );

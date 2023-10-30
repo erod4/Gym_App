@@ -15,7 +15,7 @@ import Goal from "../components/molecules/Goal";
 import GoalIncrease from "../components/molecules/GoalIncrease";
 import StatisticsGoal from "../components/molecules/StatisticsGoal";
 import AverageData from "../components/molecules/AverageData";
-const Graph = ({
+const MonthlyGraph = ({
   dataSet,
   date,
   icon,
@@ -32,23 +32,23 @@ const Graph = ({
   const [chartWidth, setChartWidth] = useState(0);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const [currentWeightChange, setCurrentWeightChange] = useState(() => {
-    if (dataSet?.length > 1) {
+    if (dataSet.length > 1) {
       return (
-        Number(dataSet[dataSet?.length - 1]) -
-        Number(dataSet[dataSet?.length - 2])
+        Number(dataSet[dataSet.length - 1]) -
+        Number(dataSet[dataSet.length - 2])
       ).toFixed(1);
     } else {
       return 0;
     }
   });
   const [currentDate, setCurrentDate] = useState(() => {
-    if (date?.length > 0) {
-      return formattedTime[formattedTime?.length - 1];
+    if (date.length > 0) {
+      return date[date.length - 1];
     }
   });
   const [currentWeight, setCurrentWeight] = useState(() => {
-    if (dataSet?.length > 0) {
-      return dataSet[dataSet?.length - 1].toFixed(1);
+    if (dataSet.length > 0) {
+      return dataSet[dataSet.length - 1];
     }
   });
   const scrollViewRef = useRef(null);
@@ -96,9 +96,7 @@ const Graph = ({
               height: "100%",
             }}
           >
-            <Text style={{ color: "rgba(0, 0, 0,1)" }}>
-              {dataSet[index].toFixed(1)}
-            </Text>
+            <Text style={{ color: "rgba(0, 0, 0,1)" }}>{dataSet[index]}</Text>
             <Text style={{ color: "rgba(0, 0, 0,1)" }}>lb</Text>
           </View>
         </View>
@@ -110,15 +108,15 @@ const Graph = ({
   const handleDotPress = (data) => {
     setSelectedDotIndex(data.index);
 
-    if (data?.index > 0) {
+    if (data.index > 0) {
       setCurrentWeightChange(
         (Number(dataSet[data.index]) - Number(dataSet[data.index - 1])).toFixed(
           1
         )
       );
-      setCurrentDate(formattedTime[data.index]);
+      setCurrentDate(date[data.index]);
 
-      setCurrentWeight(data.value.toFixed(1));
+      setCurrentWeight(data.value);
     } else {
       // Handle the case when the first dot is pressed (opformattedTime[data.indexonal)
       setCurrentWeightChange(0);
@@ -134,7 +132,7 @@ const Graph = ({
       },
     ],
   };
-  if (date?.length === 0 || dataSet?.length === 0) {
+  if (date.length === 0 || dataSet.length === 0) {
     return (
       <>
         <NoAppleHealthData onPress={handleTryAgain} data={noData} />
@@ -160,7 +158,6 @@ const Graph = ({
         onLayout={handleScrollViewLayout}
       >
         <LineChart
-          withHorizontalLabels={false}
           data={data}
           width={chartWidth} // from react-native
           height={Dimensions.get("window").height * 0.4}
@@ -170,6 +167,7 @@ const Graph = ({
             handleDotPress(data);
           }}
           withHorizontalLines={true}
+          withHorizontalLabels={false}
           withVerticalLines={false}
           yAxisInterval={1} // optional, defaults to 1
           chartConfig={{
@@ -218,7 +216,7 @@ const Graph = ({
       >
         <GoalIncrease
           date={currentDate}
-          icon={"fa-clock"}
+          icon={"fa-calendar"}
           change={currentWeightChange}
           count={currentWeight}
           units={"lb"}
@@ -230,20 +228,10 @@ const Graph = ({
             justifyContent: "center",
             alignItems: "center",
           }}
-        >
-          <StatisticsGoal
-            name={goalName}
-            target={target}
-            start={start}
-            units={units}
-            icon={icon}
-            currData={dataSet ? dataSet[dataSet?.length - 1].toFixed(1) : 10}
-          />
-          <AverageData data={dataSet} dataFor={goalName} units={units} />
-        </View>
+        ></View>
       </View>
     </>
   );
 };
 
-export default Graph;
+export default MonthlyGraph;

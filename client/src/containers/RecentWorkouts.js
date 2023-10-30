@@ -7,6 +7,7 @@ const RecentWorkouts = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Recent Workouts</Text>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scroll}
         style={styles.scrollContainer}
       >

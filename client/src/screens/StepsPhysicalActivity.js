@@ -7,8 +7,9 @@ import { useHealth } from "../store/actions/clientActions/AppleHealth";
 import moment from "moment";
 import WeeklyGraph from "../containers/WeeklyGraph";
 import MonthlyGraph from "../containers/MonthlyGraph";
-const BodyMeasurements = () => {
-  const { weight } = useHealth();
+const StepsPhysicalActivity = () => {
+  const { weight, stepCount } = useHealth();
+  console.log(stepCount[1]);
   const [dayView, setDayView] = useState(true);
   const [weekView, setWeekView] = useState(false);
   const [monthView, setMonthView] = useState(false);
@@ -27,41 +28,26 @@ const BodyMeasurements = () => {
     setWeekView(false);
     setMonthView(true);
   };
-  //get dates from weight array
-  const uniqueDates = {};
+  //get dates from step Count array
+  const combinedSteps = {};
   const dateTime = [];
-  weight.forEach((item) => {
-    const { startDate, value } = item;
-    const dateKey = startDate.split("T")[0];
-    if (!uniqueDates[dateKey] || uniqueDates[dateKey].startDate < startDate) {
-      uniqueDates[dateKey] = value;
-      dateTime.push(startDate);
+  stepCount.forEach((step) => {
+    // Extract the date from the startDate
+    const date = step.startDate.split("T")[0];
+
+    // If the date is not already in the combinedSteps object, create a new entry
+    if (!combinedSteps[date]) {
+      combinedSteps[date] = 0;
     }
-  });
-  const weights = Object.values(uniqueDates);
-  const formattedWeights = weights.reverse();
-  const dates = Object.keys(uniqueDates);
-  //formatting date with time
-  const formattedDateTime = dateTime.reverse().map((dateString) => {
-    const date = new Date(dateString);
-    const hour = date.getHours();
-    const period = hour >= 12 ? "PM" : "AM";
-    const min = String(date.getMinutes()).padStart(2, "0");
-    const hour12 = hour > 12 ? hour - 12 : hour;
-    return `${hour12}:${min} ${period}`;
-  });
-  const formattedDates = dates.reverse().map((dateString) => {
-    const date = new Date(dateString);
 
-    const month = date.getMonth() + 1;
-
-    const day = date.getDate() + 1;
-    return `${month}/${day}`;
+    // Add the steps for the current entry to the existing total steps for the day
+    combinedSteps[date] += step.value;
   });
+  console.log(combinedSteps);
   //weekly data grouping
   const groupedDataByWeek = (data) => {
     const groupedData = {};
-    weight.forEach((item) => {
+    stepCount.forEach((item) => {
       const weekNumber = moment(item.startDate).isoWeek();
       const weekYear = moment(item.startDate).isoWeekYear();
       const key = `${weekYear} ${weekNumber}`;
@@ -72,7 +58,7 @@ const BodyMeasurements = () => {
     });
     return groupedData;
   };
-  const groupedWeekWeightData = groupedDataByWeek(weight);
+  const groupedWeekWeightData = groupedDataByWeek(stepCount);
   const weeks = Object.keys(groupedWeekWeightData);
   const weeklyData = Object.values(groupedWeekWeightData);
   const formattedWeeks = weeks.map((weekNumber) => {
@@ -113,8 +99,8 @@ const BodyMeasurements = () => {
   //monthly data grouping
   const groupedDataByMonth = (data) => {
     const groupedData = {};
-    //loop through data and sort data by month and year (key is month year and value is the weight)
-    weight.forEach((item) => {
+    //loop through data and sort data by month and year (key is month year and value is the stepCount)
+    stepCount.forEach((item) => {
       const monthLabels = [
         "Jan",
         "Feb",
@@ -139,7 +125,7 @@ const BodyMeasurements = () => {
     });
     return groupedData;
   };
-  const groupedMonthData = groupedDataByMonth(weight);
+  const groupedMonthData = groupedDataByMonth(stepCount);
   //get dates from monthly data
   const months = Object.keys(groupedMonthData);
   const monthlyData = Object.values(groupedMonthData);
@@ -157,7 +143,7 @@ const BodyMeasurements = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {weight.length > 0 && (
+      {stepCount.length > 0 && (
         <View style={styles.toggleContainer}>
           <ToggleButton
             title={"Day"}
@@ -177,21 +163,7 @@ const BodyMeasurements = () => {
         </View>
       )}
 
-      {dayView && (
-        <Graph
-          date={formattedDates}
-          dataSet={formattedWeights}
-          icon={"fa-weight-scale"}
-          goalName={"Weight"}
-          units={"lb"}
-          count={210}
-          percentage={(193 - 180) / (210 - 180)}
-          noData={"Weight"}
-          formattedTime={formattedDateTime}
-          target={210}
-          start={187}
-        />
-      )}
+      {dayView && <></>}
       {weekView && (
         <WeeklyGraph
           date={formattedWeeks.reverse()}
@@ -233,4 +205,4 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
 });
-export default BodyMeasurements;
+export default StepsPhysicalActivity;

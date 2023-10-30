@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
 
     gap: 40,
     flex: 1,
-    borderWidth: 1,
   },
   title: {
     textAlign: "center",

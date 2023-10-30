@@ -46,18 +46,19 @@ export const HealthProvider = ({ children }) => {
   function fetchStepCount() {
     try {
       const options = {
-        unit: "count",
+        startDate: new Date(2023, 0, 0).toISOString(),
       };
-      const stepCountData = AppleHealthKit.getStepCount(
+      const stepCountData = AppleHealthKit.getDailyStepCountSamples(
         options,
         (error, res) => {
           if (error) {
-            log(error);
+            console.log(error);
           } else {
             setStepCount(res);
           }
         }
       );
+
       setStepCount(stepCountData);
     } catch (error) {
       console.error("Error fetching step count:", error);

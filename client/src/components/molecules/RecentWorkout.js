@@ -31,21 +31,41 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
       </View>
       <View style={styles.lowerContainer}>
         <View style={styles.dataContainer}>
-          <FontAwesomeIcon style={styles.icon} icon={"fa-stopwatch"} />
-          <Text style={styles.data}>{duration} min</Text>
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <FontAwesomeIcon
+              style={styles.icon}
+              icon={"fa-stopwatch"}
+              size={14}
+            />
+            <Text style={styles.data}>{duration} min</Text>
+          </View>
+
+          <Text style={styles.label}>Duration</Text>
         </View>
         <View style={styles.dataContainer}>
-          <FontAwesomeIcon style={styles.icon} icon={"fa-gauge-simple"} />
-          <Text style={styles.data}>{intensity}</Text>
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <FontAwesomeIcon
+              style={styles.icon}
+              icon={"fa-gauge-simple"}
+              size={14}
+            />
+            <Text style={styles.data}>{intensity}</Text>
+          </View>
+
+          <Text style={styles.label}>Intensity</Text>
         </View>
         <View style={styles.dataContainer}>
-          <FontAwesomeIcon style={styles.icon} icon={icon} />
-          <Text style={styles.data}>{mood}</Text>
+          <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+            <FontAwesomeIcon style={styles.icon} icon={icon} size={14} />
+            <Text style={styles.data}>{mood}</Text>
+          </View>
+          <Text style={styles.label}>Mood</Text>
         </View>
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   RecentWorkout: {
     backgroundColor: "#fff",
@@ -53,6 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     gap: 10,
+    flexDirection: "row",
   },
   upperContainer: {
     flexDirection: "column",
@@ -63,6 +84,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+
+    flex: 1,
   },
   title: {
     fontWeight: "900",
@@ -81,8 +104,11 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 12,
   },
-  icon: {
+  label: {
+    color: "#aaa",
     fontSize: 10,
+  },
+  icon: {
     color: "#0077B6",
   },
 });

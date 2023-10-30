@@ -25,6 +25,7 @@ import {
 import { useContext } from "react";
 import WeightProgress from "./src/screens/WeightProgress";
 import BodyMeasurements from "./src/screens/BodyMeasurements";
+import StepsPhysicalActivity from "./src/screens/StepsPhysicalActivity";
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -100,6 +101,16 @@ export default function App() {
                                 ),
                                 headerRight: () => <OpenTimerButton />,
                               };
+                            }}
+                          />
+                          <Stack.Screen
+                            name="PhysicalActivity"
+                            component={StepsPhysicalActivity}
+                            options={{
+                              headerShown: true,
+                              title: "Body Measurements",
+
+                              headerShadowVisible: false,
                             }}
                           />
                         </Stack.Navigator>
