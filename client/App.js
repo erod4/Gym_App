@@ -108,7 +108,7 @@ export default function App() {
                             component={StepsPhysicalActivity}
                             options={{
                               headerShown: true,
-                              title: "Body Measurements",
+                              title: "Steps",
 
                               headerShadowVisible: false,
                             }}

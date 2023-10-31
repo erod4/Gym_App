@@ -39,7 +39,10 @@ const BodyMeasurements = () => {
     }
   });
   const weights = Object.values(uniqueDates);
-  const formattedWeights = weights.reverse();
+  const formattedWeights = weights.reverse().map((weight) => {
+    return weight.toFixed(1);
+  });
+
   const dates = Object.keys(uniqueDates);
   //formatting date with time
   const formattedDateTime = dateTime.reverse().map((dateString) => {

@@ -9,7 +9,7 @@ import WeeklyGraph from "../containers/WeeklyGraph";
 import MonthlyGraph from "../containers/MonthlyGraph";
 const StepsPhysicalActivity = () => {
   const { weight, stepCount } = useHealth();
-  console.log(stepCount[1]);
+
   const [dayView, setDayView] = useState(true);
   const [weekView, setWeekView] = useState(false);
   const [monthView, setMonthView] = useState(false);
@@ -43,7 +43,19 @@ const StepsPhysicalActivity = () => {
     // Add the steps for the current entry to the existing total steps for the day
     combinedSteps[date] += step.value;
   });
-  console.log(combinedSteps);
+  const dates = Object.keys(combinedSteps).reverse();
+  const data = Object.values(combinedSteps).reverse();
+
+  const formattedDates = dates.map((date) => {
+    const month = date.split("-")[1];
+    const day = date.split("-")[2];
+
+    return `${month}/${day}`;
+  });
+  const formattedData = data.map((data) => {
+    return Math.floor(data);
+  });
+
   //weekly data grouping
   const groupedDataByWeek = (data) => {
     const groupedData = {};
@@ -163,7 +175,17 @@ const StepsPhysicalActivity = () => {
         </View>
       )}
 
-      {dayView && <></>}
+      {dayView && (
+        <>
+          <Graph
+            date={formattedDates}
+            dataSet={formattedData}
+            units={"steps"}
+            icon={"fa-shoe-prints"}
+            noData={"Steps"}
+          />
+        </>
+      )}
       {weekView && (
         <WeeklyGraph
           date={formattedWeeks.reverse()}

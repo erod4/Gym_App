@@ -39,9 +39,11 @@ const Barbell = ({ plateWeights, includeBarbell }) => {
         justifyContent: "center",
         flexDirection: "row",
         width: width,
+
         flex: 1,
         flexDirection: "row",
         backgroundColor: "#fff",
+        paddingHorizontal: 20,
       }}
     >
       <View style={styles.bbLeft}>
@@ -86,7 +88,7 @@ const Barbell = ({ plateWeights, includeBarbell }) => {
 
 const styles = StyleSheet.create({
   barbell: {
-    width: 180,
+    flex: 1,
     height: 10,
     backgroundColor: "grey",
   },

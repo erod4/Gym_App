@@ -26,8 +26,7 @@ const GoalIncrease = ({
             style={styles.changeIcon}
           />
           <Text style={styles.change}>
-            {change}
-            {units}
+            {change} {units}
           </Text>
         </View>
         <View style={styles.timeContainer}>
@@ -59,7 +58,9 @@ const styles = StyleSheet.create({
   },
   changeContainer: {
     flexDirection: "row",
-    gap: 10,
+
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   change: {
     fontWeight: "700",
@@ -69,12 +70,12 @@ const styles = StyleSheet.create({
   changeIcon: {
     justifyContent: "center",
     alignItems: "flex-start",
+    paddingRight: 10,
   },
   timeContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
-    gap: 10,
   },
   date: {
     fontWeight: "700",

@@ -32,23 +32,25 @@ const Graph = ({
   const [chartWidth, setChartWidth] = useState(0);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
   const [currentWeightChange, setCurrentWeightChange] = useState(() => {
-    if (dataSet?.length > 1) {
+    if (dataSet.length > 1) {
       return (
-        Number(dataSet[dataSet?.length - 1]) -
-        Number(dataSet[dataSet?.length - 2])
-      ).toFixed(1);
+        Number(dataSet[dataSet.length - 1]) -
+        Number(dataSet[dataSet.length - 2])
+      );
     } else {
       return 0;
     }
   });
   const [currentDate, setCurrentDate] = useState(() => {
-    if (date?.length > 0) {
-      return formattedTime[formattedTime?.length - 1];
+    if (date.length > 0) {
+      return formattedTime
+        ? formattedTime[formattedTime.length - 1]
+        : date[date.length - 1];
     }
   });
   const [currentWeight, setCurrentWeight] = useState(() => {
-    if (dataSet?.length > 0) {
-      return dataSet[dataSet?.length - 1].toFixed(1);
+    if (dataSet.length > 0) {
+      return dataSet[dataSet.length - 1];
     }
   });
   const scrollViewRef = useRef(null);
@@ -96,10 +98,8 @@ const Graph = ({
               height: "100%",
             }}
           >
-            <Text style={{ color: "rgba(0, 0, 0,1)" }}>
-              {dataSet[index].toFixed(1)}
-            </Text>
-            <Text style={{ color: "rgba(0, 0, 0,1)" }}>lb</Text>
+            <Text style={{ color: "rgba(0, 0, 0,1)" }}>{dataSet[index]}</Text>
+            <Text style={{ color: "rgba(0, 0, 0,1)" }}>{units}</Text>
           </View>
         </View>
       );
@@ -110,15 +110,15 @@ const Graph = ({
   const handleDotPress = (data) => {
     setSelectedDotIndex(data.index);
 
-    if (data?.index > 0) {
+    if (data.index > 0) {
       setCurrentWeightChange(
-        (Number(dataSet[data.index]) - Number(dataSet[data.index - 1])).toFixed(
-          1
-        )
+        Number(dataSet[data.index]) - Number(dataSet[data.index - 1])
       );
-      setCurrentDate(formattedTime[data.index]);
+      setCurrentDate(
+        formattedTime ? formattedTime[data.index] : date[data.index]
+      );
 
-      setCurrentWeight(data.value.toFixed(1));
+      setCurrentWeight(data.value);
     } else {
       // Handle the case when the first dot is pressed (opformattedTime[data.indexonal)
       setCurrentWeightChange(0);
@@ -134,7 +134,7 @@ const Graph = ({
       },
     ],
   };
-  if (date?.length === 0 || dataSet?.length === 0) {
+  if (date.length === 0 || dataSet.length === 0) {
     return (
       <>
         <NoAppleHealthData onPress={handleTryAgain} data={noData} />
@@ -221,7 +221,7 @@ const Graph = ({
           icon={"fa-clock"}
           change={currentWeightChange}
           count={currentWeight}
-          units={"lb"}
+          units={units}
         />
         <View
           style={{
@@ -237,7 +237,7 @@ const Graph = ({
             start={start}
             units={units}
             icon={icon}
-            currData={dataSet ? dataSet[dataSet?.length - 1].toFixed(1) : 10}
+            currData={dataSet[dataSet.length - 1]}
           />
           <AverageData data={dataSet} dataFor={goalName} units={units} />
         </View>
