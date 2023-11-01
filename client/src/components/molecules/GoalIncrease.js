@@ -26,7 +26,7 @@ const GoalIncrease = ({
             style={styles.changeIcon}
           />
           <Text style={styles.change}>
-            {change} {units}
+            {units == "steps" ? change : change.toFixed(1)} {units}
           </Text>
         </View>
         <View style={styles.timeContainer}>

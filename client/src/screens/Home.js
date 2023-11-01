@@ -29,6 +29,7 @@ import {
   faWeightScale,
   faArrowUp,
   faArrowDown,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -84,7 +85,9 @@ const Home = () => {
     faCheck,
     faWeightScale,
     faArrowUp,
-    faArrowDown
+    faArrowDown,
+    faCheck,
+    faChevronDown
   );
   return (
     <View style={styles.container}>

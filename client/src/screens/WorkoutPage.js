@@ -44,9 +44,6 @@ const WorkoutPage = ({ route }) => {
         ) : (
           <Excercise id={"123"} excerciseName={"Incline Bench Press"} />
         )}
-        {isAddExcercise && (
-          <NewExcercise onDone={handleCloseAddExcercisePress} />
-        )}
       </ScrollView>
 
       {saveActive && <EndWorkout />}
@@ -55,6 +52,7 @@ const WorkoutPage = ({ route }) => {
       <OptionsSlider activeId={excerciseId} />
       <TimerSlider />
       <StartButton text={"Add Excercise"} press={handleAddExcercisePress} />
+      {isAddExcercise && <NewExcercise onDone={handleCloseAddExcercisePress} />}
     </View>
   );
 };

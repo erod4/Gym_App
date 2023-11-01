@@ -1,48 +1,173 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
-import GenButton from "../components/atoms/GenButton";
+import SelectDropdown from "react-native-select-dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 const NewExcercise = ({ onDone }) => {
+  const [excerciseName, setExcerciseName] = useState("");
+
+  const target = [
+    "Arms",
+    "Back",
+    "Chest",
+    "Core",
+    "Legs",
+    "Shoulders",
+    "Other",
+  ];
+  const category = [
+    "Barbell",
+    "Dumbell",
+    "Machine/Other",
+    "Weighted BodyWeight",
+    "Assisted Bodyweight",
+  ];
+  const dropDownButtonBodyPart = (selectedItem, index) => {
+    return (
+      <View style={styles.customDropDown}>
+        <Text style={styles.dropDownTitle}>Body Part</Text>
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={styles.dropDownSelectionText}>{selectedItem}</Text>
+          <FontAwesomeIcon icon={"fa-chevron-down"} color="#999" />
+        </View>
+      </View>
+    );
+  };
+  const dropDownButtonCategory = (selectedItem, index) => {
+    return (
+      <View style={styles.customDropDown}>
+        <Text style={styles.dropDownTitle}>Category</Text>
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={styles.dropDownSelectionText}>{selectedItem}</Text>
+          <FontAwesomeIcon icon={"fa-chevron-down"} color="#999" />
+        </View>
+      </View>
+    );
+  };
   return (
     <View style={styles.excercise}>
-      <View style={styles.excerciseNameContainer}>
-        <TextInput style={styles.excerciseName} placeholder="Excercise Name" />
-      </View>
-      <View style={styles.buttonContainer}>
-        <GenButton name={"Add"} color={"#0077B6"} onPress={onDone} />
-        <GenButton name={"Cancel"} color={"#ddd"} onPress={onDone} />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.exit} onPress={onDone}>
+            <FontAwesomeIcon icon={"fa-xmark"} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Add New Excercise</Text>
+          <TouchableOpacity
+            onPress={onDone}
+            style={styles.saveButtonContainer}
+            disabled={excerciseName.length > 0 ? false : true}
+          >
+            <Text
+              style={[
+                styles.saveButton,
+                { color: excerciseName.length > 0 ? "#0077b6" : "#999" },
+              ]}
+            >
+              Save
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Add Name"
+          onChangeText={(newText) => setExcerciseName(newText)}
+        />
+
+        <SelectDropdown
+          buttonStyle={styles.dropDown}
+          data={target}
+          showsVerticalScrollIndicator={false}
+          renderCustomizedButtonChild={dropDownButtonBodyPart}
+          defaultValueByIndex={0}
+          dropdownStyle={styles.dropDownOptionsContainer}
+          drop
+        />
+        <SelectDropdown
+          buttonStyle={styles.dropDown}
+          data={category}
+          showsVerticalScrollIndicator={false}
+          renderCustomizedButtonChild={dropDownButtonCategory}
+          defaultValueByIndex={0}
+          dropdownStyle={styles.dropDownOptionsContainer}
+          drop
+        />
       </View>
     </View>
   );
 };
+
+//         <GenButton name={"Add"} color={"#0077B6"} onPress={onDone} />
+// <GenButton name={"Cancel"} color={"#ddd"} onPress={onDone} />
 const styles = StyleSheet.create({
   excercise: {
-    width: "100%",
-    borderRadius: 10,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    flex: 1,
+    position: "relative",
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 10,
+    flexDirection: "column",
+  },
+  container: {
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    width: "80%",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    justifyContent: "space-between",
     paddingBottom: 10,
   },
-  excerciseNameContainer: {
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    flexDirection: "row",
+  saveButton: {
+    fontWeight: "700",
+    color: "#0077b6",
   },
-  excerciseName: {
-    fontWeight: "900",
-    fontSize: 20,
+  exit: {
+    padding: 10,
+  },
+  title: {
+    fontWeight: "700",
+    fontSize: 15,
+  },
+  input: {
+    width: "100%",
+    height: 25,
+
+    paddingHorizontal: 10,
     backgroundColor: "#ddd",
-    borderRadius: 10,
-    flex: 1,
-    textAlign: "center",
+    borderRadius: 5,
   },
-  buttonContainer: {
+  dropDown: {
     flexDirection: "row",
-    gap: 10,
+    width: "100%",
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+
+    alignItems: "center",
+  },
+  customDropDown: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  dropDownOptionsContainer: {
+    height: 250,
+    position: "absolute",
+    top: "100%", // Position the dropdown below the dropdown button
+    transform: [{ translateY: 0 }],
+    borderRadius: 10,
+  },
+
+  dropDownTitle: {
+    fontWeight: "700",
+  },
+  dropDownSelectionText: {
+    color: "#999",
   },
 });
 export default NewExcercise;

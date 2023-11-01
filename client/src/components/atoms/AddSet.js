@@ -6,7 +6,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import GenButton from "./GenButton";
+
+import AddSetButton from "./AddSetButton";
+import { Swipeable } from "react-native-gesture-handler";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import SaveSet from "./SaveSet";
 const AddSet = ({ setName, closeNewSet }) => {
   const handleSavePress = () => {
     closeNewSet();
@@ -15,8 +19,25 @@ const AddSet = ({ setName, closeNewSet }) => {
   const handleCancelPress = () => {
     closeNewSet();
   };
+
+  const renderRightActions = () => (
+    <View style={styles.optionsContainer}>
+      <TouchableOpacity style={styles.leftAction} onPress={handleCancelPress}>
+        <FontAwesomeIcon style={styles.actionText} icon={"fa-trash-can"} />
+      </TouchableOpacity>
+    </View>
+  );
   return (
-    <View>
+    <Swipeable
+      overshootRight={false}
+      overshootLeft={false}
+      renderRightActions={renderRightActions}
+      childrenContainerStyle={{
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <View style={styles.set}>
         <Text style={styles.setName}>{setName}</Text>
         <View style={styles.reps}>
@@ -32,11 +53,9 @@ const AddSet = ({ setName, closeNewSet }) => {
           <Text style={styles.notation}>min</Text>
         </View>
       </View>
-      <View style={styles.buttons}>
-        <GenButton onPress={handleSavePress} name={"Add"} color={"#0077B6"} />
-        <GenButton onPress={handleCancelPress} name={"Cancel"} color={"#ddd"} />
-      </View>
-    </View>
+
+      <SaveSet onPress={handleSavePress} />
+    </Swipeable>
   );
 };
 const styles = StyleSheet.create({
@@ -51,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     alignItems: "center",
     backgroundColor: "#fff",
-    gap: 30,
+    gap: 37,
   },
   reps: {
     flexDirection: "column",
@@ -75,7 +94,11 @@ const styles = StyleSheet.create({
     color: "#1c1c1c",
     fontWeight: "500",
   },
-
+  optionsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   leftAction: {
     backgroundColor: "red",
     padding: 10,
@@ -84,11 +107,6 @@ const styles = StyleSheet.create({
   actionText: {
     fontWeight: "500",
     color: "#fff",
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 10,
   },
 });
 export default AddSet;

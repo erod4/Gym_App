@@ -7,10 +7,14 @@ import { useNavigation } from "@react-navigation/native";
 const AverageData = ({ data, dataFor, units }) => {
   let total = 0;
   data.forEach((item) => {
-    total += item;
+    total += Number(item);
   });
 
-  const avg = (total / data.length).toFixed(1);
+  const avg =
+    dataFor == "Weight"
+      ? (total / data.length).toFixed(1)
+      : Math.floor(total / data.length);
+
   return (
     <View style={styles.goalContainer}>
       <View style={styles.lowerContainer}>
