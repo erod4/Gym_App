@@ -30,6 +30,7 @@ import {
   faArrowUp,
   faArrowDown,
   faChevronDown,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -48,8 +49,6 @@ import RatingSlider from "../containers/RatingSlider";
 import WaterSlider from "../containers/WaterSlider";
 
 const Home = () => {
-  const { stepCount } = useHealth();
-
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate("StartWorkout");
@@ -87,7 +86,8 @@ const Home = () => {
     faArrowUp,
     faArrowDown,
     faCheck,
-    faChevronDown
+    faChevronDown,
+    faChevronRight
   );
   return (
     <View style={styles.container}>

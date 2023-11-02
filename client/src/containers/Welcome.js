@@ -20,7 +20,13 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 25,
     height: "15%",
     backgroundColor: "#fff",
-
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: -2, // This creates the shadow at the top
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3.0,
     padding: 20,
   },
   title: {

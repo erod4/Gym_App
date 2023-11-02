@@ -11,8 +11,8 @@ const Statistics = () => {
         style={styles.container}
       >
         <Statistic name={"Weightlifting Progress"} linkTo={"WeightProgress"} />
-        <Statistic name={"Body Measurements"} linkTo={"BodyMeasur"} />
         <Statistic name={"Caloric Intake"} />
+        <Statistic name={"Body Measurements"} linkTo={"BodyMeasur"} />
         <Statistic
           name={"Steps & Physical Activity"}
           linkTo={"PhysicalActivity"}

@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-native": "^0.72.5",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-collapsible": "^1.6.1",
     "react-native-gesture-handler": "^2.13.2",
     "react-native-google-fit": "^0.19.1",
     "react-native-health": "^1.18.0",

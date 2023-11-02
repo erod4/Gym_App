@@ -21,15 +21,19 @@ const EndWorkout = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <Text style={styles.text}>Do you wish to end your workout?</Text>
+        <Text style={styles.text}>End Workout?</Text>
         <View style={styles.buttonContainer}>
-          <GenButton name={"Pause"} color={"#0077B6"} onPress={stopSaving} />
+          <GenButton name={"Resume"} color={"#0077B6"} onPress={stopSaving} />
           <GenButton
-            name={"End"}
+            name={"End Workout"}
             color={"#0077B6"}
             onPress={handleEndWorkout}
           />
-          <GenButton name={"Cancel"} color={"#ddd"} onPress={stopSaving} />
+          <GenButton
+            name={"Cancel Workout"}
+            color={"#ddd"}
+            onPress={stopSaving}
+          />
         </View>
       </View>
     </View>
@@ -47,20 +51,26 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: "#fff",
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+
+    padding: 20,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
   },
   text: {
-    fontSize: 17,
-    fontWeight: "500",
+    fontSize: 15,
+    fontWeight: "700",
   },
   buttonContainer: {
     flexDirection: "row",
     gap: 5,
+  },
+  buttonContainer: {
+    flexDirection: "column",
+    width: "100%",
+
+    gap: 10,
   },
 });
 export default EndWorkout;

@@ -10,7 +10,7 @@ const Profile = () => {
         contentContainerStyle={styles.scroll}
         style={styles.container}
       >
-        <Setting name={"Account"} />
+        <Setting name={"Account"} linkTo={"Account"} />
         <Setting name={"Link Accounts"} />
         <Setting name={"Weight Units"} />
         <Setting name={"Goals"} />

@@ -12,6 +12,7 @@ export const useHealth = () => {
 
 export const HealthProvider = ({ children }) => {
   const [stepCount, setStepCount] = useState(0);
+  const [dailyStepCount, setDailyStepCount] = useState(0);
   const [weight, setWeight] = useState(0);
   const [isPermissionGranted, setIsPermissionGranted] = useState(false);
 
@@ -33,6 +34,7 @@ export const HealthProvider = ({ children }) => {
           console.log("HealthKit authorization granted!");
           fetchStepCount();
           fetchWeight();
+          fetchDailyStepCount();
           setIsPermissionGranted(true);
         }
       });
@@ -64,6 +66,26 @@ export const HealthProvider = ({ children }) => {
       console.error("Error fetching step count:", error);
     }
   }
+  const fetchDailyStepCount = () => {
+    try {
+      const options = {
+        date: new Date().toISOString(),
+      };
+      const dailyStepCount = AppleHealthKit.getStepCount(
+        options,
+        (err, results) => {
+          if (err) {
+            console.log(error);
+          } else {
+            setDailyStepCount(results);
+          }
+        }
+      );
+      setDailyStepCount(dailyStepCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   function fetchWeight() {
     try {
       const options = {
@@ -88,6 +110,7 @@ export const HealthProvider = ({ children }) => {
   const value = {
     stepCount,
     weight,
+    dailyStepCount,
     // Add more health data properties and functions as needed
   };
 

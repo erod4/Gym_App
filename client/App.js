@@ -26,6 +26,7 @@ import { useContext } from "react";
 import WeightProgress from "./src/screens/WeightProgress";
 import BodyMeasurements from "./src/screens/BodyMeasurements";
 import StepsPhysicalActivity from "./src/screens/StepsPhysicalActivity";
+import Account from "./src/screens/Account";
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,14 @@ export default function App() {
                             options={{
                               headerShown: true,
                               title: "Lifting Progression",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="Account"
+                            component={Account}
+                            options={{
+                              headerShown: true,
+                              title: "Account",
                             }}
                           />
                           <Stack.Screen

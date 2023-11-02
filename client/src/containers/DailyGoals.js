@@ -7,7 +7,7 @@ import Goal from "../components/molecules/Goal";
 import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
 
 const DailyGoals = () => {
-  const { stepCount } = useHealth();
+  const { dailyStepCount } = useHealth();
   const { openWaterSlider } = useContext(RatingSliderContext);
   return (
     <View style={styles.container}>
@@ -48,8 +48,8 @@ const DailyGoals = () => {
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
-            count={stepCount?.value}
-            percentage={stepCount?.value / 8000}
+            count={dailyStepCount?.value}
+            percentage={dailyStepCount?.value / 8000}
           />
         </View>
       </Swiper>

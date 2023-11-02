@@ -8,10 +8,9 @@ const GenButton = ({ name, onPress, color }) => {
         style={{
           backgroundColor: color,
           borderRadius: 10,
-          padding: 10,
-          paddingTop: 15,
-          paddingBottom: 15,
-          width: 100,
+          paddingHorizontal: 100,
+          paddingVertical: 10,
+
           justifyContent: "center",
           alignItems: "center",
         }}
