@@ -1,19 +1,25 @@
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-import React, { useContext } from "react";
-import { useHealth } from "../store/actions/clientActions/AppleHealth";
+import React, { useContext, useEffect } from "react";
+
 import Swiper from "react-native-swiper";
 import Goal from "../components/molecules/Goal";
 import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
+import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
 
 const DailyGoals = () => {
-  const { dailyStepCount } = useHealth();
+  const { todaysSteps, getTodaysStep } = useContext(AppleHealthContext);
+
+  useEffect(() => {
+    getTodaysStep();
+  }, []);
+
   const { openWaterSlider } = useContext(RatingSliderContext);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Todays Goals</Text>
       <Swiper
-        style={styles.swiper}
+        style={{}}
         paginationStyle={styles.paginationContainer}
         showsButtons={false}
         loop={true}
@@ -26,6 +32,7 @@ const DailyGoals = () => {
             count={10}
             percentage={10}
             open={openWaterSlider}
+            color={"#52A8E7"}
           />
           <Goal
             icon={"fa-fire-flame-curved"}
@@ -33,23 +40,25 @@ const DailyGoals = () => {
             units={"KCal"}
             count={2000}
             percentage={1}
+            color={"#EE6026"}
           />
         </View>
 
         <View style={styles.goals}>
           <Goal
-            icon={"fa-bed"}
+            icon={"fa-moon"}
             name={"Sleep"}
             units={"Hr"}
             count={8}
             percentage={1}
+            color={"#F6F1D5"}
           />
           <Goal
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
-            count={dailyStepCount?.value}
-            percentage={dailyStepCount?.value / 8000}
+            count={todaysSteps?.value}
+            percentage={todaysSteps?.value / 8000}
           />
         </View>
       </Swiper>
@@ -76,12 +85,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
     textAlign: "left",
-    padding: 10,
+    paddingTop: 10,
     fontSize: 20,
     fontWeight: "900",
   },
   goals: {
     flexDirection: "row",
+    marginBottom: 5,
     padding: 10,
     gap: 10,
     alignItems: "center",

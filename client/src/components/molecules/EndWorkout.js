@@ -23,16 +23,16 @@ const EndWorkout = () => {
       <View style={styles.container}>
         <Text style={styles.text}>End Workout?</Text>
         <View style={styles.buttonContainer}>
-          <GenButton name={"Resume"} color={"#0077B6"} onPress={stopSaving} />
+          <GenButton name={"Resume"} color={"#0077b6"} onPress={stopSaving} />
           <GenButton
-            name={"End Workout"}
-            color={"#0077B6"}
-            onPress={handleEndWorkout}
+            name={"Pause Workout"}
+            color={"#999"}
+            onPress={stopSaving}
           />
           <GenButton
-            name={"Cancel Workout"}
-            color={"#ddd"}
-            onPress={stopSaving}
+            name={"End Workout"}
+            color={"red"}
+            onPress={handleEndWorkout}
           />
         </View>
       </View>

@@ -10,7 +10,7 @@ const IntensityContainer = () => {
         style={{ width: 200, height: 40 }}
         minimumValue={1}
         maximumValue={10}
-        minimumTrackTintColor="#0077ff"
+        minimumTrackTintColor="orange"
         maximumTrackTintColor="#ddd"
         value={sliderVal}
         step={1}

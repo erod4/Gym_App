@@ -36,6 +36,7 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
               style={styles.icon}
               icon={"fa-stopwatch"}
               size={14}
+              color="#111"
             />
             <Text style={styles.data}>{duration} min</Text>
           </View>
@@ -48,6 +49,7 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
               style={styles.icon}
               icon={"fa-gauge-simple"}
               size={14}
+              color="#111"
             />
             <Text style={styles.data}>{intensity}</Text>
           </View>
@@ -56,7 +58,12 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
         </View>
         <View style={styles.dataContainer}>
           <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-            <FontAwesomeIcon style={styles.icon} icon={icon} size={14} />
+            <FontAwesomeIcon
+              style={styles.icon}
+              icon={icon}
+              size={14}
+              color="#111"
+            />
             <Text style={styles.data}>{mood}</Text>
           </View>
           <Text style={styles.label}>Mood</Text>
@@ -74,6 +81,15 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 10,
     flexDirection: "row",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2, // This creates the shadow at the bottom
+    },
+    shadowOpacity: 0.3, // You can adjust the opacity of the shadow if needed
+    shadowRadius: 1,
+
+    marginBottom: 3, // Add some margin at the bottom to separate it from other elements
   },
   upperContainer: {
     flexDirection: "column",

@@ -36,7 +36,15 @@ const WaterBottle = () => {
           />
         </View>
       </View>
-      <View style={{ flexDirection: "row", gap: 10, padding: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 10,
+          paddingVertical: 20,
+          width: "80%",
+          justifyContent: "center",
+        }}
+      >
         <GenButton
           name={"-8 Fl Oz"}
           color={"#0077bf"}

@@ -10,10 +10,10 @@ const Profile = () => {
         contentContainerStyle={styles.scroll}
         style={styles.container}
       >
-        <Setting name={"Account"} linkTo={"Account"} />
-        <Setting name={"Link Accounts"} />
-        <Setting name={"Weight Units"} />
-        <Setting name={"Goals"} />
+        <Setting name={"Account"} linkTo={"Account"} icon={"fa-user"} />
+
+        <Setting name={"Weight Units"} icon={"fa-ruler"} linkTo={"Units"} />
+        <Setting name={"Goals"} icon={"fa-chart-line"} linkTo={"Goals"} />
       </ScrollView>
     </View>
   );

@@ -9,7 +9,6 @@ import StartWorkout from "./src/screens/StartWorkout";
 import WorkoutPage from "./src/screens/WorkoutPage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { HealthProvider } from "./src/store/actions/clientActions/AppleHealth";
 import { EditContextProvider } from "./src/store/actions/clientActions/EditWorkout";
 import { WeightSliderProvider } from "./src/store/actions/clientActions/WeightSlider";
 import { SettingsSliderContextProvider } from "./src/store/actions/clientActions/SettingsSlider";
@@ -27,12 +26,17 @@ import WeightProgress from "./src/screens/WeightProgress";
 import BodyMeasurements from "./src/screens/BodyMeasurements";
 import StepsPhysicalActivity from "./src/screens/StepsPhysicalActivity";
 import Account from "./src/screens/Account";
+
+import Units from "./src/screens/Units";
+import Goals from "./src/screens/Goals";
+import { AppleHealthContextProvider } from "./src/store/actions/clientActions/PhysicalActivity";
+import CustomHeaderTitle from "./src/components/atoms/CustomHeaderTitle";
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <HealthProvider>
+      <AppleHealthContextProvider>
         <EditContextProvider>
           <WeightSliderProvider>
             <SettingsSliderContextProvider>
@@ -82,13 +86,26 @@ export default function App() {
                             }}
                           />
                           <Stack.Screen
+                            name="Units"
+                            component={Units}
+                            options={{
+                              headerShown: true,
+                              title: "Units Settings",
+                            }}
+                          />
+                          <Stack.Screen
+                            name="Goals"
+                            component={Goals}
+                            options={{
+                              headerShown: true,
+                              title: "Fitness Goals",
+                            }}
+                          />
+                          <Stack.Screen
                             name="BodyMeasur"
                             component={BodyMeasurements}
                             options={{
-                              headerShown: true,
-                              title: "Body Measurements",
-
-                              headerShadowVisible: false,
+                              headerTitle: CustomHeaderTitle,
                             }}
                           />
                           <Stack.Screen
@@ -131,7 +148,7 @@ export default function App() {
             </SettingsSliderContextProvider>
           </WeightSliderProvider>
         </EditContextProvider>
-      </HealthProvider>
+      </AppleHealthContextProvider>
     </GestureHandlerRootView>
   );
 }

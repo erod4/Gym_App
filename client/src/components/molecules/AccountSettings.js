@@ -182,7 +182,7 @@ const AccountSettings = () => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-
+    backgroundColor: "#fff",
     paddingHorizontal: 20,
   },
   sectionContainer: {
@@ -196,6 +196,16 @@ const styles = StyleSheet.create({
   },
   editProfileContainer: {
     flexDirection: "column",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: -1, // This creates the shadow at the bottom
+    },
+    shadowOpacity: 0.3, // You can adjust the opacity of the shadow if needed
+    shadowRadius: 3,
+
+    marginVertical: 1, // Add some margin at the bottom to separate it from other elements
   },
   editProfileHeader: {
     width: "100%",
@@ -205,12 +215,14 @@ const styles = StyleSheet.create({
   },
   editProfileHeaderTitle: {
     fontWeight: "700",
+    fontSize: 15,
   },
   editProfileHeaderEditButtonText: {
     color: "#0077b6",
     fontWeight: "700",
+    fontSize: 15,
   },
-  dataFieldsContainer: {},
+
   dataFieldContainer: {
     flexDirection: "column",
     paddingVertical: 10,
@@ -219,20 +231,25 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#777",
     paddingBottom: 5,
+    fontSize: 18,
   },
   dataFieldInput: {
     textAlign: "left",
     width: "100%",
     fontWeight: "700",
-    backgroundColor: "#eee",
-    borderRadius: 5,
+    backgroundColor: "#fff",
+
     height: 25,
     paddingHorizontal: 5,
+    fontSize: 15,
+    borderBottomWidth: 0.5,
+    borderColor: "#999",
   },
   dataFieldText: {
     textAlign: "left",
     width: "100%",
     fontWeight: "700",
+    fontSize: 15,
   },
   buttonContainer: {
     flexDirection: "row",

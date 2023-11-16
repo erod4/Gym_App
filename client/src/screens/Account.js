@@ -15,7 +15,16 @@ const Account = () => {
   const toggleDarkModeSwitch = () => setIsDarkModeEnabled(!isDarkModeEnabled);
   return (
     <ScrollView style={styles.page}>
-      <Text style={styles.sectionTitle}>Account Settings</Text>
+      <View
+        style={{
+          width: "90%",
+          borderBottomWidth: 2,
+          borderColor: "#999",
+          marginHorizontal: 20,
+        }}
+      >
+        <Text style={styles.sectionTitle}>Account Settings</Text>
+      </View>
       <AccountSettings />
       <View style={styles.container}>
         <View style={styles.sectionContainer}>
@@ -39,7 +48,16 @@ const Account = () => {
           />
         </View>
       </View>
-      <Text style={styles.sectionTitle}>More</Text>
+      <View
+        style={{
+          width: "90%",
+          borderBottomWidth: 2,
+          borderColor: "#999",
+          marginHorizontal: 20,
+        }}
+      >
+        <Text style={styles.sectionTitle}>More</Text>
+      </View>
       <More />
     </ScrollView>
   );
@@ -50,8 +68,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sectionTitle: {
-    width: "100%",
-    paddingHorizontal: 20,
     paddingVertical: 10,
     fontWeight: "700",
     fontSize: 20,
@@ -60,8 +76,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderColor: "#eee",
   },
   sectionContainer: {
     flexDirection: "row",

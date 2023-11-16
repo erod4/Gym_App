@@ -19,7 +19,7 @@ const Mood = ({ icon, mood, setMood, isSelected }) => {
       <FontAwesomeIcon
         icon={icon}
         size={20}
-        color={isSelected ? "#0077ff" : "grey"}
+        color={isSelected ? "#ffd528" : "grey"}
       />
       <Text>{mood}</Text>
     </TouchableOpacity>

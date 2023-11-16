@@ -4,7 +4,7 @@ import Slider from "@react-native-community/slider";
 import Mood from "../atoms/Mood";
 const MoodContainer = () => {
   const moods = ["happy", "sad", "angry", "meh"];
-  const [mood, setMood] = useState(null);
+  const [mood, setMood] = useState("happy");
 
   const handlePress = (mood) => {
     setMood(mood);

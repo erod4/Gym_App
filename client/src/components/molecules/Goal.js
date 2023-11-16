@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import ProgressBar from "../atoms/ProgressBar";
 import { useNavigation } from "@react-navigation/native";
 
-const Goal = ({ icon, name, count, units, percentage, navTo, open }) => {
+const Goal = ({ icon, name, count, units, percentage, navTo, open, color }) => {
   const [pressable, setPressable] = useState(false);
   const navigation = useNavigation();
   useEffect(() => {
@@ -29,7 +29,7 @@ const Goal = ({ icon, name, count, units, percentage, navTo, open }) => {
           <View style={styles.upperContainer}>
             <View style={styles.iconLabelContainer}>
               <View style={styles.iconContainer}>
-                <FontAwesomeIcon style={{ color: "#0077B6" }} icon={icon} />
+                <FontAwesomeIcon style={{ color: color }} icon={icon} />
               </View>
               <Text style={styles.iconName}>{name}</Text>
             </View>
@@ -51,7 +51,7 @@ const Goal = ({ icon, name, count, units, percentage, navTo, open }) => {
           <View style={styles.upperContainer}>
             <View style={styles.iconLabelContainer}>
               <View style={styles.iconContainer}>
-                <FontAwesomeIcon style={{ color: "#0077B6" }} icon={icon} />
+                <FontAwesomeIcon style={{ color: color }} icon={icon} />
               </View>
               <Text style={styles.iconName}>{name}</Text>
             </View>
@@ -77,8 +77,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-    width: "50%",
+
     gap: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2, // This creates the shadow at the bottom
+    },
+    shadowOpacity: 0.5, // You can adjust the opacity of the shadow if needed
+    shadowRadius: 1,
+    marginBottom: 1, // Add some margin at the bottom to separate it from other elements
+    width: "50%",
   },
   upperContainer: {
     flexDirection: "row",

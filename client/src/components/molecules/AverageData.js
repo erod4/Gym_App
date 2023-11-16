@@ -1,69 +1,79 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import ProgressBar from "../atoms/ProgressBar";
-import { useNavigation } from "@react-navigation/native";
 
-const AverageData = ({ data, dataFor, units }) => {
-  let total = 0;
-  data.forEach((item) => {
-    total += Number(item);
-  });
-
-  const avg =
-    dataFor == "Weight"
-      ? (total / data.length).toFixed(1)
-      : Math.floor(total / data.length);
-
+const AverageData = ({ currData, change, date, time, icon }) => {
   return (
-    <View style={styles.goalContainer}>
-      <View style={styles.lowerContainer}>
-        <Text style={styles.dataFor}>Average {dataFor}</Text>
-      </View>
-      <View style={styles.upperContainer}>
-        <Text style={styles.avg}>
-          {avg} {units}
-        </Text>
-      </View>
-    </View>
+    <>
+      {currData ? (
+        <View style={styles.container}>
+          <View style={styles.containerLeft}>
+            <Text style={styles.containerLeftData}>{currData}</Text>
+            <Text style={styles.containerLeftUnits}>Lb</Text>
+          </View>
+          <View style={styles.containerRight}>
+            <View style={styles.containerRightUpper}>
+              <FontAwesomeIcon icon={"fa-arrow-up"} size={18} color="#0077b6" />
+              <Text style={styles.containerRightUpperChange}>
+                {change ? change.toFixed(1) : 0} lb
+              </Text>
+            </View>
+            <View style={styles.containerRightLower}>
+              <FontAwesomeIcon icon={"fa-clock"} size={15} color="#999" />
+              <Text style={styles.containerRightLowerValue}>{time}</Text>
+            </View>
+          </View>
+        </View>
+      ) : (
+        <>
+          <View style={[styles.container, { justifyContent: "center" }]}>
+            <Text>Select a Data Point To See Detailed Info</Text>
+          </View>
+        </>
+      )}
+    </>
   );
 };
 const styles = StyleSheet.create({
-  goalContainer: {
-    backgroundColor: "#eee",
-    borderRadius: 10,
-    padding: 20,
-    width: "50%",
-
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  upperContainer: {
+  container: {
     flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flex: 1,
+    justifyContent: "space-between",
+    padding: 10,
+    borderBottomWidth: 2,
+    borderTopWidth: 2,
     width: "100%",
   },
+  containerLeft: {
+    flexDirection: "row",
+    alignItems: "flex-end",
 
-  avg: {
-    fontSize: 20,
+    gap: 5,
+  },
+  containerLeftData: {
+    fontSize: 25,
     fontWeight: "700",
   },
-
-  lowerContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 5,
-    width: "100%",
+  containerLeftUnits: {
+    color: "#0077b6",
+    fontWeight: "700",
+    paddingBottom: 2,
   },
-  dataFor: {
-    textAlign: "left",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 15,
-    fontWeight: "900",
-    width: "100%",
+  containerRight: { flexDirection: "column", gap: 5 },
+  containerRightUpper: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  containerRightUpperChange: {
+    fontWeight: "700",
+  },
+  containerRightLowerValue: { fontWeight: "500", color: "#999" },
+  containerRightLower: {
+    flexDirection: "row",
+    gap: 5,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
 });
 export default AverageData;

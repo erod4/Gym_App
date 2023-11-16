@@ -36,7 +36,7 @@ const WeeklyGraph = ({
       return (
         Number(dataSet[dataSet.length - 1]) -
         Number(dataSet[dataSet.length - 2])
-      ).toFixed(1);
+      );
     } else {
       return 0;
     }
@@ -110,9 +110,7 @@ const WeeklyGraph = ({
 
     if (data.index > 0) {
       setCurrentWeightChange(
-        (Number(dataSet[data.index]) - Number(dataSet[data.index - 1])).toFixed(
-          1
-        )
+        Number(dataSet[data.index]) - Number(dataSet[data.index - 1])
       );
       setCurrentDate(date[data.index]);
 

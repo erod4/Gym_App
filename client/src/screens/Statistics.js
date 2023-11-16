@@ -10,12 +10,22 @@ const Statistics = () => {
         contentContainerStyle={styles.scroll}
         style={styles.container}
       >
-        <Statistic name={"Weightlifting Progress"} linkTo={"WeightProgress"} />
-        <Statistic name={"Caloric Intake"} />
-        <Statistic name={"Body Measurements"} linkTo={"BodyMeasur"} />
+        <Statistic
+          name={"Weightlifting Progress"}
+          linkTo={"WeightProgress"}
+          icon={"weight-pound"}
+        />
+        <Statistic name={"Caloric Intake"} icon={"food-apple"} />
+        <Statistic
+          name={"Body Measurements"}
+          linkTo={"BodyMeasur"}
+          icon={"human-male-height"}
+        />
         <Statistic
           name={"Steps & Physical Activity"}
           linkTo={"PhysicalActivity"}
+          icon={"fitness"}
+          ionic={true}
         />
       </ScrollView>
     </View>

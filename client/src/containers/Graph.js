@@ -1,62 +1,28 @@
 import { View, Text, Dimensions } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from "react-native-chart-kit";
+import { LineChart } from "react-native-chart-kit";
 import { ScrollView } from "react-native-gesture-handler";
-import NoAppleHealthData from "../components/molecules/NoAppleHealthData";
-import Goal from "../components/molecules/Goal";
-import GoalIncrease from "../components/molecules/GoalIncrease";
-import StatisticsGoal from "../components/molecules/StatisticsGoal";
-import AverageData from "../components/molecules/AverageData";
+
 const Graph = ({
   dataSet,
   date,
-  icon,
-  goalName,
-
+  setTime,
   units,
-  percentage,
-  start,
-  noData,
+  setCurrWeight,
+  setChange,
   formattedTime,
-  target,
 }) => {
-  const [refreshCount, setRefreshCount] = useState(0);
   const [chartWidth, setChartWidth] = useState(0);
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
-  const [currentWeightChange, setCurrentWeightChange] = useState(() => {
-    if (dataSet.length > 1) {
-      return (
-        Number(dataSet[dataSet.length - 1]) -
-        Number(dataSet[dataSet.length - 2])
-      );
-    } else {
-      return 0;
-    }
-  });
-  const [currentDate, setCurrentDate] = useState(() => {
-    if (date.length > 0) {
-      return formattedTime
-        ? formattedTime[formattedTime.length - 1]
-        : date[date.length - 1];
-    }
-  });
+
   const [currentWeight, setCurrentWeight] = useState(() => {
     if (dataSet.length > 0) {
       return dataSet[dataSet.length - 1];
     }
   });
   const scrollViewRef = useRef(null);
-  const handleTryAgain = () => {
-    setRefreshCount(refreshCount + 1);
-  };
+
   const handleScrollViewLayout = () => {
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollToEnd({ animated: true });
@@ -65,13 +31,13 @@ const Graph = ({
   useEffect(() => {
     handleScrollViewLayout();
   }, []);
+
   useEffect(() => {
     // Calculate the width based on the number of data points and available screen width
     const screenWidth = Dimensions.get("window").width;
     const numDataPoints = data.labels.length;
     const calculatedWidth = numDataPoints * 80; // Assuming 50 is the width of each data point
     setChartWidth(Math.max(calculatedWidth, screenWidth));
-    setSelectedDotIndex(numDataPoints - 1);
   }, [dataSet]);
 
   const renderDotContent = ({ x, y, index }) => {
@@ -84,7 +50,7 @@ const Graph = ({
             left: x - 25,
             top: Dimensions.get("window").height / -12.5,
             zIndex: 2,
-            height: 370,
+            height: 460,
           }}
         >
           <View
@@ -109,23 +75,19 @@ const Graph = ({
 
   const handleDotPress = (data) => {
     setSelectedDotIndex(data.index);
+    //sends time to averageData container
+    setCurrWeight(dataSet[data.index]);
 
+    setTime(formattedTime[data.index]);
+    setCurrentWeight(data.value);
     if (data.index > 0) {
-      setCurrentWeightChange(
-        Number(dataSet[data.index]) - Number(dataSet[data.index - 1])
-      );
-      setCurrentDate(
-        formattedTime ? formattedTime[data.index] : date[data.index]
-      );
-
-      setCurrentWeight(data.value);
+      setChange(dataSet[data.index] - dataSet[data.index - 1]);
     } else {
-      // Handle the case when the first dot is pressed (opformattedTime[data.indexonal)
-      setCurrentWeightChange(0);
+      setChange(0);
     }
-
     // Handle other actions related to dot press if needed
   };
+
   const data = {
     labels: date,
     datasets: [
@@ -134,13 +96,6 @@ const Graph = ({
       },
     ],
   };
-  if (date.length === 0 || dataSet.length === 0) {
-    return (
-      <>
-        <NoAppleHealthData onPress={handleTryAgain} data={noData} />
-      </>
-    );
-  }
 
   return (
     <>
@@ -163,7 +118,7 @@ const Graph = ({
           withHorizontalLabels={false}
           data={data}
           width={chartWidth} // from react-native
-          height={Dimensions.get("window").height * 0.4}
+          height={Dimensions.get("window").height * 0.55}
           yAxisLabel=""
           renderDotContent={renderDotContent}
           onDataPointClick={(data) => {
@@ -201,47 +156,6 @@ const Graph = ({
           style={{}}
         />
       </ScrollView>
-      <View
-        style={{
-          backgroundColor: "rgba(255,255,255,1)",
-          flex: 1,
-          borderTopRightRadius: 20,
-          borderTopLeftRadius: 20,
-          padding: 20,
-          shadowColor: "black",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 4,
-          flexDirection: "column",
-          gap: 10,
-        }}
-      >
-        <GoalIncrease
-          date={currentDate}
-          icon={"fa-clock"}
-          change={currentWeightChange}
-          count={currentWeight}
-          units={units}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            gap: 5,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <StatisticsGoal
-            name={goalName}
-            target={target}
-            start={start}
-            units={units}
-            icon={icon}
-            currData={dataSet[dataSet.length - 1]}
-          />
-          <AverageData data={dataSet} dataFor={goalName} units={units} />
-        </View>
-      </View>
     </>
   );
 };

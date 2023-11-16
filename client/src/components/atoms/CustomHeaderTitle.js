@@ -1,0 +1,62 @@
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import Accordion from "react-native-collapsible/Accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import SelectDropdown from "react-native-select-dropdown";
+import { useNavigation } from "@react-navigation/native";
+
+const CustomHeaderTitle = () => {
+  const navigation = useNavigation();
+  const target3 = ["Weight", "BMI"];
+  const [selection, setSelection] = useState("Weight");
+  const handleSelect = (selected, index) => {
+    setSelection(selected);
+  };
+
+  useEffect(() => {
+    navigation.navigate("BodyMeasur", { selected: selection });
+  }, [selection]);
+  const dropDownButton = (selectedItem, index) => {
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.dropDownSelectionText}>{selectedItem}</Text>
+        <FontAwesomeIcon icon={"fa-chevron-down"} color="#999" />
+      </View>
+    );
+  };
+  return (
+    <SelectDropdown
+      buttonStyle={styles.dropDown}
+      data={target3}
+      showsVerticalScrollIndicator={false}
+      renderCustomizedButtonChild={dropDownButton}
+      defaultValueByIndex={0}
+      dropdownStyle={styles.dropDownOptionsContainer}
+      onSelect={handleSelect}
+    />
+  );
+};
+const styles = StyleSheet.create({
+  dropDown: {
+    backgroundColor: "transparent",
+  },
+  dropDownOptionsContainer: {
+    position: "absolute",
+    top: "100%", // Position the dropdown below the dropdown button
+    transform: [{ translateY: 0 }],
+    borderRadius: 10,
+  },
+
+  dropDownSelectionText: {
+    color: "#0077b6",
+    fontWeight: "700",
+  },
+});
+export default CustomHeaderTitle;

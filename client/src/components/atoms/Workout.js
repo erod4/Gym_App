@@ -27,14 +27,11 @@ const Workout = ({ title, day, time, linkTo, id, name }) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.detailsContainer}>
           <View style={styles.detailsContainer}>
-            <FontAwesomeIcon
-              icon={"fa-calendar"}
-              style={{ color: "#0077B6" }}
-            />
+            <FontAwesomeIcon icon={"fa-calendar"} style={{ color: "#555" }} />
             <Text style={styles.details}>{day}</Text>
           </View>
           <View style={styles.detailsContainer}>
-            <FontAwesomeIcon icon={"fa-clock"} style={{ color: "#0077B6" }} />
+            <FontAwesomeIcon icon={"fa-clock"} style={{ color: "#555" }} />
             <Text style={styles.details}>{time} min</Text>
           </View>
         </View>
@@ -67,7 +64,7 @@ const styles = StyleSheet.create({
   details: {
     fontWeight: "900",
     padding: 10,
-    color: "#0077B6",
+    color: "#999",
     fontSize: 15,
   },
   optionsContainer: {

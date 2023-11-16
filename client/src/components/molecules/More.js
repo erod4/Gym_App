@@ -73,6 +73,16 @@ const styles = StyleSheet.create({
   },
   editProfileContainer: {
     flexDirection: "column",
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 1,
+      height: -1, // This creates the shadow at the bottom
+    },
+    shadowOpacity: 0.3, // You can adjust the opacity of the shadow if needed
+    shadowRadius: 3,
+
+    marginVertical: 1, // Add some margin at the bottom to separate it from other elements
   },
   editProfileHeader: {
     width: "100%",

@@ -68,7 +68,7 @@ const RatingSlider = ({ activeId }) => {
         <MoodContainer />
       </View>
       <View style={styles.exit}>
-        <GenButton onPress={closeRating} color={"#0077ff"} name={"Save"} />
+        <GenButton onPress={closeRating} color={"#0077b6"} name={"Save"} />
       </View>
     </Animated.View>
   );

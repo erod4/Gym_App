@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -31,6 +31,11 @@ import {
   faArrowDown,
   faChevronDown,
   faChevronRight,
+  faLink,
+  faRuler,
+  faBullseye,
+  faChevronUp,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -47,8 +52,18 @@ import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
 import RatingSlider from "../containers/RatingSlider";
 import WaterSlider from "../containers/WaterSlider";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
 
 const Home = () => {
+  const { appleHealthPermissionGranted, requestPermissions } =
+    useContext(AppleHealthContext);
+
+  useEffect(() => {
+    if (!appleHealthPermissionGranted) {
+      requestPermissions();
+    }
+  }, [appleHealthPermissionGranted]);
   const navigation = useNavigation();
   const handlePress = () => {
     navigation.navigate("StartWorkout");
@@ -87,7 +102,12 @@ const Home = () => {
     faArrowDown,
     faCheck,
     faChevronDown,
-    faChevronRight
+    faChevronRight,
+    faLink,
+    faRuler,
+    faBullseye,
+    faChevronUp,
+    faMoon
   );
   return (
     <View style={styles.container}>
