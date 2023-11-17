@@ -7,10 +7,13 @@ import SelectDropdown from "react-native-select-dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   dailyWeight,
+  monthlyWeight,
   weeklyWeight,
 } from "../store/actions/clientActions/WeightHelper";
 import Graph from "./Graph";
 import BMWeightGaol from "../components/molecules/BMWeightGaol";
+import WeeklyGraph from "./WeeklyGraph";
+import MonthlyGraph from "./MonthlyGraph";
 
 const WeightBM = () => {
   const { getWeight, weight } = useContext(AppleHealthContext);
@@ -18,8 +21,12 @@ const WeightBM = () => {
     dailyWeight(weight);
 
   const { formattedWeeklyWeights, formattedWeeklyDates } = weeklyWeight(weight);
+
+
+  const {formattedMonthlyDates, formattedMonthylWeights}=monthlyWeight(weight)
   //* retrieves data from graph when a dot is pressed and displays it to user
   const [time, setTime] = useState(null);
+  const [date,setDate]=useState(null)
   const [currweight, setCurrWeight] = useState(null);
   const [change, setChange] = useState(null);
   //*
@@ -68,14 +75,13 @@ const WeightBM = () => {
         />
       )}
       {page == "Weekly" && (
-        <View>
-          <Text>Weekly</Text>
-        </View>
+     
+        <WeeklyGraph setDate={setDate} setChange={setChange} setCurrWeight={setCurrWeight} dataSet={formattedWeeklyWeights} date={formattedWeeklyDates}/>
+     
       )}
       {page == "Monthly" && (
-        <View>
-          <Text>Monthly</Text>
-        </View>
+        <MonthlyGraph setDate={setDate} setChange={setChange} setCurrWeight={setCurrWeight} dataSet={formattedMonthylWeights} date={formattedMonthlyDates}/>
+     
       )}
       <View style={styles.displayContainer}>
         <SelectDropdown
@@ -90,8 +96,8 @@ const WeightBM = () => {
         {page == "Daily" && (
           <AverageData time={time} currData={currweight} change={change} />
         )}
-        {page == "Weekly" && <AverageData />}
-        {page == "Monthly" && <AverageData />}
+        {page == "Weekly" && <AverageData currData={currweight} change={change} date={date}/>}
+        {page == "Monthly" && <AverageData currData={currweight} change={change} date={date}/>}
         <BMWeightGaol radius={80} progress={100} />
       </View>
     </View>

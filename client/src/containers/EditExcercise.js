@@ -29,8 +29,8 @@ const EditExcercise = ({ excerciseName, id, markComplete }) => {
       <EditSet time={2} setName={"Set 2"} weight={145} />
       <EditSet time={1} setName={"Set 3"} weight={225} />
       <View style={styles.buttons}>
-        <GenButton name={"Save"} color={"#0077B6"} />
-        <GenButton name={"Cancel"} color={"#ddd"} onPress={closeEdit} />
+        <GenButton name={"Save"} color={"#0077B6"} horizontalPadding={10} buttonWidth={100}/>
+        <GenButton name={"Cancel"} color={"#ddd"} onPress={closeEdit} horizontalPadding={10} buttonWidth={100}/>
       </View>
     </View>
   );

@@ -49,11 +49,15 @@ const WaterBottle = () => {
           name={"-8 Fl Oz"}
           color={"#0077bf"}
           onPress={decrementWaterLevel}
+          horizontalPadding={10}
+          buttonWidth={100}
         />
         <GenButton
           name={"+8 Fl Oz"}
           color={"#0077bf"}
           onPress={incrementWaterLevel}
+          horizontalPadding={10}
+          buttonWidth={100} 
         />
       </View>
     </>

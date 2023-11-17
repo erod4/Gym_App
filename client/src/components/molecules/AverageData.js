@@ -18,10 +18,13 @@ const AverageData = ({ currData, change, date, time, icon }) => {
                 {change ? change.toFixed(1) : 0} lb
               </Text>
             </View>
-            <View style={styles.containerRightLower}>
+           {time?( <View style={styles.containerRightLower}>
               <FontAwesomeIcon icon={"fa-clock"} size={15} color="#999" />
               <Text style={styles.containerRightLowerValue}>{time}</Text>
-            </View>
+            </View>):( <View style={styles.containerRightLower}>
+              <FontAwesomeIcon icon={"fa-calendar"} size={15} color="#999" />
+              <Text style={styles.containerRightLowerValue}>{date}</Text>
+            </View>)}
           </View>
         </View>
       ) : (

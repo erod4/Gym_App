@@ -54,6 +54,7 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
             color={"#ddd"}
             name={"Add Set"}
             onPress={handleAddSetPress}
+            
           />
         )}
       </View>

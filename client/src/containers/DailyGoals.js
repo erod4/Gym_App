@@ -57,7 +57,7 @@ const DailyGoals = () => {
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
-            count={todaysSteps?.value}
+            count={todaysSteps?(todaysSteps?.value):(0)}
             percentage={todaysSteps?.value / 8000}
           />
         </View>
