@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   todaysSteps: null,
   weight: null,
   error: null,
+  bmi: null,
 };
 
 const reducer = (state, action) => {
@@ -33,6 +34,11 @@ const reducer = (state, action) => {
         ...state,
         weight: payload,
       };
+    case "FETCH_BMI_SUCCESS":
+      return {
+        ...state,
+        bmi: payload,
+      };
     default:
       return state;
   }
@@ -45,6 +51,7 @@ export const AppleHealthContextProvider = ({ children }) => {
         read: [
           AppleHealthKit.Constants.Permissions.Steps,
           AppleHealthKit.Constants.Permissions.Weight,
+          AppleHealthKit.Constants.Permissions.BodyMassIndex,
         ],
         write: [],
       },
@@ -79,7 +86,7 @@ export const AppleHealthContextProvider = ({ children }) => {
   };
   const getDailyStepCount = () => {
     const options = {
-      startDate: new Date(2023, 0, 0).toISOString(),
+      startDate: new Date(2023, 8, 0).toISOString(),
     };
     AppleHealthKit.getDailyStepCountSamples(options, (error, res) => {
       if (error) {
@@ -89,20 +96,30 @@ export const AppleHealthContextProvider = ({ children }) => {
           startDate,
           value,
         }));
-        const groupedData = {};
 
-        newResults.forEach((item) => {
-          const startDate = item.startDate.split("T")[0]; // Extract date part
-          if (groupedData[startDate]) {
-            groupedData[startDate] += item.value;
+        const combinedData = newResults.reduce((result, currentItem) => {
+          const date = currentItem.startDate.split("T")[0];
+          const existingEntry = result.find(
+            (item) => item.startDate.split("T")[0] === date
+          );
+
+          if (existingEntry) {
+            // If there is already an item with the same date, add the values
+            existingEntry.value += currentItem.value;
           } else {
-            groupedData[startDate] = [item.value];
+            // If there is no item with the same date, add a new item
+            result.push({
+              startDate: currentItem.startDate,
+              value: currentItem.value,
+            });
           }
-        });
-        console.log(groupedData);
+
+          return result;
+        }, []); // Initialize result as an empty array
+
         dispatch({
           type: "FETCH_TOTAL_STEPS_SUCCESS",
-          payload: groupedData,
+          payload: combinedData,
         });
       }
     });
@@ -128,6 +145,26 @@ export const AppleHealthContextProvider = ({ children }) => {
       }
     });
   };
+  const getBMI = () => {
+    const options = {
+      startDate: new Date(2021, 0, 0).toISOString(),
+    };
+    AppleHealthKit.getBmiSamples(options, (error, res) => {
+      if (error) {
+        console.log(error);
+      } else {
+        const bmi = res.map(({ startDate, value }) => ({
+          startDate,
+          value,
+        }));
+
+        dispatch({
+          type: "FETCH_BMI_SUCCESS",
+          payload: bmi,
+        });
+      }
+    });
+  };
   return (
     <AppleHealthContext.Provider
       value={{
@@ -135,9 +172,11 @@ export const AppleHealthContextProvider = ({ children }) => {
         getDailyStepCount,
         getWeight,
         getTodaysStep,
+        getBMI,
         dailySteps: state?.dailySteps,
         todaysSteps: state?.todaysSteps,
         weight: state?.weight,
+        bmi: state?.bmi,
         appleHealthPermissionGranted: state?.appleHealthPermissionGranted,
       }}
     >

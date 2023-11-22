@@ -5,6 +5,7 @@ export const TimerSliderContext = createContext();
 
 const INITIAL_STATE = {
   isTimerSliderActive: false,
+  ellapsedTime: 0,
 };
 const reducer = (state, action) => {
   const { type, payload } = action;

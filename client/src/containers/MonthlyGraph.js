@@ -10,9 +10,9 @@ const MonthlyGraph = ({
   dataSet,
   date,
  setDate,
- setCurrWeight,
+ setCurrData,
  setChange,
-
+units
 
 }) => {
 
@@ -65,7 +65,7 @@ const MonthlyGraph = ({
             }}
           >
             <Text style={{ color: "rgba(0, 0, 0,1)" }}>{dataSet[index]}</Text>
-            <Text style={{ color: "rgba(0, 0, 0,1)" }}>lb</Text>
+            <Text style={{ color: "rgba(0, 0, 0,1)" }}>{units}</Text>
           </View>
         </View>
       );
@@ -75,7 +75,7 @@ const MonthlyGraph = ({
 
   const handleDotPress = (data) => {
     setSelectedDotIndex(data.index);
-    setCurrWeight(dataSet[data.index]);
+    setCurrData(dataSet[data.index]);
     setDate(date[data.index]);
     if (data.index > 0) {
       setChange(dataSet[data.index] - dataSet[data.index - 1]);

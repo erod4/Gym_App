@@ -10,7 +10,7 @@ const NoAppleHealthData = ({ data, onPress }) => {
         1. Ensure you have linked Apple Health to our App.
       </Text>
       <Text style={styles.message}>
-        2. Ensure you have currently {data} data available.{" "}
+        2. Ensure you currently have {data} data available.{" "}
       </Text>
       <TouchableOpacity style={styles.tryAgain} onPress={onPress}>
         <Text style={styles.tryAgainText}>Try Again</Text>

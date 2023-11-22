@@ -6,10 +6,17 @@ import Home from "../screens/Home";
 import Statistics from "../screens/Statistics";
 import Profile from "../screens/Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Nutrition from "../screens/Nutrition";
 const BottomTabs = () => {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator screenOptions={{ tabBarActiveTintColor: "#0077b6" }}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: "rgba(255,255,255,0.4)",
+        tabBarStyle: { backgroundColor: "#444" },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
@@ -20,7 +27,16 @@ const BottomTabs = () => {
           ),
         }}
       />
-
+      <Tab.Screen
+        name="Nutrition"
+        component={Nutrition}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <FontAwesomeIcon icon="fa-apple-whole" style={{ color: color }} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Statistics"
         component={Statistics}

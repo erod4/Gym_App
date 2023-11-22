@@ -29,17 +29,21 @@ const OpenTimerButton = () => {
   const formattedTimerSeconds = String(timerSecs).padStart(2, "0");
 
   return (
-    <TouchableOpacity onPress={handleOpen}>
+    <TouchableOpacity
+      onPress={handleOpen}
+      style={{
+        backgroundColor: "#ddd",
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 10,
+      }}
+    >
       {isTimerActive ? (
-        <View
-          style={{ borderRadius: 10, padding: 5, backgroundColor: "#0077ff" }}
-        >
-          <Text>
-            {formattedTimerMinutes} : {formattedTimerSeconds}
-          </Text>
-        </View>
+        <Text>
+          {formattedTimerMinutes} : {formattedTimerSeconds}
+        </Text>
       ) : (
-        <FontAwesomeIcon color="#0077ff" icon={"fa-clock"} />
+        <FontAwesomeIcon color="#111" icon={"fa-clock"} />
       )}
     </TouchableOpacity>
   );

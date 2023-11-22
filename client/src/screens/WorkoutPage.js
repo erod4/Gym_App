@@ -1,7 +1,7 @@
 import { View, ScrollView, StyleSheet } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Excercise from "../containers/Excercise";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import WeightDistrib from "../containers/WeightDistrib";
 import OptionsSlider from "../containers/OptionsSlider";
 import EditExcercise from "../containers/EditExcercise";
@@ -15,10 +15,22 @@ import TimerSlider from "../containers/TimerSlider";
 import StartButton from "../containers/StartButton";
 import { EditContext } from "../store/actions/clientActions/EditWorkout";
 import NewExcercise from "../containers/NewExcercise";
+import { AppearenceContext } from "../store/Appearence";
 
 const WorkoutPage = ({ route }) => {
-  const [isAddExcercise, setIsAddExcercise] = useState(false);
+  const { ellapseTime, time } = useContext(AppearenceContext);
 
+  const [isAddExcercise, setIsAddExcercise] = useState(false);
+  const [seconds, setSeconds] = useState(time);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds + 1);
+    }, 1000);
+  }, []);
+  useEffect(() => {
+    ellapseTime(seconds);
+  }, [seconds]);
   const handleAddExcercisePress = () => {
     setIsAddExcercise(true);
   };
@@ -46,12 +58,17 @@ const WorkoutPage = ({ route }) => {
         )}
       </ScrollView>
 
-      {saveActive && <EndWorkout />}
+      {saveActive && <EndWorkout id={id} />}
 
       <WeightDistrib />
       <OptionsSlider activeId={excerciseId} />
       <TimerSlider />
-      <StartButton text={"Add Excercise"} press={handleAddExcercisePress} />
+      <StartButton
+        text={"Add Excercise"}
+        press={handleAddExcercisePress}
+        fontColor={"#0096c7"}
+        backgroundColor={"rgba(0, 150, 199, 0.25)"}
+      />
       {isAddExcercise && <NewExcercise onDone={handleCloseAddExcercisePress} />}
     </View>
   );
@@ -60,7 +77,7 @@ const styles = StyleSheet.create({
   page: {
     width: "100%",
     flex: 1,
-    backgroundColor: "#ddd",
+    backgroundColor: "#fff",
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 10,

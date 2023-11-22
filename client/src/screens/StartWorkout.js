@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
-
+import React, { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Workout from "../components/atoms/Workout";
 import StartButton from "../containers/StartButton";
+import { get, save } from "../../Storage";
 
 const StartWorkout = () => {
   return (
@@ -29,7 +30,11 @@ const StartWorkout = () => {
         />
       </ScrollView>
 
-      <StartButton text={"Add Workout"} />
+      <StartButton
+        text={"Add Workout"}
+        backgroundColor={"#0096c7"}
+        fontColor={"#fff"}
+      />
     </View>
   );
 };
@@ -40,6 +45,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     paddingBottom: 40,
+    backgroundColor: "#fff",
   },
   container: {
     paddingTop: 10,

@@ -54,7 +54,6 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
             color={"#ddd"}
             name={"Add Set"}
             onPress={handleAddSetPress}
-            
           />
         )}
       </View>
@@ -69,6 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingBottom: 10,
+    borderWidth: 0.5,
   },
   excerciseNameContainer: {
     width: "100%",
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   excerciseName: {
     fontWeight: "900",
     fontSize: 20,
-
+    color: "#0096c7",
     flex: 1,
     textAlign: "center",
   },

@@ -1,18 +1,59 @@
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Accordion from "react-native-collapsible/Accordion";
 import AccountSettings from "../components/molecules/AccountSettings";
 import { ScrollView, Switch } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import More from "../components/molecules/More";
+import { AppearenceContext } from "../store/Appearence";
 
 const Account = () => {
+  const {theme,toggleTheme}=useContext(AppearenceContext);
+
+
+
   const [isPushNotificationsEnabled, setIsPushNotificationsEnabled] =
     useState(false);
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false);
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(theme==='dark');
   const toggleNotifSwitch = () =>
     setIsPushNotificationsEnabled(!isPushNotificationsEnabled);
-  const toggleDarkModeSwitch = () => setIsDarkModeEnabled(!isDarkModeEnabled);
+  const toggleDarkModeSwitch = () => {
+    if(theme!=='dark'){
+     
+      toggleTheme('dark')
+      setIsDarkModeEnabled(true)
+    }
+    else{
+      toggleTheme('light')
+      setIsDarkModeEnabled(false)
+    }
+    
+  }
+  const styles = StyleSheet.create({
+    page: {
+      backgroundColor: theme==='light'?"#fff":'#111',
+      flex: 1,
+    },
+    sectionTitle: {
+      paddingVertical: 10,
+      fontWeight: "700",
+      fontSize: 20,
+      color: "#999",
+    },
+    container: {
+      width: "100%",
+      paddingHorizontal: 20,
+    },
+    sectionContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      paddingVertical: 20,
+    },
+    sectionText: {
+      fontWeight: "700",
+      fontSize: 18,
+    },
+  });
   return (
     <ScrollView style={styles.page}>
       <View

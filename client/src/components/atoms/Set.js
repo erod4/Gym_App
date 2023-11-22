@@ -70,16 +70,16 @@ const styles = StyleSheet.create({
   },
   setName: {
     fontWeight: "900",
-    color: "#1c1c1c",
+    color: "#111",
   },
   counts: {
     fontSize: 20,
-    color: "#0077B6",
+    color: "#111",
     fontWeight: "500",
   },
   notation: {
     fontSize: 14,
-    color: "#1c1c1c",
+    color: "#777",
     fontWeight: "500",
   },
   optionsContainer: {

@@ -1,16 +1,23 @@
 import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import React from "react";
 
-const GenButton = ({ name, onPress, color, buttonWidth,horizontalPadding }) => {
+const GenButton = ({
+  name,
+  onPress,
+  color,
+  buttonWidth,
+  horizontalPadding,
+  fontColor,
+}) => {
   return (
     <>
       <TouchableOpacity
         style={{
           backgroundColor: color,
           borderRadius: 10,
-          paddingHorizontal: horizontalPadding?(horizontalPadding):(100),
+          paddingHorizontal: horizontalPadding ? horizontalPadding : 100,
           paddingVertical: 10,
-          width: buttonWidth&& buttonWidth,
+          width: buttonWidth && buttonWidth,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -20,6 +27,7 @@ const GenButton = ({ name, onPress, color, buttonWidth,horizontalPadding }) => {
           style={{
             fontSize: 15,
             fontWeight: "900",
+            color: fontColor,
           }}
         >
           {name}

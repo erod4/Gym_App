@@ -518,6 +518,8 @@ PODS:
     - React-perflogger (= 0.72.5)
   - RNAppleHealthKit (1.7.0):
     - React
+  - RNCAsyncStorage (1.19.5):
+    - React-Core
   - RNGestureHandler (2.13.2):
     - React-Core
   - RNScreens (3.22.1):
@@ -591,6 +593,7 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNAppleHealthKit (from `../node_modules/react-native-health`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -719,6 +722,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNAppleHealthKit:
     :path: "../node_modules/react-native-health"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
@@ -790,6 +795,7 @@ SPEC CHECKSUMS:
   React-utils: 7a9918a1ffdd39aba67835d42386f592ea3f8e76
   ReactCommon: 91ece8350ebb3dd2be9cef662abd78b6948233c0
   RNAppleHealthKit: 60a6beefdd89a75811e9a8873a5e24f351dee681
+  RNCAsyncStorage: f2974eca860c16a3e56eea5771fda8d12e2d2057
   RNGestureHandler: bb86e378287f7713baf3ca205423eb8109790022
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   RNSVG: d00c8f91c3cbf6d476451313a18f04d220d4f396

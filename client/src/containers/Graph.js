@@ -9,7 +9,7 @@ const Graph = ({
   date,
   setTime,
   units,
-  setCurrWeight,
+  setCurrData,
   setChange,
   formattedTime,
 }) => {
@@ -76,7 +76,7 @@ const Graph = ({
   const handleDotPress = (data) => {
     setSelectedDotIndex(data.index);
     //sends time to averageData container
-    setCurrWeight(dataSet[data.index]);
+    setCurrData(dataSet[data.index]);
 
     setTime(formattedTime[data.index]);
     setCurrentWeight(data.value);

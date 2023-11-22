@@ -19,7 +19,7 @@ const Statistic = ({ name, linkTo, icon, ionic }) => {
         )}
         <Text style={styles.text}>{name}</Text>
       </View>
-      <FontAwesomeIcon style={{ color: "#1c1c1c" }} icon={"fa-angle-right"} />
+      <FontAwesomeIcon style={{ color: "#0096c7" }} icon={"fa-angle-right"} />
     </TouchableOpacity>
   );
 };
@@ -33,13 +33,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     justifyContent: "space-between",
-    shadowOffset: {
-      width: 0,
-      height: 2, // This creates the shadow at the bottom
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 1,
-    marginBottom: 0.5,
   },
   text: {
     justifyContent: "center",

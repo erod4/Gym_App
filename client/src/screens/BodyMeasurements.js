@@ -3,9 +3,9 @@ import React, { useContext, useEffect } from "react";
 import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
 import NoAppleHealthData from "../components/molecules/NoAppleHealthData";
 import AverageData from "../components/molecules/AverageData";
-import SelectDropdown from "react-native-select-dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
 import WeightBM from "../containers/WeightBM";
+import BMI from "../containers/BMI";
 const BodyMeasurements = ({ route }) => {
   const { getWeight, weight } = useContext(AppleHealthContext);
 
@@ -26,7 +26,7 @@ const BodyMeasurements = ({ route }) => {
       ) : (
         <>
           {selected == "Weight" && <WeightBM />}
-          {selected == "BMI" && <View></View>}
+          {selected == "BMI" && <BMI/>}
         </>
       )}
     </View>

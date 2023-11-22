@@ -15,7 +15,7 @@ const BMWeightGaol = () => {
             height: 180,
           }}
           progress={0.9}
-          progressColor={"rgb(134, 65, 244)"}
+          progressColor={"rgb(0, 84, 181)"}
           startAngle={-Math.PI * 0.5}
           endAngle={Math.PI * 0.5}
           strokeWidth={10}

@@ -1,0 +1,24 @@
+import { View, Text, Button } from "react-native";
+import React, { useContext } from "react";
+import { SaveContext } from "../../store/actions/clientActions/SaveWorkout";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+const ExcerciseHeaderLeft = () => {
+  const { startSaving } = useContext(SaveContext);
+
+  return (
+    <TouchableOpacity
+      onPress={startSaving}
+      style={{
+        backgroundColor: "#2dc653",
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 10,
+      }}
+    >
+      <Text style={{ fontWeight: "700", color: "#fff" }}>Finish</Text>
+    </TouchableOpacity>
+  );
+};
+
+export default ExcerciseHeaderLeft;

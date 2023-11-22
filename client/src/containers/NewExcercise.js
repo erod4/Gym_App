@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
@@ -46,7 +52,7 @@ const NewExcercise = ({ onDone }) => {
     );
   };
   return (
-    <View style={styles.excercise}>
+    <Pressable style={styles.excercise} onPress={onDone}>
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.exit} onPress={onDone}>
@@ -61,7 +67,7 @@ const NewExcercise = ({ onDone }) => {
             <Text
               style={[
                 styles.saveButton,
-                { color: excerciseName.length > 0 ? "#0077b6" : "#999" },
+                { color: excerciseName.length > 0 ? "#0096c7" : "#999" },
               ]}
             >
               Save
@@ -93,7 +99,7 @@ const NewExcercise = ({ onDone }) => {
           drop
         />
       </View>
-    </View>
+    </Pressable>
   );
 };
 

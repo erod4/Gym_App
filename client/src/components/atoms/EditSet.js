@@ -16,7 +16,7 @@ const EditSet = ({ setName, weight, time }) => {
         <TextInput
           style={styles.counts}
           placeholder={"8"}
-          placeholderTextColor={"#0077B6"}
+          placeholderTextColor={"#ddd"}
         />
         <Text style={styles.notation}>reps</Text>
       </View>
@@ -24,14 +24,14 @@ const EditSet = ({ setName, weight, time }) => {
         <TextInput
           style={styles.counts}
           placeholder={`${weight}`}
-          placeholderTextColor={"#0077B6"}
+          placeholderTextColor={"#ddd"}
         />
         <Text style={styles.notation}>Lbs</Text>
       </View>
       <View style={styles.reps}>
         <TextInput
           placeholder={`${time}`}
-          placeholderTextColor={"#0077B6"}
+          placeholderTextColor={"#ddd"}
           style={styles.counts}
         />
         <Text style={styles.notation}>min</Text>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   counts: {
     fontSize: 20,
-    color: "#0077B6",
+    color: "#111",
     fontWeight: "500",
   },
   notation: {

@@ -1,10 +1,11 @@
-const removeDuplicateData = (weight) => {
-  if (!weight || weight.length == 0) {
+const removeDuplicateData = (data) => {
+
+  if (!data || data.length == 0) {
     return [];
   }
   const newData = [];
 
-  weight.forEach((entry) => {
+  data.forEach((entry) => {
     const date = new Date(entry.startDate).toISOString().split("T")[0]; // Extracting date without time
     const existingEntryIndex = newData.findIndex((item) => {
       return new Date(item.startDate).toISOString().split("T")[0] === date;
@@ -19,21 +20,24 @@ const removeDuplicateData = (weight) => {
       }
     }
   });
+  
   return newData;
 };
-export const dailyWeight = (weight) => {
-  if (!weight || weight.length == 0) {
+export const dailyData = (data, type) => {
+  if (!data || data.length == 0) {
     return [];
   }
-  const newData = removeDuplicateData(weight);
+  const newData = removeDuplicateData(data);
 
-  const dailyWeights = newData.map((obj) => ({ value: obj.value.toFixed(1) }));
+  const dailyData = newData.map((obj) => ({ value: type == 'float' ?(obj.value.toFixed(1)):obj.value }));
   const dailyDates = newData.map((obj) => ({ startDate: obj.startDate }));
 
   const newDailyDates = dailyDates.map((obj) => {
+
     const date = obj.startDate.split("T")[0];
     const month = date.split("-")[1];
     const day = date.split("-")[2];
+
     return `${month}/${day}`;
   });
 
@@ -43,19 +47,19 @@ export const dailyWeight = (weight) => {
     const min = date.split(":")[1];
 
     return `${hour % 12}:${min} ${hour >= 12 ? "PM" : "AM"}`;
-  });
+  }).reverse();
 
-  const formattedDailyDates = newDailyDates;
-  const formattedDailyWeights = dailyWeights.map((entry) => entry.value);
+  const formattedDailyDates = newDailyDates.reverse();
+  const formattedDailyData = dailyData.map((entry) => entry.value).reverse();
 
-  return [
-    formattedDailyDates.reverse(),
-    formattedDailyWeights.reverse(),
-    formattedDailyTimes.reverse(),
-  ];
+  return {
+    formattedDailyDates,
+    formattedDailyData,
+    formattedDailyTimes,
+  };
 };
-export const weeklyWeight = (weight) => {
-  const newData = removeDuplicateData(weight);
+export const weeklyData = (data) => {
+  const newData = removeDuplicateData(data);
   const getWeekNumber = (date) => {
     const currentDate = new Date(date);
     const startDate = new Date(currentDate.getFullYear(), 0, 1);
@@ -82,7 +86,7 @@ export const weeklyWeight = (weight) => {
     weeklySums[week] = (weekSum / groupedData[week].length).toFixed(1);
   }
 
-  const formattedWeeklyWeights = Object.values(weeklySums).reverse();
+  const formattedWeeklyData = Object.values(weeklySums).reverse();
   const formattedWeeklyDates = Object.keys(weeklySums).map((val) => {
     const week = val.split(" ")[0];
     const year = val.split(" ")[1];
@@ -97,23 +101,26 @@ export const weeklyWeight = (weight) => {
     firstWeekEndDate.setDate(firstWeekStartDate.getDate() + 6);
 
     // Format the dates if needed\
-    const startDateFormatted = `${firstWeekStartDate.getMonth() + 1}/${
+    const startDateFormatted = firstWeekStartDate.getDate()-1==0?(`${firstWeekStartDate.getMonth() }/${
+      firstWeekStartDate.getDate() +29
+    }`):(`${firstWeekStartDate.getMonth() + 1}/${
       firstWeekStartDate.getDate() - 1
-    }`;
+    }`);
+
 
     const endDateFormatted = `${firstWeekEndDate.getMonth() + 1}/${
       firstWeekEndDate.getDate() - 1
     }`;
-
+    
     return `${startDateFormatted}-${endDateFormatted}`;
   }).reverse();
 
-  return { formattedWeeklyWeights, formattedWeeklyDates };
+  return { formattedWeeklyData, formattedWeeklyDates };
 };
 
-export const monthlyWeight = (weight) => {
-  const newData = removeDuplicateData(weight);
-  console.log(newData);
+export const monthlyData = (data) => {
+  const newData = removeDuplicateData(data);
+
   
   const groupedData = {};
 
@@ -134,7 +141,7 @@ export const monthlyWeight = (weight) => {
     const monthSum = groupedData[month].reduce((prev, curr) => prev + curr, 0);
     monthlySums[month] = (monthSum / groupedData[month].length).toFixed(1);
   }
-  const formattedMonthylWeights = Object.values(monthlySums).reverse();
+  const formattedMonthylData = Object.values(monthlySums).reverse();
  const formattedMonthlyDates=Object.keys(monthlySums).map((val)=>{
   const months=['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec']
   const month=val.split('-')[1]
@@ -144,7 +151,7 @@ export const monthlyWeight = (weight) => {
 
  }).reverse()
  
- return {formattedMonthlyDates, formattedMonthylWeights}
+ return {formattedMonthlyDates, formattedMonthylData}
 
 
   

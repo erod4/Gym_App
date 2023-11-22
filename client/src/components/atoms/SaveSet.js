@@ -11,6 +11,11 @@ const SaveSet = ({ onPress }) => {
   );
 };
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "#ddd",
+    borderRadius: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+  },
 });
 export default SaveSet;

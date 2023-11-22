@@ -3,11 +3,13 @@ import React from "react";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import { save } from "../../../Storage";
 const Workout = ({ title, day, time, linkTo, id, name }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate(linkTo, { id, name });
+    save("id", id);
   };
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
     flexDirection: "column",
+    borderWidth: 0.5,
   },
   title: {
     padding: 10,

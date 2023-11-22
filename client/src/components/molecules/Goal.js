@@ -77,16 +77,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-
+    borderWidth: 0.5,
     gap: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2, // This creates the shadow at the bottom
-    },
-    shadowOpacity: 0.5, // You can adjust the opacity of the shadow if needed
-    shadowRadius: 1,
-    marginBottom: 1, // Add some margin at the bottom to separate it from other elements
+
     width: "50%",
   },
   upperContainer: {

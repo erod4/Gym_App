@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useContext } from "react";
 import GenButton from "../atoms/GenButton";
 import {
@@ -7,38 +7,57 @@ import {
 } from "../../store/actions/clientActions/SaveWorkout";
 import { useNavigation } from "@react-navigation/native";
 import { RatingSliderContext } from "../../store/actions/clientActions/RatingSlider";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AppearenceContext } from "../../store/Appearence";
 
-const EndWorkout = () => {
+const EndWorkout = ({ id }) => {
   // const { openRating } = useContext(RatingSliderContext);
   const navigation = useNavigation();
   const { stopSaving } = useContext(SaveContext);
   const { openRating } = useContext(RatingSliderContext);
+  const { setResume, setId, ellapseTime } = useContext(AppearenceContext);
   const handleEndWorkout = () => {
     navigation.navigate("nav");
+    ellapseTime(0);
+    setResume(false);
     stopSaving();
     openRating();
   };
+  const pauseWorkout = () => {
+    setId(id);
+    navigation.navigate("nav");
+    setResume(true);
+    stopSaving();
+  };
   return (
-    <View style={styles.page}>
+    <Pressable style={styles.page} onPress={stopSaving}>
       <View style={styles.container}>
-        <Text style={styles.text}>End Workout?</Text>
-        <View style={styles.buttonContainer}>
-          <GenButton name={"Resume"} color={"#0077b6"} onPress={stopSaving} />
-          <GenButton
-            name={"Pause Workout"}
-            color={"#999"}
-            onPress={stopSaving}
-          />
-          <GenButton
-            name={"End Workout"}
-            color={"red"}
-            onPress={handleEndWorkout}
-          />
+        <View style={styles.title}>
+          <Text style={styles.text}>End Workout?</Text>
+        </View>
+
+        <View style={styles.butonContainer}>
+          <View>
+            <Pressable onPress={stopSaving} style={styles.button}>
+              <Text style={styles.buttonText}>Resume</Text>
+            </Pressable>
+          </View>
+          <View>
+            <Pressable onPress={pauseWorkout} style={styles.button}>
+              <Text style={styles.buttonText}>Pause Workout</Text>
+            </Pressable>
+          </View>
+          <View>
+            <Pressable onPress={handleEndWorkout} style={styles.button}>
+              <Text style={styles.buttonText}>End Workout</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
+
 const styles = StyleSheet.create({
   page: {
     justifyContent: "center",
@@ -52,25 +71,31 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
 
-    padding: 20,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    gap: 20,
   },
-  text: {
-    fontSize: 15,
-    fontWeight: "700",
+  title: {
+    paddingVertical: 15,
   },
-  buttonContainer: {
-    flexDirection: "row",
-    gap: 5,
-  },
-  buttonContainer: {
-    flexDirection: "column",
+  text: { fontWeight: "700", fontSize: 17 },
+  butonContainer: {
     width: "100%",
-
-    gap: 10,
+  },
+  button: {
+    borderTopWidth: 0.5,
+    borderColor: "#555",
+    width: "100%",
+    padding: 15,
+    paddingHorizontal: 70,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    width: "100%",
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 15,
   },
 });
 export default EndWorkout;

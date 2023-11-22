@@ -41,15 +41,15 @@ const AddSet = ({ setName, closeNewSet }) => {
       <View style={styles.set}>
         <Text style={styles.setName}>{setName}</Text>
         <View style={styles.reps}>
-          <TextInput style={styles.counts} placeholderTextColor={"#0077B6"} />
+          <TextInput style={styles.counts} placeholderTextColor={"#111"} />
           <Text style={styles.notation}>reps</Text>
         </View>
         <View style={styles.reps}>
-          <TextInput style={styles.counts} placeholderTextColor={"#0077B6"} />
+          <TextInput style={styles.counts} placeholderTextColor={"#111"} />
           <Text style={styles.notation}>Lbs</Text>
         </View>
         <View style={styles.reps}>
-          <TextInput placeholderTextColor={"#0077B6"} style={styles.counts} />
+          <TextInput placeholderTextColor={"#111"} style={styles.counts} />
           <Text style={styles.notation}>min</Text>
         </View>
       </View>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     alignItems: "center",
     backgroundColor: "#fff",
-    gap: 37,
+    gap: 25,
   },
   reps: {
     flexDirection: "column",
@@ -82,9 +82,9 @@ const styles = StyleSheet.create({
   },
   counts: {
     fontSize: 20,
-    color: "#0077B6",
+    color: "#111",
     fontWeight: "500",
-    backgroundColor: "#ddd",
+    backgroundColor: "rgba(245, 245, 245, 0.9)",
     paddingHorizontal: 10,
     borderRadius: 10,
     justifyContent: "center",

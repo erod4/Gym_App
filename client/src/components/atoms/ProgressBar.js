@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
   progressBarBackground: {
     width: "100%",
     height: 8,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#ddd",
     borderRadius: 10, // Set border radius to achieve rounded edges
     overflow: "hidden", // Clip the content inside the rounded border
   },
   progressBar: {
     height: "100%",
-    backgroundColor: "#0077B6",
+    backgroundColor: "#0096c7",
     borderRadius: 10,
   },
 });

@@ -36,6 +36,10 @@ import {
   faBullseye,
   faChevronUp,
   faMoon,
+  faAppleWhole,
+  faArrowLeft,
+  faArrowRight,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -46,7 +50,7 @@ import { faBottleWater } from "@fortawesome/free-solid-svg-icons";
 
 import Welcome from "../containers/Welcome";
 import { useNavigation } from "@react-navigation/native";
-import { useHealth } from "../store/actions/clientActions/AppleHealth";
+
 import StartButton from "../containers/StartButton";
 import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
@@ -54,11 +58,13 @@ import RatingSlider from "../containers/RatingSlider";
 import WaterSlider from "../containers/WaterSlider";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
-
+import { Appearance } from "react-native";
+import WorkoutPaused from "../components/molecules/WorkoutPaused";
+import { AppearenceContext } from "../store/Appearence";
 const Home = () => {
   const { appleHealthPermissionGranted, requestPermissions } =
     useContext(AppleHealthContext);
-
+  const { isResumeActive } = useContext(AppearenceContext);
   useEffect(() => {
     if (!appleHealthPermissionGranted) {
       requestPermissions();
@@ -107,14 +113,24 @@ const Home = () => {
     faRuler,
     faBullseye,
     faChevronUp,
-    faMoon
+    faMoon,
+    faAppleWhole,
+    faArrowLeft,
+    faArrowRight,
+    faPlus
   );
   return (
     <View style={styles.container}>
       <Welcome name={"Enrique"} />
       <DailyGoals />
       <RecentWorkouts />
-      <StartButton text={"Start Workout"} press={handlePress} />
+      <StartButton
+        text={"Start Workout"}
+        press={handlePress}
+        backgroundColor={"#0096c7"}
+        fontColor={"#fff"}
+      />
+      {isResumeActive && <WorkoutPaused />}
       <RatingSlider />
       <WaterSlider />
     </View>
@@ -124,12 +140,13 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     height: "100%",
-    backgroundColor: "#ddd",
+    backgroundColor: "#fff",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingBottom: 10,
-    gap: 10,
+
+    paddingTop: 50,
+    gap: 5,
   },
 });
 export default Home;

@@ -15,25 +15,23 @@ import BMWeightGaol from "../components/molecules/BMWeightGaol";
 import WeeklyGraph from "./WeeklyGraph";
 import MonthlyGraph from "./MonthlyGraph";
 
-const WeightBM = () => {
-  const { getWeight, weight } = useContext(AppleHealthContext);
+const Steps = () => {
+  const { getDailyStepCount, dailySteps } = useContext(AppleHealthContext);
+  //*
 
-  const {formattedDailyDates, formattedDailyData, formattedDailyTimes} =
-    dailyData(weight , 'float');
+  const { formattedDailyDates, formattedDailyData, formattedDailyTimes } =
+    dailyData(dailySteps, "int");
 
-  const { formattedWeeklyData, formattedWeeklyDates } = weeklyData(weight);
+  const { formattedWeeklyData, formattedWeeklyDates } = weeklyData(dailySteps);
 
-
-  const {formattedMonthlyDates, formattedMonthylData}=monthlyData(weight)
+  const { formattedMonthlyDates, formattedMonthylData } =
+    monthlyData(dailySteps);
   //* retrieves data from graph when a dot is pressed and displays it to user
   const [time, setTime] = useState(null);
-  const [date,setDate]=useState(null)
+  const [date, setDate] = useState(null);
   const [currweight, setCurrData] = useState(null);
   const [change, setChange] = useState(null);
-  //*
-  useEffect(() => {
-    getWeight();
-  }, []);
+
   //!
 
   //!
@@ -73,17 +71,28 @@ const WeightBM = () => {
           setTime={setTime}
           setCurrData={setCurrData}
           setChange={setChange}
-          units={'Lb'}
+          units={"Steps"}
         />
       )}
       {page == "Weekly" && (
-     
-        <WeeklyGraph setDate={setDate} setChange={setChange} setCurrData={setCurrData} dataSet={formattedWeeklyData} date={formattedWeeklyDates} units={'Lb'}/>
-     
+        <WeeklyGraph
+          units={"Steps"}
+          setDate={setDate}
+          setChange={setChange}
+          setCurrData={setCurrData}
+          dataSet={formattedWeeklyData}
+          date={formattedWeeklyDates}
+        />
       )}
       {page == "Monthly" && (
-        <MonthlyGraph setDate={setDate} setChange={setChange} setCurrData={setCurrData} dataSet={formattedMonthylData} date={formattedMonthlyDates} units={'Lb'}/>
-     
+        <MonthlyGraph
+          setDate={setDate}
+          setChange={setChange}
+          setCurrData={setCurrData}
+          dataSet={formattedMonthylData}
+          date={formattedMonthlyDates}
+          units={"Steps"}
+        />
       )}
       <View style={styles.displayContainer}>
         <SelectDropdown
@@ -95,12 +104,9 @@ const WeightBM = () => {
           dropdownStyle={styles.dropDownOptionsContainer}
           onSelect={handleSelect}
         />
-        {page == "Daily" && (
-          <AverageData time={time} currData={currweight} change={change} />
-        )}
-        {page == "Weekly" && <AverageData currData={currweight} change={change} date={date}/>}
-        {page == "Monthly" && <AverageData currData={currweight} change={change} date={date}/>}
-        <BMWeightGaol radius={80} progress={100} />
+        {page == "Daily" && <></>}
+        {page == "Weekly" && <></>}
+        {page == "Monthly" && <></>}
       </View>
     </View>
   );
@@ -139,4 +145,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
-export default WeightBM;
+export default Steps;

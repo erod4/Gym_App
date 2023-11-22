@@ -78,18 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: "100%",
     borderRadius: 10,
+    borderWidth: 0.5,
     padding: 20,
     gap: 10,
     flexDirection: "row",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2, // This creates the shadow at the bottom
-    },
-    shadowOpacity: 0.3, // You can adjust the opacity of the shadow if needed
-    shadowRadius: 1,
-
-    marginBottom: 3, // Add some margin at the bottom to separate it from other elements
   },
   upperContainer: {
     flexDirection: "column",
