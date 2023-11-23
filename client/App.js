@@ -35,6 +35,11 @@ import StepsPhysicalActivityHeader from "./src/components/atoms/StepsPhysicalAct
 import { AppearenceContextProvider } from "./src/store/Appearence";
 import ExcerciseHeaderLeft from "./src/components/atoms/ExcerciseHeaderLeft";
 import ExcerciseHeader from "./src/components/atoms/ExcerciseHeader";
+import AddFood from "./src/screens/AddFood";
+import CustomBackButton from "./src/components/atoms/CustomBackButton";
+
+import SearchBarHeader from "./src/components/atoms/SearchBarHeader";
+import BCodeButton from "./src/components/molecules/BCodeButton";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -115,11 +120,28 @@ export default function App() {
                               }}
                             />
                             <Stack.Screen
+                              name="AddFood"
+                              component={AddFood}
+                              options={({
+                                navigation,
+                                route,
+                                options,
+                                back,
+                              }) => ({
+                                header: () => (
+                                  <SearchBarHeader
+                                    navigation={navigation}
+                                    route={route}
+                                  />
+                                ),
+                              })}
+                            />
+                            <Stack.Screen
                               name="workout-page"
                               component={WorkoutPage}
                               options={({ route }) => ({
                                 headerLeft: ExcerciseHeaderLeft,
-                                headerRight: OpenTimerButton,
+                                headerRight: () => <OpenTimerButton />,
                                 headerTitle: () => (
                                   <ExcerciseHeader route={route} />
                                 ),

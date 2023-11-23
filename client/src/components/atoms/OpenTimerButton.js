@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { useContext } from "react";
 import {
   TimerSliderContext,
@@ -15,11 +15,11 @@ import { TimerContext } from "../../store/actions/clientActions/Timer";
 
 const OpenTimerButton = () => {
   const { isTimerActive, seconds } = useContext(TimerContext);
-  const { openTimerSlider } = useContext(TimerSliderContext);
+  const { handleTimer, isTimerSliderActive } = useContext(TimerSliderContext);
   const { closeSettingsSlider } = useContext(SettingsSliderContext);
   const { closeWeightSlider } = useContext(WeightSliderContext);
   const handleOpen = () => {
-    openTimerSlider();
+    handleTimer("true");
     closeSettingsSlider();
     closeWeightSlider();
   };

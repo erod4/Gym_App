@@ -40,6 +40,8 @@ import {
   faArrowLeft,
   faArrowRight,
   faPlus,
+  faMagnifyingGlass,
+  faBarcode,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -117,7 +119,9 @@ const Home = () => {
     faAppleWhole,
     faArrowLeft,
     faArrowRight,
-    faPlus
+    faPlus,
+    faMagnifyingGlass,
+    faBarcode
   );
   return (
     <View style={styles.container}>

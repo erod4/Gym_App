@@ -5,17 +5,11 @@ export const TimerSliderContext = createContext();
 
 const INITIAL_STATE = {
   isTimerSliderActive: false,
-  ellapsedTime: 0,
 };
 const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "OPEN":
-      return {
-        ...state,
-        isTimerSliderActive: payload,
-      };
-    case "CLOSE":
+    case "IS_TIMERSLIDER_OPEN":
       return {
         ...state,
         isTimerSliderActive: payload,
@@ -28,25 +22,18 @@ const reducer = (state, action) => {
 
 export const TimerSliderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const openTimerSlider = () => {
+  const handleTimer = (isOpen) => {
     dispatch({
-      type: "OPEN",
-      payload: true,
+      type: "IS_TIMERSLIDER_OPEN",
+      payload: isOpen,
     });
   };
 
-  const closeTimerSlider = () => {
-    dispatch({
-      type: "OPEN",
-      payload: false,
-    });
-  };
   return (
     <TimerSliderContext.Provider
       value={{
-        openTimerSlider,
-        closeTimerSlider,
-        isTimerSliderActive: state.isTimerSliderActive,
+        handleTimer,
+        isTimerSliderActive: state?.isTimerSliderActive,
       }}
     >
       {children}

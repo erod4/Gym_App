@@ -1,5 +1,5 @@
 import { View, Text, Button } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 
 import {
   TouchableOpacity,
@@ -15,68 +15,51 @@ import {
 } from "../store/actions/clientActions/TimerSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const TimerSlider = ({ activeId }) => {
   const { isTimerSliderActive, closeTimerSlider } =
     useContext(TimerSliderContext);
+  const bottomSheetRef = useRef < BottomSheet > null;
 
-  const screenHeight = Dimensions.get("window").height;
-  const slideUpValue = new Animated.Value(0);
-  useEffect(() => {
-    if (isTimerSliderActive) {
-      Animated.timing(slideUpValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    } else {
-      Animated.timing(slideUpValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    }
-  }, [isTimerSliderActive, slideUpValue]);
-  const slideUpAnimation = slideUpValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0 - screenHeight / 2, 0],
-  });
+  // variables
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
 
+  // callbacks
+  const handleSheetChanges = useCallback((index) => {
+    console.log("handleSheetChanges", index);
+  }, []);
+
+  const openBottomSheet = () => {
+    bottomSheetRef.current?.expand();
+  };
+
+  const closeBottomSheet = () => {
+    bottomSheetRef.current?.close();
+  };
   return (
-    <Animated.View
-      style={{
-        position: "absolute",
-        bottom: slideUpAnimation,
-        borderTopEndRadius: 15,
-        borderTopStartRadius: 15,
-        paddingTop: 5,
-        height: screenHeight / 2,
-        backgroundColor: "white",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: -2, // This creates the shadow at the top
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5, // For Android
-        zIndex: 5,
-      }}
-    >
-      <StopWatch />
-      <View style={styles.exit}>
-        <TouchableOpacity style={styles.panelHandle} onPress={closeTimerSlider}>
-          <FontAwesomeIcon
-            size={25}
-            icon={"fa-xmark"}
-            style={{ color: "#1c1c1c" }}
-          />
-        </TouchableOpacity>
-      </View>
-    </Animated.View>
+    <>
+      <TouchableOpacity style={styles.panelHandle} onPress={openBottomSheet}>
+        <Text style={styles.text}>Open Bottom Sheet</Text>
+      </TouchableOpacity>
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <View style={styles.container}>
+          {/* Your content for the bottom sheet */}
+          <Text>Awesome 🎉</Text>
+
+          {/* Example close button */}
+          <TouchableOpacity style={styles.exit} onPress={closeBottomSheet}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
+    </>
   );
 };
 const styles = StyleSheet.create({
