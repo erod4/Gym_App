@@ -58,12 +58,14 @@ import DailyGoals from "../containers/DailyGoals";
 import RecentWorkouts from "../containers/RecentWorkouts";
 import RatingSlider from "../containers/RatingSlider";
 import WaterSlider from "../containers/WaterSlider";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
-import { Appearance } from "react-native";
 import WorkoutPaused from "../components/molecules/WorkoutPaused";
-import { AppearenceContext } from "../store/Appearence";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
+
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 const Home = () => {
+  const { isDarkMode } = useContext(AppearenceContext);
+
   const { appleHealthPermissionGranted, requestPermissions } =
     useContext(AppleHealthContext);
   const { isResumeActive } = useContext(AppearenceContext);
@@ -121,8 +123,22 @@ const Home = () => {
     faArrowRight,
     faPlus,
     faMagnifyingGlass,
-    faBarcode
+    faBarcode,
+    faCircleXmark
   );
+  const styles = StyleSheet.create({
+    container: {
+      display: "flex",
+      height: "100%",
+      backgroundColor: !isDarkMode ? "#fff" : "#192734",
+      width: "100%",
+      alignItems: "center",
+      justifyContent: "space-between",
+
+      paddingTop: 50,
+      gap: 5,
+    },
+  });
   return (
     <View style={styles.container}>
       <Welcome name={"Enrique"} />
@@ -140,17 +156,5 @@ const Home = () => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    height: "100%",
-    backgroundColor: "#fff",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "space-between",
 
-    paddingTop: 50,
-    gap: 5,
-  },
-});
 export default Home;

@@ -15,7 +15,7 @@ import TimerSlider from "../containers/TimerSlider";
 import StartButton from "../containers/StartButton";
 import { EditContext } from "../store/actions/clientActions/EditWorkout";
 import NewExcercise from "../containers/NewExcercise";
-import { AppearenceContext } from "../store/Appearence";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 const WorkoutPage = ({ route }) => {
   const { ellapseTime, time } = useContext(AppearenceContext);

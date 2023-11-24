@@ -6,7 +6,7 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { get, save } from "../../Storage";
+import { get, save } from "../../../../Storage";
 
 export const AppearenceContext = createContext();
 
@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     get("theme") == "light" || get("theme") == "dark" ? get("theme") : "light",
   time: get("ellapsedTime") >= 0 ? get("ellapsedTime") : 0,
   isResumeActive: false,
+  isDarkMode: false,
   id: null,
 };
 const reducer = (state, action) => {
@@ -24,7 +25,8 @@ const reducer = (state, action) => {
     case "TOGGLE_THEME":
       return {
         ...state,
-        theme: payload,
+        theme: payload.theme,
+        isDarkMode: payload.isDarkMode,
       };
     case "ELLAPSED_TIME":
       return {
@@ -51,7 +53,7 @@ export const AppearenceContextProvider = ({ children }) => {
     save("theme", theme);
     dispatch({
       type: "TOGGLE_THEME",
-      payload: theme,
+      payload: { theme, isDarkMode: theme === "dark" },
     });
   };
   const ellapseTime = (time) => {
@@ -78,6 +80,7 @@ export const AppearenceContextProvider = ({ children }) => {
     <AppearenceContext.Provider
       value={{
         toggleTheme,
+        isDarkMode: state?.isDarkMode,
         theme: state?.theme,
         ellapseTime,
         time: state?.time,

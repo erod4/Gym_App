@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { AppearenceContext } from "../../store/Appearence";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 import { useNavigation } from "@react-navigation/native";
 import { get } from "../../../Storage";
 

@@ -6,13 +6,13 @@ import { WeightSliderContext } from "../../store/actions/clientActions/WeightSli
 import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
 
 const OptionsButton = ({ id }) => {
-  const { closeTimerSlider } = useContext(TimerSliderContext);
+  const { handleTimer } = useContext(TimerSliderContext);
   const { openSettingsSlider } = useContext(SettingsSliderContext);
   const { closeWeightSlider } = useContext(WeightSliderContext);
 
   const handleOpen = () => {
     openSettingsSlider(id);
-    closeTimerSlider();
+    handleTimer(false);
     closeWeightSlider();
   };
 

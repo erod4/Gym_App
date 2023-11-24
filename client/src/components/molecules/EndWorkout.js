@@ -8,7 +8,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { RatingSliderContext } from "../../store/actions/clientActions/RatingSlider";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { AppearenceContext } from "../../store/Appearence";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const EndWorkout = ({ id }) => {
   // const { openRating } = useContext(RatingSliderContext);

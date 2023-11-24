@@ -1,9 +1,12 @@
 import { Button, View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import FormInput from "../atoms/formInput";
 import FormButton from "../atoms/formButton";
 import { useNavigation } from "@react-navigation/native";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 const RegisterForm = () => {
+  const { isDarkMode } = useContext(AppearenceContext);
+
   const navigation = useNavigation();
   const toLogin = () => {
     navigation.navigate("Login");
@@ -16,9 +19,11 @@ const RegisterForm = () => {
       <FormInput label={"Confirm Password"} icon={"fa-lock"} />
       <FormButton link={"nav"} title={"Sign Up"} />
       <View style={styles.text}>
-        <Text>Already have am account? </Text>
+        <Text style={{ color: !isDarkMode ? "#000" : "#ddd" }}>
+          Already have am account?{" "}
+        </Text>
         <TouchableOpacity onPress={toLogin}>
-          <Text style={{ color: "#03045e" }}>Login</Text>
+          <Text style={{ color: "#0096c7" }}>Login</Text>
         </TouchableOpacity>
       </View>
     </View>

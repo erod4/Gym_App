@@ -9,6 +9,9 @@ const GenButton = ({
   horizontalPadding,
   fontColor,
 }) => {
+  const handlePress = () => {
+    onPress();
+  };
   return (
     <>
       <TouchableOpacity
@@ -21,7 +24,7 @@ const GenButton = ({
           justifyContent: "center",
           alignItems: "center",
         }}
-        onPress={onPress}
+        onPress={handlePress}
       >
         <Text
           style={{

@@ -19,14 +19,14 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
     container: {
       backgroundColor: "rgba(0, 150, 199, 0.25)",
       borderRadius: 15,
-      paddingVertical: 2,
-
+      borderWidth: 0.7,
       overflow: "hidden",
     },
     containerLeft: {
       paddingHorizontal: 10,
       backgroundColor: "rgba(0, 150, 199, 0.25)",
       flex: 1,
+
       justifyContent: "center",
       alignItems: "center",
     },
@@ -38,7 +38,7 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
       alignItems: "center",
     },
     containerRightLeftest: {
-      width: "86%",
+      width: "75%",
     },
     containerRightTop: {
       fontWeight: "700",
@@ -52,9 +52,12 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
-        <Pressable style={styles.containerLeft} onPress={handleAddFoodPress}>
+        <TouchableOpacity
+          style={styles.containerLeft}
+          onPress={handleAddFoodPress}
+        >
           <FontAwesomeIcon icon={"fa-plus"} color="#0096c7" />
-        </Pressable>
+        </TouchableOpacity>
         <Pressable style={styles.containerRight} onPress={handlePress}>
           <View style={styles.containerRightLeftest}>
             <Text style={styles.containerRightTop}>{name}</Text>

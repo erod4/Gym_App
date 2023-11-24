@@ -6,15 +6,51 @@ import Swiper from "react-native-swiper";
 import Goal from "../components/molecules/Goal";
 import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
 import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
-
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 const DailyGoals = () => {
   const { todaysSteps, getTodaysStep } = useContext(AppleHealthContext);
-
+  const { isDarkMode } = useContext(AppearenceContext);
   useEffect(() => {
     getTodaysStep();
   }, []);
 
   const { openWaterSlider } = useContext(RatingSliderContext);
+  const styles = StyleSheet.create({
+    paginationContainer: {
+      position: "relative",
+      bottom: -10, // Adjust the top value as needed to position the dots
+      width: "100%",
+      alignItems: "center",
+    },
+    container: {
+      alignContent: "center",
+      justifyContent: "center",
+      width: "90%",
+      flex: 1,
+
+      borderRadius: 10,
+    },
+
+    title: {
+      justifyContent: "center",
+      alignContent: "center",
+      textAlign: "left",
+      paddingTop: 10,
+      fontSize: 20,
+      fontWeight: "900",
+      color: !isDarkMode ? "#000" : "#ddd",
+    },
+    goals: {
+      flexDirection: "row",
+      marginBottom: 5,
+      padding: 10,
+      gap: 10,
+      alignItems: "center",
+      justifyContent: "center",
+      flex: 1,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Todays Goals</Text>
@@ -51,13 +87,13 @@ const DailyGoals = () => {
             units={"Hr"}
             count={8}
             percentage={1}
-            color={"#F6F1D5"}
+            color={"#C6B868"}
           />
           <Goal
             icon={"fa-shoe-prints"}
             name={"Steps"}
             units={"Steps"}
-            count={todaysSteps?(todaysSteps?.value):(0)}
+            count={todaysSteps ? todaysSteps?.value : 0}
             percentage={todaysSteps?.value / 8000}
           />
         </View>
@@ -65,38 +101,4 @@ const DailyGoals = () => {
     </View>
   );
 };
-const styles = StyleSheet.create({
-  paginationContainer: {
-    position: "relative",
-    bottom: -10, // Adjust the top value as needed to position the dots
-    width: "100%",
-    alignItems: "center",
-  },
-  container: {
-    alignContent: "center",
-    justifyContent: "center",
-    width: "90%",
-    flex: 1,
-
-    borderRadius: 10,
-  },
-
-  title: {
-    justifyContent: "center",
-    alignContent: "center",
-    textAlign: "left",
-    paddingTop: 10,
-    fontSize: 20,
-    fontWeight: "900",
-  },
-  goals: {
-    flexDirection: "row",
-    marginBottom: 5,
-    padding: 10,
-    gap: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-});
 export default DailyGoals;

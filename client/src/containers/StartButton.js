@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 const StartButton = ({ text, press, fontColor, backgroundColor }) => {
   const styles = StyleSheet.create({

@@ -1,14 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SimpleAnimation } from "react-native-simple-animations";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 const Welcome = ({ name }) => {
+  const { isDarkMode } = useContext(AppearenceContext);
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowWelcome(false);
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -24,12 +26,12 @@ const Welcome = ({ name }) => {
       zIndex: 1,
       borderRadius: 25,
       height: showWelcome ? "13%" : "5%",
-      backgroundColor: "#fff",
+      backgroundColor: isDarkMode ? "#253341" : "#fff",
       shadowColor: showWelcome ? "#000" : "#fff",
       shadowOffset: { width: 0, height: -2 }, // Set the shadow offset to move the shadow upwards (negative height)
       shadowOpacity: 0.8, // Set the shadow opacity
       shadowRadius: 2, // Set the shadow radius
-      padding: 5,
+      padding: 6,
     },
     insideContainer: {
       flex: 1,
@@ -38,6 +40,7 @@ const Welcome = ({ name }) => {
     message: {
       fontWeight: "700",
       fontSize: 18,
+      color: isDarkMode ? "#ddd" : "#000",
     },
   });
 

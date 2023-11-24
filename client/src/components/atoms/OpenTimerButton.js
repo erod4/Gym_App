@@ -12,14 +12,13 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TimerContext } from "../../store/actions/clientActions/Timer";
-
 const OpenTimerButton = () => {
   const { isTimerActive, seconds } = useContext(TimerContext);
   const { handleTimer, isTimerSliderActive } = useContext(TimerSliderContext);
   const { closeSettingsSlider } = useContext(SettingsSliderContext);
   const { closeWeightSlider } = useContext(WeightSliderContext);
   const handleOpen = () => {
-    handleTimer("true");
+    handleTimer(true);
     closeSettingsSlider();
     closeWeightSlider();
   };

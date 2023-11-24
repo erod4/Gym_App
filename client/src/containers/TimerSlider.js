@@ -1,5 +1,12 @@
 import { View, Text, Button } from "react-native";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   TouchableOpacity,
@@ -18,12 +25,17 @@ import { useSettingsSliderContext } from "../store/actions/clientActions/Setting
 import BottomSheet from "@gorhom/bottom-sheet";
 
 const TimerSlider = ({ activeId }) => {
-  const { isTimerSliderActive, closeTimerSlider } =
-    useContext(TimerSliderContext);
-  const bottomSheetRef = useRef < BottomSheet > null;
-
+  const { isTimerSliderActive, handleTimer } = useContext(TimerSliderContext);
+  const bottomSheetRef = useRef(null);
+  useEffect(() => {
+    if (isTimerSliderActive) {
+      openBottomSheet();
+    } else {
+      closeBottomSheet(); // Optionally close the bottom sheet when isTimerSliderActive becomes false
+    }
+  }, [isTimerSliderActive]);
   // variables
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
+  const snapPoints = useMemo(() => ["50%"], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {
@@ -39,24 +51,19 @@ const TimerSlider = ({ activeId }) => {
   };
   return (
     <>
-      <TouchableOpacity style={styles.panelHandle} onPress={openBottomSheet}>
-        <Text style={styles.text}>Open Bottom Sheet</Text>
-      </TouchableOpacity>
-
       <BottomSheet
         ref={bottomSheetRef}
-        index={1}
+        index={-1}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
+        style={{ zIndex: 1, backgroundColor: "#fff" }}
+        enablePanDownToClose={true}
+        onClose={() => {
+          handleTimer(false);
+        }}
       >
         <View style={styles.container}>
-          {/* Your content for the bottom sheet */}
-          <Text>Awesome 🎉</Text>
-
-          {/* Example close button */}
-          <TouchableOpacity style={styles.exit} onPress={closeBottomSheet}>
-            <Text>Close</Text>
-          </TouchableOpacity>
+          <StopWatch />
         </View>
       </BottomSheet>
     </>
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
   },
-
+  container: { flex: 1, backgroundColor: "#fff", zIndex: 1 },
   panelHandle: {
     padding: 20,
   },

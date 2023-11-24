@@ -85,7 +85,7 @@ const StopWatch = () => {
       {watch && (
         <View style={styles.buttons}>
           <StopWatchButton
-            color={"#0077B6"}
+            color={"#0096c7"}
             // name={isStopWatchRunning ? "Pause" : "Start"}
             // onPress={startStopWatch}
           />
@@ -94,13 +94,24 @@ const StopWatch = () => {
       )}
       {!watch && (
         <View style={styles.buttons}>
-          <TimerButton name={"-30"} color={"#ddd"} onPress={decrementBy30} />
           <TimerButton
-            color={"#0077B6"}
+            name={"-30"}
+            color={"rgba(0, 150, 199, 0.25)"}
+            onPress={decrementBy30}
+            fontColor={"#0096c7"}
+          />
+          <TimerButton
+            color={"#0096c7"}
             name={isTimerActive ? "Pause" : "Start"}
             onPress={handlePress}
+            fontColor={"#fff"}
           />
-          <TimerButton name={"+30"} color={"#ddd"} onPress={incrementBy30} />
+          <TimerButton
+            name={"+30"}
+            color={"rgba(0, 150, 199, 0.25)"}
+            onPress={incrementBy30}
+            fontColor={"#0096c7"}
+          />
         </View>
       )}
     </View>

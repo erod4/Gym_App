@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
+  const { isDarkMode } = useContext(AppearenceContext);
   let icon = "";
   switch (mood) {
     case "happy":
@@ -23,6 +25,56 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
     default:
       break;
   }
+  const styles = StyleSheet.create({
+    RecentWorkout: {
+      backgroundColor: !isDarkMode ? "#fff" : "#253341",
+      width: "100%",
+      borderRadius: 10,
+      borderWidth: 0.5,
+      padding: 20,
+      gap: 10,
+      flexDirection: "row",
+      borderColor: !isDarkMode ? "#000" : "#ddd",
+    },
+    upperContainer: {
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "flex-start",
+    },
+    lowerContainer: {
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      alignItems: "center",
+
+      flex: 1,
+    },
+    title: {
+      fontWeight: "900",
+      fontSize: 15,
+      color: !isDarkMode ? "#000" : "#ddd",
+    },
+    date: {
+      fontSize: 12,
+      fontWeight: "400",
+      color: !isDarkMode ? "#555" : "#fff",
+    },
+    dataContainer: {
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    data: {
+      fontWeight: "700",
+      fontSize: 12,
+      color: !isDarkMode ? "#000" : "#fff",
+    },
+    label: {
+      color: !isDarkMode ? "#aaa" : "#fff",
+      fontSize: 10,
+    },
+    icon: {
+      color: "#0077B6",
+    },
+  });
   return (
     <View style={styles.RecentWorkout}>
       <View style={styles.upperContainer}>
@@ -36,7 +88,7 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
               style={styles.icon}
               icon={"fa-stopwatch"}
               size={14}
-              color="#111"
+              color={!isDarkMode ? "#000" : "#ddd"}
             />
             <Text style={styles.data}>{duration} min</Text>
           </View>
@@ -49,7 +101,7 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
               style={styles.icon}
               icon={"fa-gauge-simple"}
               size={14}
-              color="#111"
+              color={!isDarkMode ? "#000" : "#ddd"}
             />
             <Text style={styles.data}>{intensity}</Text>
           </View>
@@ -62,7 +114,7 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
               style={styles.icon}
               icon={icon}
               size={14}
-              color="#111"
+              color={!isDarkMode ? "#000" : "#ddd"}
             />
             <Text style={styles.data}>{mood}</Text>
           </View>
@@ -73,51 +125,4 @@ const RecentWorkout = ({ name, date, mood, intensity, duration }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  RecentWorkout: {
-    backgroundColor: "#fff",
-    width: "100%",
-    borderRadius: 10,
-    borderWidth: 0.5,
-    padding: 20,
-    gap: 10,
-    flexDirection: "row",
-  },
-  upperContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "flex-start",
-  },
-  lowerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-
-    flex: 1,
-  },
-  title: {
-    fontWeight: "900",
-    fontSize: 15,
-  },
-  date: {
-    fontSize: 12,
-    fontWeight: "400",
-    color: "#555",
-  },
-  dataContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  data: {
-    fontWeight: "700",
-    fontSize: 12,
-  },
-  label: {
-    color: "#aaa",
-    fontSize: 10,
-  },
-  icon: {
-    color: "#0077B6",
-  },
-});
 export default RecentWorkout;

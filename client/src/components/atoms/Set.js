@@ -10,7 +10,7 @@ import { SettingsSliderContext } from "../../store/actions/clientActions/Setting
 
 const Set = ({ setName, weight, time, onPress }) => {
   const { openWeightSlider } = useContext(WeightSliderContext);
-  const { closeTimerSlider } = useContext(TimerSliderContext);
+  const { handleTimer } = useContext(TimerSliderContext);
   const { passTimeToTimer } = useContext(TimerContext);
   const { closeSettingsSlider } = useContext(SettingsSliderContext);
   const handleTimerPress = () => {
@@ -18,7 +18,7 @@ const Set = ({ setName, weight, time, onPress }) => {
   };
   const handleWeightPress = () => {
     closeSettingsSlider();
-    closeTimerSlider();
+    handleTimer(false);
     openWeightSlider(weight);
   };
   const renderRightActions = () => (

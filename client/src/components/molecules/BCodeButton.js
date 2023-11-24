@@ -4,8 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 const BCodeButton = () => {
+  const navigator = useNavigation();
   return (
     <TouchableOpacity
+      onPress={() => {
+        navigator.navigate("BarcodeScanner");
+      }}
       style={{
         paddingRight: 5,
         justifyContent: "center",

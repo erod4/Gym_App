@@ -15,15 +15,13 @@ const Nutrition = () => {
       backgroundColor: "#fff",
     },
     macrosContainer: {
-      position: "relative",
       top: 0,
-      width: "100%",
+      width: "90%",
       backgroundColor: "#fff",
-      borderWidth: 0.5,
       height: "35%",
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
-      paddingTop: 40,
+      paddingTop: 60,
     },
     foodContainer: {
       paddingVertical: 20,
@@ -34,34 +32,36 @@ const Nutrition = () => {
   return (
     <View style={styles.page}>
       <View style={styles.macrosContainer}>
-        <NutritionNav />
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <NutritionDailyProgress
-            name={"Energy"}
-            currVal={300}
-            goalValue={2000}
-            units={"kcal"}
-          />
-          <NutritionDailyProgress
-            name={"Protein"}
-            currVal={100}
-            goalValue={200}
-            units={"g"}
-          />
-          <NutritionDailyProgress
-            name={"Net Carbs"}
-            currVal={20}
-            goalValue={250}
-            units={"g"}
-          />
-          <NutritionDailyProgress
-            name={"Fat"}
-            currVal={140}
-            goalValue={150}
-            units={"g"}
-          />
+        <View style={{ flex: 1, borderWidth: 0.7, borderRadius: 10 }}>
+          <NutritionNav />
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <NutritionDailyProgress
+              name={"Energy"}
+              currVal={300}
+              goalValue={2000}
+              units={"kcal"}
+            />
+            <NutritionDailyProgress
+              name={"Protein"}
+              currVal={100}
+              goalValue={200}
+              units={"g"}
+            />
+            <NutritionDailyProgress
+              name={"Net Carbs"}
+              currVal={20}
+              goalValue={250}
+              units={"g"}
+            />
+            <NutritionDailyProgress
+              name={"Fat"}
+              currVal={140}
+              goalValue={150}
+              units={"g"}
+            />
+          </View>
         </View>
       </View>
       <ScrollView

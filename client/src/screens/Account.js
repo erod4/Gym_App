@@ -5,33 +5,26 @@ import AccountSettings from "../components/molecules/AccountSettings";
 import { ScrollView, Switch } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import More from "../components/molecules/More";
-import { AppearenceContext } from "../store/Appearence";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 const Account = () => {
-  const {theme,toggleTheme}=useContext(AppearenceContext);
-
-
+  const { theme, toggleTheme, isDarkMode } = useContext(AppearenceContext);
 
   const [isPushNotificationsEnabled, setIsPushNotificationsEnabled] =
     useState(false);
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(theme==='dark');
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(theme === "light");
   const toggleNotifSwitch = () =>
     setIsPushNotificationsEnabled(!isPushNotificationsEnabled);
   const toggleDarkModeSwitch = () => {
-    if(theme!=='dark'){
-     
-      toggleTheme('dark')
-      setIsDarkModeEnabled(true)
+    if (isDarkMode) {
+      toggleTheme("light");
+    } else {
+      toggleTheme("dark");
     }
-    else{
-      toggleTheme('light')
-      setIsDarkModeEnabled(false)
-    }
-    
-  }
+  };
   const styles = StyleSheet.create({
     page: {
-      backgroundColor: theme==='light'?"#fff":'#111',
+      backgroundColor: theme ? "#fff" : "#111",
       flex: 1,
     },
     sectionTitle: {
@@ -85,7 +78,7 @@ const Account = () => {
             thumbColor={isDarkModeEnabled ? "#0077b6" : "#0077b6"}
             ios_backgroundColor="#eee"
             onValueChange={toggleDarkModeSwitch}
-            value={isDarkModeEnabled}
+            value={isDarkMode}
           />
         </View>
       </View>
