@@ -8,23 +8,28 @@ const WeightSelection = ({ weight, handleWeightSelected }) => {
 
     handleWeightSelected(weight);
   };
-  const buttonColor = isPressed ? "#0077B6" : "grey";
+  const buttonColor = isPressed ? "rgba(0, 150, 199, 0.25)" : "#555";
   return (
     <TouchableOpacity
       style={[styles.weight, { backgroundColor: buttonColor }]}
       activeOpacity={0.7}
       onPress={handlePress}
     >
-      <Text>{weight}</Text>
+      <Text
+        style={{ textAlign: "center", color: "#0096c7", fontWeight: "700" }}
+      >
+        {weight}
+      </Text>
     </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
   weight: {
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    width: 35,
     backgroundColor: "#0077B6",
     borderRadius: 10,
+    justifyContent: "center",
   },
 });
 export default WeightSelection;

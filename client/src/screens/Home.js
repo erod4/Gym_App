@@ -76,7 +76,7 @@ const Home = () => {
   }, [appleHealthPermissionGranted]);
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate("StartWorkout");
+    navigation.navigate("StartWorkout", { isDarkMode });
   };
   library.add(
     faLock,

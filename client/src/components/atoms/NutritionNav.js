@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 const NutritionNav = () => {
+  const { isDarkMode } = useContext(AppearenceContext);
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const months = [
@@ -66,16 +68,25 @@ const NutritionNav = () => {
     date: {
       fontSize: 22,
       fontWeight: "900",
+      color: isDarkMode ? "#ddd" : "#000",
     },
   });
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleLeftArrowPress} style={styles.arrow}>
-        <FontAwesomeIcon icon={"fa-arrow-left"} size={20} />
+        <FontAwesomeIcon
+          icon={"fa-arrow-left"}
+          size={20}
+          color={isDarkMode ? "#ddd" : "#000"}
+        />
       </TouchableOpacity>
       <Text style={styles.date}>{formattedDate}</Text>
       <TouchableOpacity onPress={handleRightArrowPress} style={styles.arrow}>
-        <FontAwesomeIcon icon={"fa-arrow-right"} size={20} />
+        <FontAwesomeIcon
+          icon={"fa-arrow-right"}
+          size={20}
+          color={isDarkMode ? "#ddd" : "#000"}
+        />
       </TouchableOpacity>
     </View>
   );

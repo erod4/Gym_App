@@ -1,30 +1,61 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
 import Set from "../components/atoms/Set";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import OptionsButton from "../components/atoms/OptionsButton";
 import MarkComplete from "../components/atoms/MarkComplete";
+import { trigger } from "react-native-haptic-feedback";
 
-import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
+import { InteractionContext } from "../store/actions/clientActions/Interaction";
 import AddSetButton from "../components/atoms/AddSetButton";
-import AddSet from "../components/atoms/AddSet";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
-  const [isAddSetActive, setIsAddSetActive] = useState(false);
-  const handleAddSetPress = () => {
-    setIsAddSetActive(true);
-  };
+  const { activeInteraction, setActive, display } =
+    useContext(InteractionContext);
+  const { isDarkMode } = useContext(AppearenceContext);
+  const styles = StyleSheet.create({
+    excercise: {
+      width: "100%",
+      borderRadius: 10,
+      backgroundColor: isDarkMode ? "#253341" : "#fff",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingBottom: 10,
+      borderWidth: 0.5,
+      borderColor: isDarkMode ? "#ddd" : "#000",
+    },
+    excerciseNameContainer: {
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 20,
+      flexDirection: "row",
+    },
+    excerciseName: {
+      fontWeight: "900",
+      fontSize: 20,
+      color: "#0096c7",
+      flex: 1,
+      textAlign: "center",
+    },
+    optionsContainer: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    leftAction: {
+      backgroundColor: "red",
+      padding: 20,
+      height: "100%",
+      justifyContent: "center",
+    },
 
-  const handleAddSetClose = () => {
-    setIsAddSetActive(false);
-  };
-
+    actionText: {
+      fontWeight: "500",
+      color: "#fff",
+    },
+  });
   const renderRightActions = () => (
     <View style={styles.optionsContainer}>
       <TouchableOpacity style={styles.leftAction}>
@@ -45,60 +76,21 @@ const Excercise = ({ excerciseName, id, markComplete, onPress }) => {
           <OptionsButton id={id} />
         </View>
         <Set time={3} setName={"Set 1"} weight={80} onPress={onPress} />
-        <Set time={2} setName={"Set 2"} weight={145} onPress={onPress} />
-        <Set time={1} setName={"Set 3"} weight={225} onPress={onPress} />
-        {isAddSetActive ? (
-          <AddSet closeNewSet={handleAddSetClose} setName={"Set 4"} />
-        ) : (
+        <Set time={3} setName={"Set 2"} weight={145} onPress={onPress} />
+        <Set time={3} setName={"Set 3"} weight={225} onPress={onPress} />
+        {activeInteraction != "ADD_SET" && (
           <AddSetButton
             color={"#ddd"}
             name={"Add Set"}
-            onPress={handleAddSetPress}
+            onPress={() => {
+              setActive("ADD_SET");
+              trigger("notificationSuccess");
+            }}
           />
         )}
       </View>
     </Swipeable>
   );
 };
-const styles = StyleSheet.create({
-  excercise: {
-    width: "100%",
-    borderRadius: 10,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingBottom: 10,
-    borderWidth: 0.5,
-  },
-  excerciseNameContainer: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-    flexDirection: "row",
-  },
-  excerciseName: {
-    fontWeight: "900",
-    fontSize: 20,
-    color: "#0096c7",
-    flex: 1,
-    textAlign: "center",
-  },
-  optionsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  leftAction: {
-    backgroundColor: "red",
-    padding: 20,
-    height: "100%",
-    justifyContent: "center",
-  },
 
-  actionText: {
-    fontWeight: "500",
-    color: "#fff",
-  },
-});
 export default Excercise;

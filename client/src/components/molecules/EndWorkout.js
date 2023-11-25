@@ -16,6 +16,7 @@ const EndWorkout = ({ id }) => {
   const { stopSaving } = useContext(SaveContext);
   const { openRating } = useContext(RatingSliderContext);
   const { setResume, setId, ellapseTime } = useContext(AppearenceContext);
+  const { isDarkMode } = useContext(AppearenceContext);
   const handleEndWorkout = () => {
     navigation.navigate("nav");
     ellapseTime(0);
@@ -29,6 +30,51 @@ const EndWorkout = ({ id }) => {
     setResume(true);
     stopSaving();
   };
+  const styles = StyleSheet.create({
+    page: {
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      flex: 1,
+      position: "relative",
+      ...StyleSheet.absoluteFillObject,
+      zIndex: 10,
+    },
+    container: {
+      backgroundColor: isDarkMode ? "#253341" : "#fff",
+
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    title: {
+      paddingVertical: 15,
+    },
+    text: {
+      fontWeight: "700",
+      fontSize: 17,
+      color: isDarkMode ? "#ddd" : "#000",
+    },
+    butonContainer: {
+      width: "100%",
+    },
+    button: {
+      borderTopWidth: 0.5,
+      borderColor: isDarkMode ? "#ddd" : "#555",
+      width: "100%",
+      padding: 15,
+      paddingHorizontal: 70,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    buttonText: {
+      width: "100%",
+      textAlign: "center",
+      fontWeight: "700",
+      fontSize: 15,
+      color: isDarkMode ? "#ddd" : "#000",
+    },
+  });
   return (
     <Pressable style={styles.page} onPress={stopSaving}>
       <View style={styles.container}>
@@ -58,44 +104,4 @@ const EndWorkout = ({ id }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  page: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    flex: 1,
-    position: "relative",
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 10,
-  },
-  container: {
-    backgroundColor: "#fff",
-
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    paddingVertical: 15,
-  },
-  text: { fontWeight: "700", fontSize: 17 },
-  butonContainer: {
-    width: "100%",
-  },
-  button: {
-    borderTopWidth: 0.5,
-    borderColor: "#555",
-    width: "100%",
-    padding: 15,
-    paddingHorizontal: 70,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    width: "100%",
-    textAlign: "center",
-    fontWeight: "700",
-    fontSize: 15,
-  },
-});
 export default EndWorkout;

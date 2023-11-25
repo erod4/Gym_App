@@ -2,18 +2,16 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
-import { WeightSliderContext } from "../../store/actions/clientActions/WeightSlider";
-import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import { trigger } from "react-native-haptic-feedback";
+import { InteractionContext } from "../../store/actions/clientActions/Interaction";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const OptionsButton = ({ id }) => {
-  const { handleTimer } = useContext(TimerSliderContext);
-  const { openSettingsSlider } = useContext(SettingsSliderContext);
-  const { closeWeightSlider } = useContext(WeightSliderContext);
-
+  const { setActive } = useContext(InteractionContext);
+  const { isDarkMode } = useContext(AppearenceContext);
   const handleOpen = () => {
-    openSettingsSlider(id);
-    handleTimer(false);
-    closeWeightSlider();
+    trigger("notificationSuccess");
+    setActive("OPTIONS", id);
   };
 
   return (
@@ -21,7 +19,10 @@ const OptionsButton = ({ id }) => {
       style={{ paddingHorizontal: 20, position: "absolute", right: 0 }}
       onPress={handleOpen}
     >
-      <FontAwesomeIcon color="#1c1c1c" icon={"fa-ellipsis-vertical"} />
+      <FontAwesomeIcon
+        color={isDarkMode ? "#ddd" : "#000"}
+        icon={"fa-ellipsis-vertical"}
+      />
     </TouchableOpacity>
   );
 };

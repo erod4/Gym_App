@@ -2,9 +2,16 @@ import { View, Text, Button } from "react-native";
 import React, { useContext } from "react";
 import { SaveContext } from "../../store/actions/clientActions/SaveWorkout";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { InteractionContext } from "../../store/actions/clientActions/Interaction";
+import { trigger } from "react-native-haptic-feedback";
+
 const ExcerciseHeaderLeft = () => {
   const { startSaving } = useContext(SaveContext);
+  const { setActive, setTimerActive } = useContext(InteractionContext);
   const handlePress = () => {
+    trigger("notificationSuccess");
+    setActive("");
+    setTimerActive("none");
     startSaving();
   };
   return (

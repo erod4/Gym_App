@@ -8,15 +8,22 @@ import { TimerContext } from "../store/actions/clientActions/Timer";
 import StopWatchButton from "../components/atoms/StopWatchButton";
 
 const StopWatch = () => {
-  const { isTimerActive, startTimer, stopTimer, initialTime, chosenSetTime } =
-    useContext(TimerContext);
+  const {
+    isTimerActive,
+    startTimer,
+    stopTimer,
+    initialTime,
+    chosenSetTime,
+    reset,
+    passTimeToTimer,
+  } = useContext(TimerContext);
   const [watch, setWatch] = useState(false);
   const [timerTime, setTimerTime] = useState(0);
 
   useEffect(() => {
     setTimerTime(chosenSetTime);
     startTimer();
-  }, [chosenSetTime]);
+  }, [chosenSetTime, reset]);
 
   useEffect(() => {
     initialTime(timerTime);
@@ -25,11 +32,11 @@ const StopWatch = () => {
     let interval;
     if (isTimerActive && timerTime > 0) {
       interval = setInterval(() => {
-        setTimerTime(timerTime - 1);
+        setTimerTime((prev) => prev - 1);
       }, 1000);
     } else if (isTimerActive && timerTime === 0) {
       stopTimer();
-
+      passTimeToTimer(0);
       clearInterval(interval);
     }
     return () => {
@@ -119,7 +126,6 @@ const StopWatch = () => {
 };
 const styles = StyleSheet.create({
   stopWatch: {
-    backgroundColor: "#fff",
     flex: 1,
 
     justifyContent: "center",

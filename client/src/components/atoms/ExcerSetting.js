@@ -1,34 +1,39 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useContext } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import { trigger } from "react-native-haptic-feedback";
+import { InteractionContext } from "../../store/actions/clientActions/Interaction";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const ExcerSetting = ({ name, icon, onPress }) => {
-  const { closeSettingsSlider } = useContext(SettingsSliderContext);
+  const { setActive } = useContext(InteractionContext);
+  const { isDarkMode } = useContext(AppearenceContext);
+  const styles = StyleSheet.create({
+    setting: {
+      padding: 15,
+      flexDirection: "row",
+      borderTopWidth: 0.5,
+      borderColor: isDarkMode ? "#ddd" : "#555",
+    },
+    name: {
+      flex: 1,
+      textAlign: "center",
+      fontWeight: "700",
+      fontSize: 15,
+      color: isDarkMode ? "#ddd" : "#000",
+    },
+  });
 
   return (
     <TouchableOpacity
       style={styles.setting}
       onPress={() => {
         onPress();
-        closeSettingsSlider();
+        setActive("");
+        trigger("notificationSuccess");
       }}
     >
-      <FontAwesomeIcon size={18} icon={icon} />
       <Text style={styles.name}>{name}</Text>
     </TouchableOpacity>
   );
 };
-const styles = StyleSheet.create({
-  setting: {
-    width: "100%",
-    padding: 10,
-    flexDirection: "row",
-  },
-  name: {
-    paddingLeft: 20,
-    fontSize: 16,
-    fontWeight: "500",
-  },
-});
 export default ExcerSetting;

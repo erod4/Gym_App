@@ -1,10 +1,12 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
+  const { isDarkMode } = useContext(AppearenceContext);
   const [expand, setExpand] = useState(false);
 
   const navigator = useNavigation();
@@ -17,10 +19,11 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
   };
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: "rgba(0, 150, 199, 0.25)",
+      backgroundColor: "rgba(0, 150, 199, 0.3)",
       borderRadius: 15,
       borderWidth: 0.7,
       overflow: "hidden",
+      borderColor: isDarkMode ? "#ddd" : "#000",
     },
     containerLeft: {
       paddingHorizontal: 10,
@@ -43,6 +46,7 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
     containerRightTop: {
       fontWeight: "700",
       fontSize: 15,
+      color: isDarkMode ? "#ddd" : "#000",
     },
     containerRightBottom: {
       flexDirection: "row",
@@ -63,10 +67,18 @@ const NutritionCategory = ({ name, cal, protein, carbs, fat }) => {
             <Text style={styles.containerRightTop}>{name}</Text>
 
             <View style={styles.containerRightBottom}>
-              <Text>{cal} kcal</Text>
-              <Text>{protein}g protein</Text>
-              <Text>{carbs}g carbs</Text>
-              <Text>{fat}g fat</Text>
+              <Text style={{ color: isDarkMode ? "#ddd" : "#000" }}>
+                {cal} kcal
+              </Text>
+              <Text style={{ color: isDarkMode ? "#ddd" : "#000" }}>
+                {protein}g protein
+              </Text>
+              <Text style={{ color: isDarkMode ? "#ddd" : "#000" }}>
+                {carbs}g carbs
+              </Text>
+              <Text style={{ color: isDarkMode ? "#ddd" : "#000" }}>
+                {fat}g fat
+              </Text>
             </View>
           </View>
           <FontAwesomeIcon

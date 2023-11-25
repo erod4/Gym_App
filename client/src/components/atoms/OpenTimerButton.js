@@ -4,7 +4,10 @@ import {
   TimerSliderContext,
   useTimerSliderContext,
 } from "../../store/actions/clientActions/TimerSlider";
-import { SettingsSliderContext } from "../../store/actions/clientActions/SettingsSlider";
+import {
+  InteractionContext,
+  SettingsSliderContext,
+} from "../../store/actions/clientActions/Interaction";
 import {
   WeightSliderContext,
   useWeightSliderContext,
@@ -12,15 +15,19 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TimerContext } from "../../store/actions/clientActions/Timer";
+import { SaveContext } from "../../store/actions/clientActions/SaveWorkout";
+import { trigger } from "react-native-haptic-feedback";
+
 const OpenTimerButton = () => {
   const { isTimerActive, seconds } = useContext(TimerContext);
-  const { handleTimer, isTimerSliderActive } = useContext(TimerSliderContext);
-  const { closeSettingsSlider } = useContext(SettingsSliderContext);
-  const { closeWeightSlider } = useContext(WeightSliderContext);
+  const { stopSaving } = useContext(SaveContext);
+
+  const { setActive, setTimerActive, display } = useContext(InteractionContext);
   const handleOpen = () => {
-    handleTimer(true);
-    closeSettingsSlider();
-    closeWeightSlider();
+    trigger("notificationSuccess");
+    setActive("");
+    setTimerActive("flex");
+    stopSaving();
   };
   const timerMins = Math.floor(seconds / 60);
   const timerSecs = seconds % 60;

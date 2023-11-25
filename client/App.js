@@ -11,7 +11,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { EditContextProvider } from "./src/store/actions/clientActions/EditWorkout";
 import { WeightSliderProvider } from "./src/store/actions/clientActions/WeightSlider";
-import { SettingsSliderContextProvider } from "./src/store/actions/clientActions/SettingsSlider";
+import { InteractionContextProvider } from "./src/store/actions/clientActions/Interaction";
 
 import { TimerSliderProvider } from "./src/store/actions/clientActions/TimerSlider";
 import OpenTimerButton from "./src/components/atoms/OpenTimerButton";
@@ -32,7 +32,10 @@ import Goals from "./src/screens/Goals";
 import { AppleHealthContextProvider } from "./src/store/actions/clientActions/PhysicalActivity";
 import CustomHeaderTitle from "./src/components/atoms/CustomHeaderTitle";
 import StepsPhysicalActivityHeader from "./src/components/atoms/StepsPhysicalActivityHeader";
-import { AppearenceContextProvider } from "./src/store/actions/clientActions/Appearence";
+import {
+  AppearenceContext,
+  AppearenceContextProvider,
+} from "./src/store/actions/clientActions/Appearence";
 import ExcerciseHeaderLeft from "./src/components/atoms/ExcerciseHeaderLeft";
 import ExcerciseHeader from "./src/components/atoms/ExcerciseHeader";
 import AddFood from "./src/screens/AddFood";
@@ -45,7 +48,6 @@ import BarcodeScanner from "./src/components/molecules/BarcodeScanner";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NutritionContextProvider>
@@ -53,7 +55,7 @@ export default function App() {
           <AppleHealthContextProvider>
             <EditContextProvider>
               <WeightSliderProvider>
-                <SettingsSliderContextProvider>
+                <InteractionContextProvider>
                   <SaveContextProvider>
                     <RatingSliderContextProvider>
                       <TimerSliderProvider>
@@ -82,11 +84,23 @@ export default function App() {
                               <Stack.Screen
                                 name="StartWorkout"
                                 component={StartWorkout}
-                                options={{
+                                options={({ route }) => ({
                                   headerShown: true,
                                   title: "Workouts",
-                                }}
+                                  headerStyle: {
+                                    backgroundColor: route.params.isDarkMode
+                                      ? "#192734"
+                                      : "#fff",
+                                  },
+                                  headerTitleStyle: {
+                                    fontSize: 20,
+                                    color: route.params.isDarkMode
+                                      ? "#ddd"
+                                      : "#000",
+                                  },
+                                })}
                               />
+
                               <Stack.Screen
                                 name="WeightProgress"
                                 component={WeightProgress}
@@ -148,6 +162,11 @@ export default function App() {
                                 component={WorkoutPage}
                                 options={({ route }) => ({
                                   headerLeft: ExcerciseHeaderLeft,
+                                  headerStyle: {
+                                    backgroundColor: route.params.isDarkMode
+                                      ? "#192734"
+                                      : "#fff",
+                                  },
                                   headerRight: () => <OpenTimerButton />,
                                   headerTitle: () => (
                                     <ExcerciseHeader route={route} />
@@ -174,7 +193,7 @@ export default function App() {
                       </TimerSliderProvider>
                     </RatingSliderContextProvider>
                   </SaveContextProvider>
-                </SettingsSliderContextProvider>
+                </InteractionContextProvider>
               </WeightSliderProvider>
             </EditContextProvider>
           </AppleHealthContextProvider>

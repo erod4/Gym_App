@@ -1,23 +1,25 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
 import StartButton from "../containers/StartButton";
 import NutritionNav from "../components/atoms/NutritionNav";
 import NutritionDailyProgress from "../components/molecules/NutritionDailyProgress";
 import NutritionCategory from "../components/molecules/NutritionCategory";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 const Nutrition = () => {
+  const { isDarkMode } = useContext(AppearenceContext);
   const styles = StyleSheet.create({
     page: {
       flex: 1,
       alignItems: "center",
-      backgroundColor: "#fff",
+      backgroundColor: isDarkMode ? "#192734" : "#fff",
     },
     macrosContainer: {
       top: 0,
       width: "90%",
-      backgroundColor: "#fff",
+      backgroundColor: isDarkMode ? "#192734" : "#fff",
       height: "35%",
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
@@ -32,7 +34,16 @@ const Nutrition = () => {
   return (
     <View style={styles.page}>
       <View style={styles.macrosContainer}>
-        <View style={{ flex: 1, borderWidth: 0.7, borderRadius: 10 }}>
+        <View
+          style={{
+            flex: 1,
+            borderWidth: 0.7,
+            borderColor: isDarkMode ? "#ddd" : "#000",
+
+            borderRadius: 10,
+            backgroundColor: isDarkMode ? "#253341" : "#fff",
+          }}
+        >
           <NutritionNav />
           <View
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
@@ -66,7 +77,7 @@ const Nutrition = () => {
       </View>
       <ScrollView
         contentContainerStyle={styles.foodContainer}
-        style={{ flex: 1, backgroundColor: "rgba(254,254,254,1.0)" }}
+        style={{ flex: 1, backgroundColor: isDarkMode ? "#192734" : "#fff" }}
       >
         <NutritionCategory
           name={"Breakfast"}

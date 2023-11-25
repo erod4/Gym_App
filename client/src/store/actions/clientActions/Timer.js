@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   seconds: 0,
   chosenSetTime: 0,
   isTimerActive: false,
+  reset: false,
 };
 const reducer = (state, action) => {
   const { type, payload } = action;
@@ -25,7 +26,8 @@ const reducer = (state, action) => {
     case "PASS_TIME":
       return {
         ...state,
-        chosenSetTime: payload,
+        chosenSetTime: payload.time,
+        reset: payload.reset,
       };
     case "INIT_TIME":
       return {
@@ -39,11 +41,18 @@ const reducer = (state, action) => {
 export const TimerProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-  const passTimeToTimer = (time) => {
-    dispatch({
-      type: "PASS_TIME",
-      payload: time,
-    });
+  const passTimeToTimer = (time, reset) => {
+    if (time == state?.chosenSetTime) {
+      dispatch({
+        type: "PASS_TIME",
+        payload: { time, reset },
+      });
+    } else {
+      dispatch({
+        type: "PASS_TIME",
+        payload: { time, reset: false },
+      });
+    }
   };
 
   const startTimer = () => {
@@ -72,11 +81,12 @@ export const TimerProvider = ({ children }) => {
       value={{
         startTimer,
         stopTimer,
-        isTimerActive: state.isTimerActive,
-        seconds: state.seconds,
+        isTimerActive: state?.isTimerActive,
+        seconds: state?.seconds,
         initialTime,
         passTimeToTimer,
-        chosenSetTime: state.chosenSetTime,
+        chosenSetTime: state?.chosenSetTime,
+        reset: state?.reset,
       }}
     >
       {children}

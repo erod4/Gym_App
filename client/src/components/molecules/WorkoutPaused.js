@@ -6,7 +6,7 @@ import { get } from "../../../Storage";
 
 const WorkoutPaused = () => {
   const navigation = useNavigation();
-  const { isResumeActive, time, ellapseTime, id } =
+  const { isResumeActive, time, ellapseTime, id, isDarkMode } =
     useContext(AppearenceContext);
   const [seconds, setSeconds] = useState(time);
 
@@ -19,7 +19,7 @@ const WorkoutPaused = () => {
     ellapseTime(seconds);
   }, [seconds]);
   const handlePress = () => {
-    navigation.navigate("workout-page", { id: id });
+    navigation.navigate("workout-page", { id: id, name: "Push 1", isDarkMode });
   };
   function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600);
@@ -37,7 +37,7 @@ const WorkoutPaused = () => {
   const styles = StyleSheet.create({
     container: {
       width: "100%",
-      backgroundColor: "#fff",
+      backgroundColor: isDarkMode ? "#253341" : "#fff",
 
       shadowColor: "black", // Set the shadow color
       shadowOffset: { width: 0, height: -2 }, // Set the shadow offset to move the shadow upwards (negative height)
@@ -53,13 +53,14 @@ const WorkoutPaused = () => {
       fontWeight: "700",
       fontSize: 15,
       paddingTop: 5,
+      color: isDarkMode ? "#ddd" : "#000",
     },
     ellapsedTime: {
       width: "100%",
       textAlign: "center",
       fontWeight: "500",
       fontSize: 12,
-      color: "#555",
+      color: isDarkMode ? "#fff" : "#555",
     },
   });
   return (

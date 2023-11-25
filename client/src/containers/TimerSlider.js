@@ -1,89 +1,66 @@
-import { View, Text, Button } from "react-native";
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { View, Text, Button, Pressable } from "react-native";
+import React, { useCallback, useContext } from "react";
+import { trigger } from "react-native-haptic-feedback";
 
-import {
-  TouchableOpacity,
-  Animated,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { StyleSheet } from "react-native";
 
 import StopWatch from "./StopWatch";
-import {
-  TimerSliderContext,
-  useTimerSliderContext,
-} from "../store/actions/clientActions/TimerSlider";
+
+import { InteractionContext } from "../store/actions/clientActions/Interaction";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useSettingsSliderContext } from "../store/actions/clientActions/SettingsSlider";
-import BottomSheet from "@gorhom/bottom-sheet";
+import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 const TimerSlider = ({ activeId }) => {
-  const { isTimerSliderActive, handleTimer } = useContext(TimerSliderContext);
-  const bottomSheetRef = useRef(null);
-  useEffect(() => {
-    if (isTimerSliderActive) {
-      openBottomSheet();
-    } else {
-      closeBottomSheet(); // Optionally close the bottom sheet when isTimerSliderActive becomes false
-    }
-  }, [isTimerSliderActive]);
-  // variables
-  const snapPoints = useMemo(() => ["50%"], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
-  const openBottomSheet = () => {
-    bottomSheetRef.current?.expand();
-  };
-
-  const closeBottomSheet = () => {
-    bottomSheetRef.current?.close();
-  };
+  const { isTimerOpen, setTimerActive, display } =
+    useContext(InteractionContext);
+  const { isDarkMode } = useContext(AppearenceContext);
+  const styles = StyleSheet.create({
+    page: {
+      display: display,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      flex: 1,
+      position: "relative",
+      ...StyleSheet.absoluteFillObject,
+      zIndex: 10,
+      flexDirection: "column",
+    },
+    container: {
+      borderRadius: 10,
+      padding: 10,
+      backgroundColor: isDarkMode ? "#253341" : "#fff",
+      alignItems: "center",
+      width: "90%",
+      height: "45%",
+    },
+  });
   return (
-    <>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-        style={{ zIndex: 1, backgroundColor: "#fff" }}
-        enablePanDownToClose={true}
-        onClose={() => {
-          handleTimer(false);
-        }}
-      >
-        <View style={styles.container}>
-          <StopWatch />
-        </View>
-      </BottomSheet>
-    </>
+    <View style={styles.page}>
+      <View style={styles.container}>
+        <Pressable
+          onPress={() => {
+            setTimerActive("none");
+            trigger("notificationSuccess");
+          }}
+          style={{
+            paddingHorizontal: 5,
+            position: "absolute",
+            top: 5,
+            right: 5,
+            zIndex: 1,
+          }}
+        >
+          <FontAwesomeIcon
+            icon={"fa-xmark"}
+            size={20}
+            color={isDarkMode ? "#ddd" : "#000"}
+          />
+        </Pressable>
+        <StopWatch />
+      </View>
+    </View>
   );
 };
-const styles = StyleSheet.create({
-  exit: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-  },
-  container: { flex: 1, backgroundColor: "#fff", zIndex: 1 },
-  panelHandle: {
-    padding: 20,
-  },
-  text: {
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 18,
-    fontWeight: "700",
-  },
-});
+
 export default TimerSlider;

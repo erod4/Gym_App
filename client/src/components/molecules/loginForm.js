@@ -47,21 +47,4 @@ const LoginForm = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    gap: 20,
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    display: "flex",
-    alignItems: "center",
-    fontSize: 18,
-    justifyContent: "center",
-    flexDirection: "row",
-    padding: 10,
-  },
-});
 export default LoginForm;
