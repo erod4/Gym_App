@@ -10,18 +10,15 @@ import WorkoutPage from "./src/screens/WorkoutPage";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { EditContextProvider } from "./src/store/actions/clientActions/EditWorkout";
-import { WeightSliderProvider } from "./src/store/actions/clientActions/WeightSlider";
 import { InteractionContextProvider } from "./src/store/actions/clientActions/Interaction";
 
-import { TimerSliderProvider } from "./src/store/actions/clientActions/TimerSlider";
 import OpenTimerButton from "./src/components/atoms/OpenTimerButton";
 import { TimerProvider } from "./src/store/actions/clientActions/Timer";
-import { RatingSliderContextProvider } from "./src/store/actions/clientActions/RatingSlider";
+
 import {
   SaveContext,
   SaveContextProvider,
 } from "./src/store/actions/clientActions/SaveWorkout";
-import { useContext } from "react";
 import WeightProgress from "./src/screens/WeightProgress";
 import BodyMeasurements from "./src/screens/BodyMeasurements";
 import StepsPhysicalActivity from "./src/screens/StepsPhysicalActivity";
@@ -38,13 +35,11 @@ import {
 } from "./src/store/actions/clientActions/Appearence";
 import ExcerciseHeaderLeft from "./src/components/atoms/ExcerciseHeaderLeft";
 import ExcerciseHeader from "./src/components/atoms/ExcerciseHeader";
-import AddFood from "./src/screens/AddFood";
-import CustomBackButton from "./src/components/atoms/CustomBackButton";
 
-import SearchBarHeader from "./src/components/atoms/SearchBarHeader";
-import BCodeButton from "./src/components/molecules/BCodeButton";
 import { NutritionContextProvider } from "./src/store/actions/clientActions/Nutrition";
 import BarcodeScanner from "./src/components/molecules/BarcodeScanner";
+import SplashScreen from "./src/screens/SplashScreen";
+import { HomeScreenContextProvider } from "./src/store/actions/clientActions/HomeScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -54,147 +49,199 @@ export default function App() {
         <AppearenceContextProvider>
           <AppleHealthContextProvider>
             <EditContextProvider>
-              <WeightSliderProvider>
-                <InteractionContextProvider>
-                  <SaveContextProvider>
-                    <RatingSliderContextProvider>
-                      <TimerSliderProvider>
-                        <TimerProvider>
-                          <NavigationContainer>
-                            <Stack.Navigator initialRouteName="Login">
-                              <Stack.Screen
-                                name="Login"
-                                component={LoginScreen}
-                                options={{ headerShown: false }}
-                              />
-                              <Stack.Screen
-                                name="Register"
-                                component={RegisterScreen}
-                                options={{ headerShown: false }}
-                              />
-                              <Stack.Screen
-                                name="nav"
-                                component={BottomTabs}
-                                options={{
-                                  headerShown: false,
-                                  title: "Home",
-                                  headerBackVisible: true,
-                                }}
-                              />
-                              <Stack.Screen
-                                name="StartWorkout"
-                                component={StartWorkout}
-                                options={({ route }) => ({
-                                  headerShown: true,
-                                  title: "Workouts",
-                                  headerStyle: {
-                                    backgroundColor: route.params.isDarkMode
-                                      ? "#192734"
-                                      : "#fff",
-                                  },
-                                  headerTitleStyle: {
-                                    fontSize: 20,
-                                    color: route.params.isDarkMode
-                                      ? "#ddd"
-                                      : "#000",
-                                  },
-                                })}
-                              />
+              <InteractionContextProvider>
+                <SaveContextProvider>
+                  <HomeScreenContextProvider>
+                    <TimerProvider>
+                      <NavigationContainer>
+                        <Stack.Navigator initialRouteName="Splash">
+                          <Stack.Screen
+                            name="Splash"
+                            component={SplashScreen}
+                            options={{ headerShown: false }}
+                          />
+                          <Stack.Screen
+                            name="Login"
+                            component={LoginScreen}
+                            options={{ headerShown: false }}
+                          />
+                          <Stack.Screen
+                            name="Register"
+                            component={RegisterScreen}
+                            options={{ headerShown: false }}
+                          />
+                          <Stack.Screen
+                            name="nav"
+                            component={BottomTabs}
+                            options={{
+                              headerShown: false,
+                              title: "Home",
+                              headerBackVisible: true,
+                            }}
+                          />
+                          <Stack.Screen
+                            name="StartWorkout"
+                            component={StartWorkout}
+                            options={({ route }) => ({
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+                              headerShown: true,
+                              title: "Workouts",
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                              headerTitleStyle: {
+                                fontSize: 20,
+                                color: route.params.isDarkMode
+                                  ? "#ddd"
+                                  : "#000",
+                              },
+                            })}
+                          />
 
-                              <Stack.Screen
-                                name="WeightProgress"
-                                component={WeightProgress}
-                                options={{
-                                  headerShown: true,
-                                  title: "Lifting Progression",
-                                }}
-                              />
-                              <Stack.Screen
-                                name="Account"
-                                component={Account}
-                                options={{
-                                  headerShown: true,
-                                  title: "Account",
-                                }}
-                              />
-                              <Stack.Screen
-                                name="Units"
-                                component={Units}
-                                options={{
-                                  headerShown: true,
-                                  title: "Units Settings",
-                                }}
-                              />
-                              <Stack.Screen
-                                name="Goals"
-                                component={Goals}
-                                options={{
-                                  headerShown: true,
-                                  title: "Fitness Goals",
-                                }}
-                              />
-                              <Stack.Screen
-                                name="BodyMeasur"
-                                component={BodyMeasurements}
-                                options={{
-                                  headerTitle: CustomHeaderTitle,
-                                }}
-                              />
-                              <Stack.Screen
-                                name="AddFood"
-                                component={AddFood}
-                                options={({
-                                  navigation,
-                                  route,
-                                  options,
-                                  back,
-                                }) => ({
-                                  header: () => (
-                                    <SearchBarHeader
-                                      navigation={navigation}
-                                      route={route}
-                                    />
-                                  ),
-                                })}
-                              />
-                              <Stack.Screen
-                                name="workout-page"
-                                component={WorkoutPage}
-                                options={({ route }) => ({
-                                  headerLeft: ExcerciseHeaderLeft,
-                                  headerStyle: {
-                                    backgroundColor: route.params.isDarkMode
-                                      ? "#192734"
-                                      : "#fff",
-                                  },
-                                  headerRight: () => <OpenTimerButton />,
-                                  headerTitle: () => (
-                                    <ExcerciseHeader route={route} />
-                                  ),
-                                })}
-                              />
-                              <Stack.Screen
-                                name="PhysicalActivity"
-                                component={StepsPhysicalActivity}
-                                options={{
-                                  headerTitle: StepsPhysicalActivityHeader,
-                                }}
-                              />
-                              <Stack.Screen
-                                name="BarcodeScanner"
-                                component={BarcodeScanner}
-                                options={{
-                                  headerShown: false,
-                                }}
-                              />
-                            </Stack.Navigator>
-                          </NavigationContainer>
-                        </TimerProvider>
-                      </TimerSliderProvider>
-                    </RatingSliderContextProvider>
-                  </SaveContextProvider>
-                </InteractionContextProvider>
-              </WeightSliderProvider>
+                          <Stack.Screen
+                            name="WeightProgress"
+                            component={WeightProgress}
+                            options={({ route }) => ({
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+                              headerShown: true,
+                              title: "Lifting Progression",
+                              headerTitleStyle: {
+                                color: route.params.isDarkMode
+                                  ? "#fff"
+                                  : "#000",
+                              },
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                            })}
+                          />
+                          <Stack.Screen
+                            name="Account"
+                            component={Account}
+                            options={({ route }) => ({
+                              headerShown: true,
+                              title: "Account",
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+
+                              headerTitleStyle: {
+                                color: route.params.isDarkMode
+                                  ? "#fff"
+                                  : "#000",
+                              },
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                            })}
+                          />
+                          <Stack.Screen
+                            name="Units"
+                            component={Units}
+                            options={({ route }) => ({
+                              headerShown: true,
+                              title: "Weight Units",
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+
+                              headerTitleStyle: {
+                                color: route.params.isDarkMode
+                                  ? "#fff"
+                                  : "#000",
+                              },
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                            })}
+                          />
+                          <Stack.Screen
+                            name="Goals"
+                            component={Goals}
+                            options={({ route }) => ({
+                              headerShown: true,
+                              title: "Fitness Goals",
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+
+                              headerTitleStyle: {
+                                color: route.params.isDarkMode
+                                  ? "#fff"
+                                  : "#000",
+                              },
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                            })}
+                          />
+                          <Stack.Screen
+                            name="BodyMeasur"
+                            component={BodyMeasurements}
+                            options={({ route }) => ({
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+                              headerTitle: CustomHeaderTitle,
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                            })}
+                          />
+
+                          <Stack.Screen
+                            name="workout-page"
+                            component={WorkoutPage}
+                            options={({ route }) => ({
+                              headerLeft: ExcerciseHeaderLeft,
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                              headerRight: () => <OpenTimerButton />,
+                              headerTitle: () => (
+                                <ExcerciseHeader route={route} />
+                              ),
+                            })}
+                          />
+                          <Stack.Screen
+                            name="PhysicalActivity"
+                            component={StepsPhysicalActivity}
+                            options={({ route }) => ({
+                              headerTintColor: route.params.isDarkMode
+                                ? "#fff"
+                                : "#000",
+                              headerStyle: {
+                                backgroundColor: route.params.isDarkMode
+                                  ? "#192734"
+                                  : "#fff",
+                              },
+                              headerTitle: StepsPhysicalActivityHeader,
+                            })}
+                          />
+                        </Stack.Navigator>
+                      </NavigationContainer>
+                    </TimerProvider>
+                  </HomeScreenContextProvider>
+                </SaveContextProvider>
+              </InteractionContextProvider>
             </EditContextProvider>
           </AppleHealthContextProvider>
         </AppearenceContextProvider>

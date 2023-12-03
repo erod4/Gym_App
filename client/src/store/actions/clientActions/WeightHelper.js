@@ -1,5 +1,4 @@
 const removeDuplicateData = (data) => {
-
   if (!data || data.length == 0) {
     return [];
   }
@@ -20,7 +19,7 @@ const removeDuplicateData = (data) => {
       }
     }
   });
-  
+
   return newData;
 };
 export const dailyData = (data, type) => {
@@ -29,11 +28,12 @@ export const dailyData = (data, type) => {
   }
   const newData = removeDuplicateData(data);
 
-  const dailyData = newData.map((obj) => ({ value: type == 'float' ?(obj.value.toFixed(1)):obj.value }));
+  const dailyData = newData.map((obj) => ({
+    value: type == "float" ? obj.value.toFixed(1) : Math.floor(obj.value),
+  }));
   const dailyDates = newData.map((obj) => ({ startDate: obj.startDate }));
 
   const newDailyDates = dailyDates.map((obj) => {
-
     const date = obj.startDate.split("T")[0];
     const month = date.split("-")[1];
     const day = date.split("-")[2];
@@ -41,13 +41,15 @@ export const dailyData = (data, type) => {
     return `${month}/${day}`;
   });
 
-  const formattedDailyTimes = dailyDates.map((obj) => {
-    const date = obj.startDate.split("T")[1];
-    const hour = date.split(":")[0];
-    const min = date.split(":")[1];
+  const formattedDailyTimes = dailyDates
+    .map((obj) => {
+      const date = obj.startDate.split("T")[1];
+      const hour = date.split(":")[0];
+      const min = date.split(":")[1];
 
-    return `${hour % 12}:${min} ${hour >= 12 ? "PM" : "AM"}`;
-  }).reverse();
+      return `${hour % 12}:${min} ${hour >= 12 ? "PM" : "AM"}`;
+    })
+    .reverse();
 
   const formattedDailyDates = newDailyDates.reverse();
   const formattedDailyData = dailyData.map((entry) => entry.value).reverse();
@@ -87,33 +89,37 @@ export const weeklyData = (data) => {
   }
 
   const formattedWeeklyData = Object.values(weeklySums).reverse();
-  const formattedWeeklyDates = Object.keys(weeklySums).map((val) => {
-    const week = val.split(" ")[0];
-    const year = val.split(" ")[1];
-    const januaryFirst = new Date(year, 0, 1);
-    const daysOffset = 1 - januaryFirst.getDay();
-    const firstWeekStartDate = new Date(
-      year,
-      0,
-      januaryFirst.getDate() + daysOffset + 7 * (week - 1)
-    );
-    const firstWeekEndDate = new Date(firstWeekStartDate);
-    firstWeekEndDate.setDate(firstWeekStartDate.getDate() + 6);
+  const formattedWeeklyDates = Object.keys(weeklySums)
+    .map((val) => {
+      const week = val.split(" ")[0];
+      const year = val.split(" ")[1];
+      const januaryFirst = new Date(year, 0, 1);
+      const daysOffset = 1 - januaryFirst.getDay();
+      const firstWeekStartDate = new Date(
+        year,
+        0,
+        januaryFirst.getDate() + daysOffset + 7 * (week - 1)
+      );
+      const firstWeekEndDate = new Date(firstWeekStartDate);
+      firstWeekEndDate.setDate(firstWeekStartDate.getDate() + 6);
 
-    // Format the dates if needed\
-    const startDateFormatted = firstWeekStartDate.getDate()-1==0?(`${firstWeekStartDate.getMonth() }/${
-      firstWeekStartDate.getDate() +29
-    }`):(`${firstWeekStartDate.getMonth() + 1}/${
-      firstWeekStartDate.getDate() - 1
-    }`);
+      // Format the dates if needed\
+      const startDateFormatted =
+        firstWeekStartDate.getDate() - 1 == 0
+          ? `${firstWeekStartDate.getMonth()}/${
+              firstWeekStartDate.getDate() + 29
+            }`
+          : `${firstWeekStartDate.getMonth() + 1}/${
+              firstWeekStartDate.getDate() - 1
+            }`;
 
+      const endDateFormatted = `${firstWeekEndDate.getMonth() + 1}/${
+        firstWeekEndDate.getDate() - 1
+      }`;
 
-    const endDateFormatted = `${firstWeekEndDate.getMonth() + 1}/${
-      firstWeekEndDate.getDate() - 1
-    }`;
-    
-    return `${startDateFormatted}-${endDateFormatted}`;
-  }).reverse();
+      return `${startDateFormatted}-${endDateFormatted}`;
+    })
+    .reverse();
 
   return { formattedWeeklyData, formattedWeeklyDates };
 };
@@ -121,12 +127,13 @@ export const weeklyData = (data) => {
 export const monthlyData = (data) => {
   const newData = removeDuplicateData(data);
 
-  
   const groupedData = {};
 
-  newData.forEach(item => {
+  newData.forEach((item) => {
     const date = new Date(item.startDate);
-    const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+    const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}`;
 
     if (!groupedData[yearMonth]) {
       groupedData[yearMonth] = [];
@@ -135,25 +142,33 @@ export const monthlyData = (data) => {
     groupedData[yearMonth].push(item.value);
   });
 
-  
   const monthlySums = {};
   for (let month in groupedData) {
     const monthSum = groupedData[month].reduce((prev, curr) => prev + curr, 0);
     monthlySums[month] = (monthSum / groupedData[month].length).toFixed(1);
   }
   const formattedMonthylData = Object.values(monthlySums).reverse();
- const formattedMonthlyDates=Object.keys(monthlySums).map((val)=>{
-  const months=['Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec']
-  const month=val.split('-')[1]
+  const formattedMonthlyDates = Object.keys(monthlySums)
+    .map((val) => {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const month = val.split("-")[1];
 
-  return months[month-1]
-  
+      return months[month - 1];
+    })
+    .reverse();
 
- }).reverse()
- 
- return {formattedMonthlyDates, formattedMonthylData}
-
-
-  
-  
+  return { formattedMonthlyDates, formattedMonthylData };
 };

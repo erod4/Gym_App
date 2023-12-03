@@ -1,8 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import { NutritionContext } from "../../store/actions/clientActions/Nutrition";
 
 const FoodItem = ({ data, custom }) => {
+  const { getFoodData } = useContext(NutritionContext);
+  const navigator = useNavigation();
   const styles = StyleSheet.create({
     container: {
       borderWidth: 1,
@@ -28,11 +32,17 @@ const FoodItem = ({ data, custom }) => {
     textUpper: { fontWeight: "500" },
     textLower: {},
   });
+  const handlePress = () => {
+    getFoodData(data.fdcId);
+    navigator.navigate("FoodPreview", {
+      name: data?.description,
+    });
+  };
+
   return (
-    <TouchableOpacity style={styles.container} key={data?.id}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.containerLeft}>
         <View style={styles.textUpperContainer}>
-          <Text style={styles.textUpper}>{data?.brandName}</Text>
           <Text style={styles.textUpper}>{data?.description}</Text>
         </View>
         <Text style={styles.textLower}>
@@ -42,12 +52,15 @@ const FoodItem = ({ data, custom }) => {
               {data?.finalFoodInputFoods[0]?.unit}
             </>
           ) : (
-            <>{"1 serving"}</>
+            <>
+              {data?.servingSize}
+              {data?.servingSizeUnit}
+            </>
+          )}
+          {!data?.finalFoodInputFoods[0] && !data?.servingSize && (
+            <>{"1 Serving"}</>
           )}
         </Text>
-      </View>
-      <View style={styles.containerRight}>
-        <Text style={styles.containerRightText}>USDA</Text>
       </View>
     </TouchableOpacity>
   );

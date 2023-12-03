@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 
 import Swiper from "react-native-swiper";
 import Goal from "../components/molecules/Goal";
-import { RatingSliderContext } from "../store/actions/clientActions/RatingSlider";
+import { HomeScreenContext } from "../store/actions/clientActions/HomeScreen";
 import { AppleHealthContext } from "../store/actions/clientActions/PhysicalActivity";
 import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 const DailyGoals = () => {
@@ -14,7 +14,7 @@ const DailyGoals = () => {
     getTodaysStep();
   }, []);
 
-  const { openWaterSlider } = useContext(RatingSliderContext);
+  const { setActive } = useContext(HomeScreenContext);
   const styles = StyleSheet.create({
     paginationContainer: {
       position: "relative",
@@ -67,7 +67,9 @@ const DailyGoals = () => {
             units={"Oz"}
             count={10}
             percentage={10}
-            open={openWaterSlider}
+            open={() => {
+              setActive("WATER");
+            }}
             color={"#52A8E7"}
           />
           <Goal

@@ -27,16 +27,7 @@ const BottomTabs = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Nutrition"
-        component={Nutrition}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <FontAwesomeIcon icon="fa-apple-whole" style={{ color: color }} />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="Statistics"
         component={Statistics}

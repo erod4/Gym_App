@@ -42,6 +42,8 @@ import {
   faPlus,
   faMagnifyingGlass,
   faBarcode,
+  faRulerCombined,
+  faHeartPulse,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -63,9 +65,10 @@ import WorkoutPaused from "../components/molecules/WorkoutPaused";
 import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { HomeScreenContext } from "../store/actions/clientActions/HomeScreen";
 const Home = () => {
   const { isDarkMode } = useContext(AppearenceContext);
-
+  const { setActive, active } = useContext(HomeScreenContext);
   const { appleHealthPermissionGranted, requestPermissions } =
     useContext(AppleHealthContext);
   const { isResumeActive } = useContext(AppearenceContext);
@@ -124,7 +127,9 @@ const Home = () => {
     faPlus,
     faMagnifyingGlass,
     faBarcode,
-    faCircleXmark
+    faCircleXmark,
+    faRulerCombined,
+    faHeartPulse
   );
   const styles = StyleSheet.create({
     container: {
@@ -151,8 +156,8 @@ const Home = () => {
         fontColor={"#fff"}
       />
       {isResumeActive && <WorkoutPaused />}
-      <RatingSlider />
-      <WaterSlider />
+      {active == "RATING" && <RatingSlider />}
+      {active == "WATER" && <WaterSlider />}
     </View>
   );
 };

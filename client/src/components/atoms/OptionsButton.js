@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { TimerSliderContext } from "../../store/actions/clientActions/TimerSlider";
 import { trigger } from "react-native-haptic-feedback";
 import { InteractionContext } from "../../store/actions/clientActions/Interaction";
 import { AppearenceContext } from "../../store/actions/clientActions/Appearence";

@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Icon2 from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-ionicons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
-const Statistic = ({ name, linkTo, icon, ionic }) => {
+const Statistic = ({ name, linkTo, icon, ionic, mci, fa }) => {
   const { isDarkMode } = useContext(AppearenceContext);
   const Navigator = useNavigation();
   const handlePress = () => {
-    Navigator.navigate(linkTo);
+    Navigator.navigate(linkTo, { isDarkMode });
   };
   const styles = StyleSheet.create({
     statistic: {
@@ -36,10 +36,22 @@ const Statistic = ({ name, linkTo, icon, ionic }) => {
   return (
     <TouchableOpacity style={styles.statistic} onPress={handlePress}>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-        {ionic ? (
-          <Icon2 name={icon} size={25} color={!isDarkMode ? "#000" : "#ddd"} />
-        ) : (
+        {ionic && (
           <Icon name={icon} size={25} color={!isDarkMode ? "#000" : "#ddd"} />
+        )}
+        {mci && (
+          <MaterialCommunityIcons
+            name={icon}
+            size={25}
+            color={!isDarkMode ? "#000" : "#ddd"}
+          />
+        )}
+        {fa && (
+          <FontAwesomeIcon
+            icon={icon}
+            size={25}
+            color={!isDarkMode ? "#000" : "#ddd"}
+          />
         )}
         <Text style={styles.text}>{name}</Text>
       </View>

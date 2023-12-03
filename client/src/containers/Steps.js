@@ -22,10 +22,15 @@ const Steps = () => {
   const { formattedDailyDates, formattedDailyData, formattedDailyTimes } =
     dailyData(dailySteps, "int");
 
-  const { formattedWeeklyData, formattedWeeklyDates } = weeklyData(dailySteps);
+  const { formattedWeeklyData, formattedWeeklyDates } = weeklyData(
+    dailySteps,
+    "int"
+  );
 
-  const { formattedMonthlyDates, formattedMonthylData } =
-    monthlyData(dailySteps);
+  const { formattedMonthlyDates, formattedMonthylData } = monthlyData(
+    dailySteps,
+    "int"
+  );
   //* retrieves data from graph when a dot is pressed and displays it to user
   const [time, setTime] = useState(null);
   const [date, setDate] = useState(null);
@@ -64,14 +69,13 @@ const Steps = () => {
       }}
     >
       {page == "Daily" && (
-        <Graph
+        <WeeklyGraph
+          units={"Steps"}
+          setDate={setDate}
+          setChange={setChange}
+          setCurrData={setCurrData}
           dataSet={formattedDailyData}
           date={formattedDailyDates}
-          formattedTime={formattedDailyTimes}
-          setTime={setTime}
-          setCurrData={setCurrData}
-          setChange={setChange}
-          units={"Steps"}
         />
       )}
       {page == "Weekly" && (
@@ -104,9 +108,30 @@ const Steps = () => {
           dropdownStyle={styles.dropDownOptionsContainer}
           onSelect={handleSelect}
         />
-        {page == "Daily" && <></>}
-        {page == "Weekly" && <></>}
-        {page == "Monthly" && <></>}
+        {page == "Daily" && (
+          <AverageData
+            date={date}
+            currData={currweight}
+            change={change}
+            units={"Steps"}
+          />
+        )}
+        {page == "Weekly" && (
+          <AverageData
+            date={date}
+            currData={currweight}
+            change={change}
+            units={"Steps"}
+          />
+        )}
+        {page == "Monthly" && (
+          <AverageData
+            date={date}
+            currData={currweight}
+            change={change}
+            units={"Steps"}
+          />
+        )}
       </View>
     </View>
   );

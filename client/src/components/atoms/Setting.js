@@ -7,7 +7,7 @@ const Setting = ({ name, linkTo, icon }) => {
   const { isDarkMode } = useContext(AppearenceContext);
   const Navigator = useNavigation();
   const handlePress = () => {
-    Navigator.navigate(linkTo);
+    Navigator.navigate(linkTo, { isDarkMode });
   };
   const styles = StyleSheet.create({
     statistic: {

@@ -1,11 +1,12 @@
 import { View, Text, ActivityIndicator } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NutritionContext } from "../store/actions/clientActions/Nutrition";
 import { ScrollView } from "react-native-gesture-handler";
 import FoodItem from "../components/molecules/FoodItem";
 
 const AddFood = ({ route }) => {
   const { fetchSearch, results, loading } = useContext(NutritionContext);
+
   const handleChange = () => {};
   return (
     <View
@@ -36,7 +37,7 @@ const AddFood = ({ route }) => {
         {results?.length > 0 ? (
           <View style={{ gap: 5 }}>
             {results.map((res) => (
-              <FoodItem data={res} key={res.id} />
+              <FoodItem data={res} key={res.fdcId} />
             ))}
           </View>
         ) : (

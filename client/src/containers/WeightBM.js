@@ -18,16 +18,15 @@ import MonthlyGraph from "./MonthlyGraph";
 const WeightBM = () => {
   const { getWeight, weight } = useContext(AppleHealthContext);
 
-  const {formattedDailyDates, formattedDailyData, formattedDailyTimes} =
-    dailyData(weight , 'float');
+  const { formattedDailyDates, formattedDailyData, formattedDailyTimes } =
+    dailyData(weight, "float");
 
   const { formattedWeeklyData, formattedWeeklyDates } = weeklyData(weight);
 
-
-  const {formattedMonthlyDates, formattedMonthylData}=monthlyData(weight)
+  const { formattedMonthlyDates, formattedMonthylData } = monthlyData(weight);
   //* retrieves data from graph when a dot is pressed and displays it to user
   const [time, setTime] = useState(null);
-  const [date,setDate]=useState(null)
+  const [date, setDate] = useState(null);
   const [currweight, setCurrData] = useState(null);
   const [change, setChange] = useState(null);
   //*
@@ -73,17 +72,28 @@ const WeightBM = () => {
           setTime={setTime}
           setCurrData={setCurrData}
           setChange={setChange}
-          units={'Lb'}
+          units={"Lb"}
         />
       )}
       {page == "Weekly" && (
-     
-        <WeeklyGraph setDate={setDate} setChange={setChange} setCurrData={setCurrData} dataSet={formattedWeeklyData} date={formattedWeeklyDates} units={'Lb'}/>
-     
+        <WeeklyGraph
+          setDate={setDate}
+          setChange={setChange}
+          setCurrData={setCurrData}
+          dataSet={formattedWeeklyData}
+          date={formattedWeeklyDates}
+          units={"Lb"}
+        />
       )}
       {page == "Monthly" && (
-        <MonthlyGraph setDate={setDate} setChange={setChange} setCurrData={setCurrData} dataSet={formattedMonthylData} date={formattedMonthlyDates} units={'Lb'}/>
-     
+        <MonthlyGraph
+          setDate={setDate}
+          setChange={setChange}
+          setCurrData={setCurrData}
+          dataSet={formattedMonthylData}
+          date={formattedMonthlyDates}
+          units={"Lb"}
+        />
       )}
       <View style={styles.displayContainer}>
         <SelectDropdown
@@ -96,10 +106,29 @@ const WeightBM = () => {
           onSelect={handleSelect}
         />
         {page == "Daily" && (
-          <AverageData time={time} currData={currweight} change={change} />
+          <AverageData
+            time={time}
+            currData={currweight}
+            change={change}
+            units={"Lb"}
+          />
         )}
-        {page == "Weekly" && <AverageData currData={currweight} change={change} date={date}/>}
-        {page == "Monthly" && <AverageData currData={currweight} change={change} date={date}/>}
+        {page == "Weekly" && (
+          <AverageData
+            currData={currweight}
+            change={change}
+            date={date}
+            units={"Lb"}
+          />
+        )}
+        {page == "Monthly" && (
+          <AverageData
+            currData={currweight}
+            change={change}
+            date={date}
+            units={"Lb"}
+          />
+        )}
         <BMWeightGaol radius={80} progress={100} />
       </View>
     </View>

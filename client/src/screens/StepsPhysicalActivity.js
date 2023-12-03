@@ -8,7 +8,6 @@ import Steps from "../containers/Steps";
 const StepsPhysicalActivity = ({ route }) => {
   const { getDailyStepCount, dailySteps, getBMI, bmi } =
     useContext(AppleHealthContext);
-
   const { selected } = route.params || {};
   useEffect(() => {
     getDailyStepCount();

@@ -1,17 +1,11 @@
 import { View, Text, Pressable } from "react-native";
 import React, { useContext } from "react";
-import {
-  TimerSliderContext,
-  useTimerSliderContext,
-} from "../../store/actions/clientActions/TimerSlider";
+
 import {
   InteractionContext,
   SettingsSliderContext,
 } from "../../store/actions/clientActions/Interaction";
-import {
-  WeightSliderContext,
-  useWeightSliderContext,
-} from "../../store/actions/clientActions/WeightSlider";
+
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TimerContext } from "../../store/actions/clientActions/Timer";

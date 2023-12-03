@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import More from "../components/molecules/More";
 import { AppearenceContext } from "../store/actions/clientActions/Appearence";
 
-const Account = () => {
+const Account = ({ route }) => {
   const { theme, toggleTheme, isDarkMode } = useContext(AppearenceContext);
 
   const [isPushNotificationsEnabled, setIsPushNotificationsEnabled] =

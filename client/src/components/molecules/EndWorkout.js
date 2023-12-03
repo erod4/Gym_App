@@ -6,7 +6,10 @@ import {
   useSaveContext,
 } from "../../store/actions/clientActions/SaveWorkout";
 import { useNavigation } from "@react-navigation/native";
-import { RatingSliderContext } from "../../store/actions/clientActions/RatingSlider";
+import {
+  HomeScreenContext,
+  RatingSliderContext,
+} from "../../store/actions/clientActions/HomeScreen";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
@@ -14,7 +17,7 @@ const EndWorkout = ({ id }) => {
   // const { openRating } = useContext(RatingSliderContext);
   const navigation = useNavigation();
   const { stopSaving } = useContext(SaveContext);
-  const { openRating } = useContext(RatingSliderContext);
+  const { setActive } = useContext(HomeScreenContext);
   const { setResume, setId, ellapseTime } = useContext(AppearenceContext);
   const { isDarkMode } = useContext(AppearenceContext);
   const handleEndWorkout = () => {
@@ -22,7 +25,7 @@ const EndWorkout = ({ id }) => {
     ellapseTime(0);
     setResume(false);
     stopSaving();
-    openRating();
+    setActive("RATING");
   };
   const pauseWorkout = () => {
     setId(id);

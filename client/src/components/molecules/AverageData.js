@@ -2,29 +2,33 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-const AverageData = ({ currData, change, date, time, icon }) => {
+const AverageData = ({ currData, change, date, time, icon, units }) => {
   return (
     <>
       {currData ? (
         <View style={styles.container}>
           <View style={styles.containerLeft}>
             <Text style={styles.containerLeftData}>{currData}</Text>
-            <Text style={styles.containerLeftUnits}>Lb</Text>
+            <Text style={styles.containerLeftUnits}>{units}</Text>
           </View>
           <View style={styles.containerRight}>
             <View style={styles.containerRightUpper}>
               <FontAwesomeIcon icon={"fa-arrow-up"} size={18} color="#0077b6" />
               <Text style={styles.containerRightUpperChange}>
-                {change ? change.toFixed(1) : 0} lb
+                {change ? change.toFixed(1) : 0} {units}
               </Text>
             </View>
-           {time?( <View style={styles.containerRightLower}>
-              <FontAwesomeIcon icon={"fa-clock"} size={15} color="#999" />
-              <Text style={styles.containerRightLowerValue}>{time}</Text>
-            </View>):( <View style={styles.containerRightLower}>
-              <FontAwesomeIcon icon={"fa-calendar"} size={15} color="#999" />
-              <Text style={styles.containerRightLowerValue}>{date}</Text>
-            </View>)}
+            {time ? (
+              <View style={styles.containerRightLower}>
+                <FontAwesomeIcon icon={"fa-clock"} size={15} color="#999" />
+                <Text style={styles.containerRightLowerValue}>{time}</Text>
+              </View>
+            ) : (
+              <View style={styles.containerRightLower}>
+                <FontAwesomeIcon icon={"fa-calendar"} size={15} color="#999" />
+                <Text style={styles.containerRightLowerValue}>{date}</Text>
+              </View>
+            )}
           </View>
         </View>
       ) : (

@@ -1,12 +1,14 @@
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Accordion from "react-native-collapsible/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
 import { useNavigation } from "@react-navigation/native";
+import { AppearenceContext } from "../../store/actions/clientActions/Appearence";
 
 const StepsPhysicalActivityHeader = () => {
+  const { isDarkMode } = useContext(AppearenceContext);
   const navigation = useNavigation();
   const target3 = ["Steps", "Water", "Sleep"];
   const [selection, setSelection] = useState("Steps");
@@ -15,8 +17,28 @@ const StepsPhysicalActivityHeader = () => {
   };
 
   useEffect(() => {
-    navigation.navigate("PhysicalActivity", { selected: selection });
+    navigation.navigate("PhysicalActivity", {
+      selected: selection,
+      isDarkMode,
+    });
   }, [selection]);
+  const styles = StyleSheet.create({
+    dropDown: {
+      backgroundColor: "transparent",
+    },
+    dropDownOptionsContainer: {
+      position: "absolute",
+      top: "100%", // Position the dropdown below the dropdown button
+      transform: [{ translateY: 0 }],
+      borderRadius: 10,
+    },
+
+    dropDownSelectionText: {
+      color: isDarkMode ? "#fff" : "#000",
+      fontWeight: "700",
+    },
+  });
+
   const dropDownButton = (selectedItem, index) => {
     return (
       <View
@@ -43,20 +65,4 @@ const StepsPhysicalActivityHeader = () => {
     />
   );
 };
-const styles = StyleSheet.create({
-  dropDown: {
-    backgroundColor: "transparent",
-  },
-  dropDownOptionsContainer: {
-    position: "absolute",
-    top: "100%", // Position the dropdown below the dropdown button
-    transform: [{ translateY: 0 }],
-    borderRadius: 10,
-  },
-
-  dropDownSelectionText: {
-    color: "#0077b6",
-    fontWeight: "700",
-  },
-});
 export default StepsPhysicalActivityHeader;

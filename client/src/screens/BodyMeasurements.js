@@ -7,11 +7,11 @@ import AverageData from "../components/molecules/AverageData";
 import WeightBM from "../containers/WeightBM";
 import BMI from "../containers/BMI";
 const BodyMeasurements = ({ route }) => {
-  const { getWeight, weight } = useContext(AppleHealthContext);
-
+  const { getWeight, getBMI, weight } = useContext(AppleHealthContext);
   const { selected } = route.params || {};
   useEffect(() => {
     getWeight();
+    getBMI();
   }, []);
 
   return (
@@ -26,7 +26,7 @@ const BodyMeasurements = ({ route }) => {
       ) : (
         <>
           {selected == "Weight" && <WeightBM />}
-          {selected == "BMI" && <BMI/>}
+          {selected == "BMI" && <BMI />}
         </>
       )}
     </View>

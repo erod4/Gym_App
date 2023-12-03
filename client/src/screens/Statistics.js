@@ -40,19 +40,20 @@ const Statistics = () => {
         <Statistic
           name={"Weightlifting Progress"}
           linkTo={"WeightProgress"}
-          icon={"weight-pound"}
+          icon={"fitness"}
+          ionic={true}
         />
-        <Statistic name={"Caloric Intake"} icon={"food-apple"} />
         <Statistic
           name={"Body Measurements"}
           linkTo={"BodyMeasur"}
           icon={"human-male-height"}
+          mci={true}
         />
         <Statistic
           name={"Steps & Physical Activity"}
           linkTo={"PhysicalActivity"}
-          icon={"fitness"}
-          ionic={true}
+          icon={"fa-heart-pulse"}
+          fa={true}
         />
       </ScrollView>
     </View>
